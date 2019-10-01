@@ -5,12 +5,10 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic.edit import FormView
 from django.contrib.auth import login
-from .forms import FormularioLogin
 
 # Create your views here.
 class Login(FormView):
     template_name='Biblioteca/registro_usuario.html'
-    form_class = FormularioLogin
     success_url= reverse_lazy('index')
 
     @method_decorator(csrf_protect)
