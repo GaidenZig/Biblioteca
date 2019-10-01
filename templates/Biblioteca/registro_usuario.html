@@ -19,8 +19,8 @@
 
 {% block Pagina %}
     <div id="divBackground"></div>
-    <div id="Contenedor" class="animated flipInX delay-1s">
-
+    <div id="Contenedor" class="animated flipInX delay-1s">                    
+        {% block formulario %}
         <div class="Registro">
             <div class="row">
                 <h1>Registro diego</h1>
@@ -28,7 +28,6 @@
                     <i class="fas fa-chevron-circle-left"></i>
                 </button>
             </div>
-            
             <form id="formReg" action="">
                 <p><label for="">Nombres</label><input id="nombresReg" onchange="validar()" autocomplete="off" type="text"></p>
                 <p><label for="">Apellidos</label><input id="apellidosReg" onchange="validar()" autocomplete="off" type="text"></p>
@@ -49,22 +48,8 @@
                         onclick="subir()">Enviar</button></p>
             </form>
         </div>
-
-        <div class="Login">
-            <h1>Iniciar sesión</h1>
-            <form id="formLog" method="POST" action="{% url '' %}">
-                {% csrf_token %}
-                <p><label for="">Usuario</label><input type="text"></p>
-                <p><label for="">Contraseña</label><input type="text"></p>
-                <p id="botonLog">
-                    <button type="submit" class="formButton" onclick="Animar()">Iniciar</button>
-                    <a id="crearcuenta" onclick="mostrarRegistro()">¿No tienes una cuenta?</a>
-                    <a id="olvidócontraseña">¿Olvidaste tu contraseña?</a>
-                </p>
-            </form>
-        </div>
-
-
+        {% endblock formulario %}
+        
         <script src="{% static 'Js/scriptFormularios.js' %}"></script>
     </div>
 {% endblock Pagina %}

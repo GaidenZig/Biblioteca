@@ -15,7 +15,7 @@ def register(request, *args, **kwargs):
     return render(request,"Accounts/register.html",context)
 
 def Login_view(request, *args, **kwargs):
-    form= UserCreationForm(request.POST or None)
+    form= UserLoginForm(request.POST or None)
     if form.is_valid():
         user_obj = form.cleaned_data.get('user_obj')
         login(request,user_obj)
