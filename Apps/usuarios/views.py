@@ -1,27 +1,30 @@
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-from django.views.generic.edit import FormView
-from django.contrib.auth import login
+from django.http import HttpResponseRedirect
+from django.contrib.auth import login,get_user_model,logout
+from .forms import UserCreationForm,UserLoginForm
 
 # Create your views here.
-class Login(FormView):
-    template_name='Biblioteca/registro_usuario.html'
-    success_url= reverse_lazy('index')
+def register(request, *args, **kwargs):
+    form = UserCreationForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect('/login')
+    context={
+        'form':form
+    }
+    return render(request,"Accounts/register.html",context)
 
-    @method_decorator(csrf_protect)
-    @method_decorator(never_cache)
-    def dispatch(self,request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return HttpResponseRedirect(self.get_success_url())
-        else:
-            return super(Login,self).dispatch(request, *args, **kwargs)
+def Login_view(request, *args, **kwargs):
+    form= UserCreationForm(request.POST or None)
+    if form.is_valid():
+        user_obj = form.cleaned_data.get('user_obj')
+        login(request,user_obj)
+        return HttpResponseRedirect("")
+    return render(request,'Accounts/login.html',{"form":form})
 
-    def form_valid(self, form):
-        login(self.request,form.get_user())
-        return super(Login,self).form_valid(form)
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect("/login")
 
 
 

@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from Apps.Biblioteca.views import Home
 from django.contrib.auth.decorators import login_required
-from Apps.usuarios.views import Login
+from Apps.usuarios.views import register, Login_view, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Biblioteca/', include(('Apps.Biblioteca.urls','Biblioteca'))),
     path('home/', Home, name='index'),   
-    path('accounts/login/', Login.as_view(), name='login'),      
+    path('/register',register),
+    path('/login',Login_view),
+    path('/logout',logout_view),
 ]
