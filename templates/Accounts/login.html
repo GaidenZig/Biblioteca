@@ -6,7 +6,7 @@
 {% block formulario %}
 <div class="Login">
     <h1>Iniciar sesión</h1>
-    <form id="formLog" method="POST" action="{% url 'index' %}" >
+    <form id="formLog" method="POST" action="{% url 'login' %}" >
         {% csrf_token %}
         <p><label for="">Usuario</label><input type="text" name="query"></p>
         <p><label for="">Contraseña</label><input type="text" name="password"></p>

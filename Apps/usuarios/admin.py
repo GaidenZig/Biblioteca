@@ -7,7 +7,7 @@ from .models import MyUser
 # Register your models here.
 class UserAdmmin(BaseUserAdmin):
     add_form = UserCreationForm
-    list_display = ('username', 'email', 'is_superuser')
+    list_display = ('username', 'email', 'is_superuser','is_staff')
     list_filter=('is_superuser',)
 
     fieldsets=(
