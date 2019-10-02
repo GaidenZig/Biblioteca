@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('Biblioteca/', include(('Apps.Biblioteca.urls','Biblioteca'))),
     path('home/', Home, name='index'),   
-    path('/register',register, name='registro'),
-    path('/login',Login_view, name='login'),
-    path('/logout',logout_view, name='logout'),
+    path('register/',register, name='registro'),
+    path('login/',Login_view, name='login'),
+    path('logout/',logout_view, name='logout'),
 ]

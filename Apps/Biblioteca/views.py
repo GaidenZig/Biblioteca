@@ -21,9 +21,3 @@ def crearAutor(request):
         autor_form=AutorForm()
     return render(request,'Biblioteca/crear_autor.html')
 
-def RegistroUsuario(request):
-    return render(request,'Biblioteca/registro_usuario.html')
-
-def RegistrandoUsuario(request):
-    if request.method == 'POST':
-        print(request.POST)
