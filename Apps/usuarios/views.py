@@ -9,9 +9,8 @@ def register(request, *args, **kwargs):
     if form.is_valid():
         form.save()
         return HttpResponseRedirect('/login')
-    context={
-        'form':form
-    }
+        
+    context={'form':form}
     return render(request,"Accounts/register.html",context)
 
 def Login_view(request, *args, **kwargs):

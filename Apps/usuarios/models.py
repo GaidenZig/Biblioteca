@@ -31,7 +31,7 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
         ],unique=True)    
     email= models.EmailField(max_length=80,unique=True,verbose_name='email address')
     is_superuser=models.BooleanField(default=False)
-    is_staff=models.BooleanField(default=False)
+    is_staff=models.BooleanField(default=True)
     objects= MyUserManager()
     USERNAME_FIELD='username'
     REQUIRED_FIELDS=['email']

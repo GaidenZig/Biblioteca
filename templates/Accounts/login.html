@@ -6,10 +6,10 @@
 {% block formulario %}
 <div class="Login">
     <h1>Iniciar sesión</h1>
-    <form id="formLog" method="POST" >
+    <form id="formLog" method="POST" action="{% url 'index' %}" >
         {% csrf_token %}
-        <p><label for="">Usuario</label><input type="text"></p>
-        <p><label for="">Contraseña</label><input type="text"></p>
+        <p><label for="">Usuario</label><input type="text" name="query"></p>
+        <p><label for="">Contraseña</label><input type="text" name="password"></p>
         <p id="botonLog">
             <button type="submit" class="formButton" onclick="Animar()">Iniciar</button>
             <a id="crearcuenta" onclick="mostrarRegistro()">¿No tienes una cuenta?</a>

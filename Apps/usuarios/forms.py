@@ -22,11 +22,12 @@ class UserCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         user=super(UserCreationForm, self).save(commit=False)
-        user.set_password(self.clean_data['password1'])
+        user.set_password(self.cleaned_data['password1'])
 
         if commit:
             user.save()
         return user
+
 
 class UserLoginForm(forms.Form):
     query = forms.CharField(label='Username / Email')
@@ -40,7 +41,7 @@ class UserLoginForm(forms.Form):
             Q(email__iexact=query)
         ).distinct()
 
-        if not user_qs_final.exist() and user_qs_final.count !=1:
+        if not user_qs_final.exists() and user_qs_final.count !=1:
             raise forms.ValidationError("invalid credentials - user does not exist")
 
         user_obj = user_qs_final.first()
@@ -51,3 +52,4 @@ class UserLoginForm(forms.Form):
         self.cleaned_data["user_obj"]=user_obj
 
         return super(UserLoginForm, self).clean(*args, **kwargs)
+
