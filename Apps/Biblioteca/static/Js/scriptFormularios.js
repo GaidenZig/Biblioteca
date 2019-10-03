@@ -2,7 +2,13 @@ let errado=0;
 let Ncompletos=0;
 
 window.onload=()=>{
-    $('#formReg')[0].reset();
+    element=document.getElementById('Contenedor');
+    element.className+=" animated flipInX delay-1s";
+    element.addEventListener('animationend',function(){
+        element.className=element.className.replace(" animated","");
+        element.className=element.className.replace(" flipInX","");
+        element.className=element.className.replace(" delay-1s","");
+    }); 
 }
 
 function Animar(){
