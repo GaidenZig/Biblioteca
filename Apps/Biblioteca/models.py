@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from Apps.usuarios.models import MyUser
 
 # Create your models here.
 class Autor(models.Model):
@@ -30,5 +30,13 @@ class Libro(models.Model):
     def __str__(self):
         return self.titulo
 
-#class InstanciaLibro(models.Model):
+class InstanciaLibro(models.Model):
+    fech_inicio=models.DateField('Fecha de entrega', null=False, blank=False)
+    fech_vencimiento=models.DateField('Fecha de devolución', null=False, blank=False)
+    libro=models.ForeignKey(Libro, on_delete=models.CASCADE)
+    usuario=models.ForeignKey(MyUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return 'libro: {}, usuario: {}'.format(self.libro.titulo,self.usuario.username)
+
     

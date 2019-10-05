@@ -28,24 +28,15 @@
                     <i class="fas fa-chevron-circle-left"></i>
                 </button>
             </div>
-            <form id="formReg" action="">
-                <p><label for="">Nombres</label><input id="nombresReg" onchange="validar()" autocomplete="off" type="text"></p>
-                <p><label for="">Apellidos</label><input id="apellidosReg" onchange="validar()" autocomplete="off" type="text"></p>
-                <p><label for="">Nombre de Usuario</label><input id="usuarioReg" onchange="validar()" autocomplete="off" type="text"></p>
-                <p><label for="">Fecha de nacimiento</label><input id="datepicker" autocomplete="off" type="text">
-                    <script>
-                        $(function () {
-                            $('#datepicker').datepicker({
-                                dateFormat: "dd-mm-yy"
-                            });
-                        });
-                    </script>
+            <form id="formReg" method="POST" action="{% url 'registro' %}">
+                {% csrf_token %}
+                <p id="PUsuario"><label for="">Nombre de Usuario</label><input class="entrada errado" id="usuarioReg" name="username" onchange="validar()" autocomplete="off" type="text"></p>
+                <p id="PContraReg"><label for="">contraseña</label><input class="entrada errado" id="contraseniaReg" name="password1" onchange="validar()" autocomplete="off" type="text"></p>
+                <p id="PReContraReg"><label for="">Repetir contraseña</label><input class="entrada errado" id="reContraseniaReg" name="password2" onchange="validar()" autocomplete="off" type="text"></p>
+                <p id="PEmailReg"><label for="">E-mail</label><input class="entrada errado" id="emailReg" name="email" onchange="validar()" autocomplete="off" type="text"></p>
+                <p id="PbotonReg">
+                    <button id="botonReg" type="submit" class="formButton" disabled onclick="subir()">Enviar</button>
                 </p>
-                <p><label for="">contraseña</label><input id="contraseniaReg" onchange="validar()" autocomplete="off" type="text"></p>
-                <p><label for="">Repetir contraseña</label><input id="reContraseniaReg" onchange="validar()" autocomplete="off" type="text"></p>
-                <p><label for="">E-mail</label><input id="emailReg" onchange="validar()" autocomplete="off" type="text"></p>
-                <p id="boton"><button type="button" class="formButton"
-                        onclick="subir()">Enviar</button></p>
             </form>
         </div>
         {% endblock formulario %}

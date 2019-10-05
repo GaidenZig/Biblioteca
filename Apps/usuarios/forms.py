@@ -11,7 +11,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'email',]
 
     def clean_password(self):
         password1 = self.cleaned_data.get('password1')
@@ -23,7 +23,6 @@ class UserCreationForm(forms.ModelForm):
     def save(self, commit=True):
         user=super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password1'])
-
         if commit:
             user.save()
         return user

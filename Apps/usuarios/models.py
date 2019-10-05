@@ -32,6 +32,9 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
     email= models.EmailField(max_length=80,unique=True,verbose_name='email address')
     is_superuser=models.BooleanField(default=False)
     is_staff=models.BooleanField(default=False)
+    #img_perfil= models.ImageField(null=True)
+    activo=models.BooleanField(default=True)
+    descripcion=models.TextField(max_length=1000, null=True,blank=True)
     objects= MyUserManager()
     USERNAME_FIELD='username'
     REQUIRED_FIELDS=['email']
