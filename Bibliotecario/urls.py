@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from Apps.Biblioteca.views import Home
 from Apps.usuarios.views import register, Login_view, logout_view
+from . import settings
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,3 +29,5 @@ urlpatterns = [
     path('login/',Login_view, name='login'),
     path('logout/',logout_view, name='logout'),
 ]
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

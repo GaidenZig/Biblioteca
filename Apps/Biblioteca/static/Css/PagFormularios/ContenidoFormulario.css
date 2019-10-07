@@ -1,4 +1,5 @@
-#Contenedor{    
+#Contenedor{   
+    display: none; 
     background-color:rgba(37, 35, 12, 0.8); 
     margin-top: 10px;
     position: absolute;

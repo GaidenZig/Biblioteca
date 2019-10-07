@@ -1,8 +1,9 @@
 
 body{
-    background: url('/static/Img/regal.gif');
+    background: url('/static/Img/regal.png');
 	background-size:cover; /* Encajamos la imagen al 100% del ancho */
-	background-attachment: fixed; /* Establecemos una posicion fija para la imagen */
+    background-attachment: fixed; /* Establecemos una posicion fija para la imagen */
+    margin:0;
 }
 #Contenedor{          
     width: 100%;
@@ -15,15 +16,18 @@ h2{
     font-size: 40px;
 }
 #bajo_navegador{
-    margin-left: 1%;
-    margin-right: 1%;
+    margin-left: 0;
+    margin-right: 0;
+}
+#bajo_navegador div{
+    padding-left: 0;
+    padding-right: 0;
 }
 .separador{
     height: 150px;
     text-align: center;
     padding-top: 5%;    
 }
-
 
 #margin_contenido{
     margin-left: 10%;

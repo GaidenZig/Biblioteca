@@ -1,14 +1,17 @@
 from django.shortcuts import render,redirect
 from .forms import AutorForm
+from django.template import RequestContext
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from Apps.usuarios.models import MyUser
 
 # Create your views here.
-def Home(request):
-    return render(request,'index.html')
+def Home(request):    
+    current_user=request.user   
+    return render(request,'index.html',{'user':current_user})
     
 def crearAutor(request):
     if request.method == 'POST':

@@ -1,6 +1,7 @@
 window.onload=()=>{
     element=document.getElementById('Contenedor');
-    element.className+=" animated flipInX delay-1s";
+    element.style.display="block"
+    element.className+=" animated flipInX";
     element.addEventListener('animationend',function(){
         element.className=element.className.replace(" animated","");
         element.className=element.className.replace(" flipInX","");

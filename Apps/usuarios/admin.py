@@ -11,7 +11,7 @@ class UserAdmmin(BaseUserAdmin):
     list_filter=('is_superuser',)
 
     fieldsets=(
-        (None, {'fields':('username','email', 'password','activo','descripcion',)}),
+        (None, {'fields':('username','email', 'password','activo','descripcion','img_perfil')}),
         ('Permissions', {'fields':('is_superuser','is_staff')})
     )
     search_fields = ('username', 'email')
