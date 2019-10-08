@@ -31,8 +31,8 @@
             <form id="formReg" method="POST" action="{% url 'registro' %}">
                 {% csrf_token %}
                 <p id="PUsuario"><label for="">Nombre de Usuario</label><input class="entrada errado" id="usuarioReg" name="username" onchange="validar()" autocomplete="off" type="text"></p>
-                <p id="PContraReg"><label for="">contraseña</label><input class="entrada errado" id="contraseniaReg" name="password1" onchange="validar()" autocomplete="off" type="text"></p>
-                <p id="PReContraReg"><label for="">Repetir contraseña</label><input class="entrada errado" id="reContraseniaReg" name="password2" onchange="validar()" autocomplete="off" type="text"></p>
+                <p id="PContraReg"><label for="">contraseña</label><input class="entrada errado" id="contraseniaReg" name="password1" onchange="validar()" autocomplete="off" type="password"></p>
+                <p id="PReContraReg"><label for="">Repetir contraseña</label><input class="entrada errado" id="reContraseniaReg" name="password2" onchange="validar()" autocomplete="off" type="password"></p>
                 <p id="PEmailReg"><label for="">E-mail</label><input class="entrada errado" id="emailReg" name="email" onchange="validar()" autocomplete="off" type="text"></p>
                 <p id="PbotonReg">
                     <button id="botonReg" type="submit" class="formButton" disabled onclick="subir()">Enviar</button>

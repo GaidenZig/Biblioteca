@@ -25,12 +25,12 @@ def Login_view(request, *args, **kwargs):
     if form.is_valid():
         user_obj = form.cleaned_data.get('user_obj')
         login(request,user_obj)        
-        return HttpResponseRedirect("/home")
+        return HttpResponseRedirect("/")
     return render(request,'Accounts/login.html',{"form":form})
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect("/home")
+    return HttpResponseRedirect("/")
 
 
 
