@@ -21,6 +21,7 @@ class Genero(models.Model):
 
 class Libro(models.Model):
     titulo=models.CharField('Titulo', max_length=100)
+    portada=models.ImageField(upload_to='images/', default='images/no-book-image.jpg')
     resumen=models.TextField(max_length=2000, help_text="Ingrese el resumen del libro")
     autor=models.ManyToManyField(Autor)
     isbn=models.CharField('ISBN', max_length=13, help_text='13 Caracteres <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
