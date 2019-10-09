@@ -14,6 +14,7 @@ class Autor(models.Model):
 
 class Genero(models.Model):
     nombre = models.CharField(max_length=200, help_text="Ingrese el nombre del género (p. ej. Ciencia Ficción, Poesía Francesa etc.)")
+    activo = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nombre
