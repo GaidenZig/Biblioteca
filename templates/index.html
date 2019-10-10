@@ -125,76 +125,24 @@
                 <div class="col-xs-12">
                     <div id="exampleSlider">
                         <div class='MS-content'>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portada-libro.jpg)">
-                                    <div class="texto">
-                                     <p>Margaret Atwood nos ofrece una sorprendente interpretación del tema de la deuda, de gran actualidad dada la crisis económica por la que atraviesa el mundo tras el colapso de un sistema de deudas interconectadas. En su imaginativa, amena y profunda aproximación a este asunto, Atwood sugiere que la deuda es como el aire, algo que se da por seguro hasta que las cosas empiezan a ir mal. Es entonces cuando, mientras abrimos la boca intentando respirar, caemos en la cuenta de lo mucho que nos interesa.</p> 
+                            {% for t in top %}
+                                <div class="item">
+                                    <div class="imagen">
+                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
+                                        onclick="sendBook('{{t.titulo}}')">
                                     </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">PAGAR (CON LA MISMA MONEDA)</a>
+                                    <div class="datos">
+                                        <div class="rankeo">
+                                            <div class="stars-outer">
+                                                <div class="stars-inner"></div>
+                                            </div>
+                                        </div>
+                                        <div class="resumen">
+                                            <p>{{t.resumen|truncatechars:100}}</p>
+                                        </div>                                                                               
+                                    </div>                                    
                                 </div>
-                            </div>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/top/5c33c88d48f0b557028b4567.__RS360x360__.jpg)">
-                                    <div class="texto">
-                                      <p >Mariano Sigman, uno de los neurocientíficos de mayor prestigio internacional, nos propone en este fascinante libro un viaje a lo más íntimo de la mente humana: los sueños, la conciencia, las decisiones, el aprendizaje y las emociones. La vida secreta de la mente es un viaje especular que recorre el cerebro y el pensamiento: se trata de ...</p>  
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">La Vida Secreta de la Mente</a>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/top/34eecf0f1c2d8940a4553244289fa463-product.jpg)">
-                                    <div class="texto">
-                                      <p >Una joven de la alta sociedad abandona a su arrogante pretendiente por un artista humilde en el trasatlántico que se hundió durante su viaje inaugural.</p>  
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">Espíritu de La Ciencia-Ficción</a>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/top/c33587b4de3b4c39989dfcc383e61b04-product.jpg)">
-                                    <div class="texto">
-                                       <p>Después del éxito de la edición ilustrada de Cien años de soledad, Luisa Rivera vuelve a rendir homenaje
-                                            a García Márquez con una serie de ilustraciones inéditas que recrean el extraordinario universo del autor.
-                                            En El amor en los tiempos del cólera, García Márquez traza la historia de un amor que no ha sido
-                                            correspondido durante medio siglo</p> 
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">El Amor en los Tiempos del Cólera</a>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/top/d3a3401cb53e03f7d51c2b81c558045e-product.jpg)">
-                                    <div class="texto">
-                                       <p>Bien dicen que ''hay grandes libros en el mundo y grandes mundos en los libro'', y ¿qué mejor que una nueva aventura por descubrir con cada ejemplar? Pues, si es un amante de la lectura o recién se está iniciando en ella, leer es una actividad que estimula su mente y potencia su imaginación a niveles asombrosos, sobre todo si encuentra ese que se convierte en su favorito o incluso si solo se trata de alguna recomendación hecha por un amigo.</p> 
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">Allende La Biografia</a>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/top/bd9a8bf7ad3af10ebd1843560a948dd8-product.jpg)">
-                                    <div class="texto">
-                                     <p>Cuando Michael y Verity eran pareja compartían un juego privado muy especial. No era el típico juego de dos amantes a puerta cerrada. Era algo público y mucho más perverso cuyas normas solo conocían ellos.
-                                            De todo eso ya ha pasado un año. Verity ya no le devuelve las llamadas a Mike, no contesta a sus correos, y está a punto de casarse con otro. Pero él sigue enamorado y convencido de que ella todavía le quiere. Cree que su matrimonio no es más que una nueva versión del juego</p>
-                                     </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">Nuestro Juego Mas Cruel</a>
-                                </div>
-                            </div>
+                            {% endfor %}                                                       
                         </div>
                         <div class='MS-controls'>
                             <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
@@ -497,6 +445,8 @@
 
             <!--Parallax-->
             <script src="{% static 'Js/Parallax.js' %}"></script>
+            <!--Enviado libros-->
+            <script src="{% static 'Js/booksSlides.js' %}"></script>
 
             <!--Separador final-->
             <div id="bajo_navegador" class="row separador">
