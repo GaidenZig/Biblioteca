@@ -1,92 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    {% load static %}
-    <!--Dependencias de la barra de navegación-->
-    <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/navigation_bar_style.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/buscador.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'Css/footer.css' %}"/>
-
-    <!-- Include jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!--Include GoogleFonts-->
-    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/3f1a99f494.js"></script>
-
+{% extends 'index.html' %}
+{% load static %}
     <title>{% block titulo %}Galeria{% endblock titulo %}</title>
 
     <!--En este bloque irían todas las dependecias específicas de cada pagina que herede de index-->
     {% block dependencias_individuales %} 
         <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/General.Css' %}" />       
         <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}">
-  <link rel="stylesheet" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}">
+        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}">
         <link rel="stylesheet" href="{% static 'Css/PagPrincipal/books_carousels.css' %}">
+      
+   {% endblock dependencias_individuales %}
 
-        <!-- Include Multislider -->
-        <script src="{% static 'JQuery Library/multislider.js' %}"></script>
-    {% endblock dependencias_individuales %}
 
-    <!--dependecias de estilos que no deben ser sobreescritos-->
-    <link rel="stylesheet" type="text/css" href="{% static 'Css/flexboxgrid.min.css' %}"/>
-</head>
-<body>
-    <!--Barra de navegacion-->
-    <a name="up"></a>
-    <div class="row navBar">
-        <div class="col-xs-12  col-sm-12 col-md-4 col-lg-3  center-sm center-xs">
-            <h1 class="logo">
-                {% load static %}
-              <img src="{% static 'Img/LonelyBot.png' %}" alt="icono" class="icono"> 
-                Book's Rg
-            </h1>
-        </div>
-
-        <div id="parent_menu" class="col-xs-9 col-sm-8 col-md-8 col-lg-5 col-lg-offset-4">            
-            <input type="checkbox" id="btn-menu">
-            <label id="img-menu" for="btn-menu"><i class="fas fa-hamburger"></i></label>            
-            <nav class="menu">
-                <ul>
-                    <form id="form_buscador">
-                        <fieldset id="fiel_buscador" class="row">
-                            <input id="input_buscador" class="col-xs-10" type="search" >
-                            <button id="btn_buscador" class="col-xs-2" type="submit"><i class="fas fa-search"></i></button>
-                        </fieldset>
-                    </form>
-
-                    <!--Aquí ocurre algo extraño con las url que son de alguna "aplicación django"
-                        y no del urls.py principal ya que requieren de su "namespace" especificado 
-                        seguido de dos puntos, ni idea de por qué .-. -->
-                    <li><a href="{% url 'index' %}"> Home</a></li>
-                    <li><a href="#">Favoritos</a></li>
-                    <li><a href="#">Galeria</a></li> 
-                    <li>
-                    {% if user.is_authenticated %}
-                        <div id="Login_menu">                          
-                            <div class="Login_menu_grid">
-                                <img class="img_profile" src="{{user.img_perfil.url}}" alt="imagen de Perfil">
-                                <span class="name_profile" >{{user.username}}</span>
-                            </div>                                                        
-                            <ul class="Login_menu_content">
-                                <li><a href="">Perfil</a></li>
-                                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
-                            </ul>
-                        </div>
-                    {% else %}
-                        <a href="{% url 'login' %}" id="sesion">Login</a>
-                    {% endif %}        
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <!--Barra de navegacion-->
-
-    <!--En este bloque iría todo el contenido de la pagina actual que herede de index-->
     {% block Pagina %}
         <!--Scrollup-->
         <a class="up scrollup" href="#up"> <i class="fas fa-arrow-up"></i> </a>
@@ -119,10 +44,7 @@
           
             <!--Parallax-->
             <script src="{% static 'Js/Parallax.js' %}"></script>
-            <!--Enviado libros-->
-            <script src="{% static 'Js/booksSlides.js' %}"></script>
-
-            <!--Separador final-->
+            
             <div id="bajo_navegador" class="row separador">
                 <div class="col-xs-4 col-xs-offset-4">
                     <div id="Separador">
@@ -137,26 +59,3 @@
 
     {% endblock Pagina %}
 
-    <!--Footer-->
-    <footer>
-        <div class='row navBar center-xs center-sm'>
-            <div id='navfooter' class='col-xs-12  col-sm-4 col-md-4 col-lg-3  center-sm center-xs'>
-                <h1 class='logo' >
-                        <img src="{% static 'Img/LonelyBot.png' %}" alt="icono" class="icono">  
-                    Books R
-                </h1>
-            </div>
-            <div class='col-sm-4'>
-                <a href='#'>Nosotros</a>
-                <a href='https://www.google.com/maps/place/Duoc+UC:+Sede+Viña+Del+Mar/@-33.0336892,-71.5353728,17z/data=!3m1!4b1!4m5!3m4!1s0x9689de64d74fd4af:0x8004f381e9055a38!8m2!3d-33.0336892!4d-71.5331841' target='_blank'> Direccion</a>
-                <a href='tel:+56965832455'> +569 74836789</a>
-            </div>
-            <div class='col-sm-4'>
-                <a href='https://www.instagram.com/?hl=es-la' target='_blank'><i class='icon-fo fab fa-instagram'></i> Siguenos en Intagram</a>
-                <a href='https://www.facebook.com' target='_blank'><i class='icon-fo fab fa-facebook-square'></i> Siguenos en Facebook</a>
-                <a href='https://www.youtube.com/watch?v=D_T1KrI-zqw' target='_blank'><i class='icon-fo fab fa-youtube'></i> Sigenos en Youtube</a>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
