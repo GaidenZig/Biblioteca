@@ -113,6 +113,15 @@
         <script src="{% static 'Js/slide_show.js' %}"></script>
 
         <div id="margin_contenido">
+            <!--Esta variables es para el uso de todos los slides-->
+            <script>                
+                let puntuaciones=new Map();
+                let puntuacion="";
+                let value=0;
+                let key="";
+                const stars=5; //total de estrellas en la puntuacion       
+            </script>
+
             <!--Separador 1-->
             <div id="bajo_navegador" class="row separador">
                 <div class="col-xs-4 col-xs-offset-4">
@@ -127,9 +136,10 @@
                         <div class='MS-content'>
                             {% for t in top %}
                                 <div class="item">
-                                    <div class="imagen">
+                                    <div class="imagen">                                        
+                                        <a id="send" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
                                         <img src="{{t.portada.url}}" alt="Portada de libro" 
-                                        onclick="sendBook('{{t.titulo}}')">
+                                        onclick="sendBook()">
                                     </div>
                                     <div class="datos">
                                         <div class="rankeo">
@@ -142,8 +152,22 @@
                                         </div>                                                                               
                                     </div>                                    
                                 </div>
+                                <script type="text/javascript">                                                                    
+                                    puntuacion="{{t.puntuacion}}";
+                                    value=parseFloat(puntuacion);
+                                    key="{{t.titulo}}";
+                                    puntuaciones.set(key,value);                                    
+                                </script>
                             {% endfor %}                                                       
                         </div>
+                            <script>                                
+                                for (const [key, value] of puntuaciones.entries()) {
+                                let starPercentage = (value / stars) * 100;                                  
+                                let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                                console.log(starPercentageRounded);                            
+                                document.querySelector(`.rankeo .stars-inner`).style.width = starPercentageRounded; 
+                                }
+                            </script>
                         <div class='MS-controls'>
                             <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
                             <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
@@ -446,7 +470,11 @@
             <!--Parallax-->
             <script src="{% static 'Js/Parallax.js' %}"></script>
             <!--Enviado libros-->
-            <script src="{% static 'Js/booksSlides.js' %}"></script>
+            <script> 
+                function sendBook(){
+                    document.getElementById('send').click();
+                }
+            </script>
 
             <!--Separador final-->
             <div id="bajo_navegador" class="row separador">

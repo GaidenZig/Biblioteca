@@ -230,6 +230,7 @@
 }
 
 .imagen{
+  display:block;
   background-size:100%; 
   height: 60%; 
 }
@@ -258,6 +259,9 @@
   color: #eeeeee;
   opacity: 0;
   font-size: 1.1rem;
+}
+.Htitulo{
+  display: none;
 }
 
 .imagen:hover .texto{

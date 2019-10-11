@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import AutorForm
 from django.template import RequestContext
+from django.http import HttpResponse
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -26,7 +27,9 @@ def crearAutor(request):
         autor_form=AutorForm()
     return render(request,'Biblioteca/crear_autor.html')
 
-def cargarLibro(request):
-    print(request.GET)
+def cargarLibro(request,pk):
+
+    libro=Libro.objects.filter(id__exact=pk)
+    return render(request,'Biblioteca/Libro.html',{'libro':libro})
 
 
