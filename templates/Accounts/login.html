@@ -1,0 +1,20 @@
+{% extends 'Accounts/register.html' %}
+{% block titulo %}
+    Login
+{% endblock titulo %}
+
+{% block formulario %}
+<div class="Login">
+    <h1>Iniciar sesión</h1>
+    <form id="formLog" method="POST" action="{% url 'login' %}" >
+        {% csrf_token %}
+        <p><label for="">Usuario</label><input type="text" name="query"></p>
+        <p><label for="">Contraseña</label><input type="password" name="password"></p>
+        <p id="botonLog">
+            <button type="submit" class="formButton" onclick="Animar()">Iniciar</button>
+            <a id="crearcuenta" href="{% url 'registro' %}" onclick="mostrarRegistro()">¿No tienes una cuenta?</a>
+            <a id="olvidócontraseña" >¿Olvidaste tu contraseña?</a>
+        </p>
+    </form>
+</div>
+{% endblock formulario %}

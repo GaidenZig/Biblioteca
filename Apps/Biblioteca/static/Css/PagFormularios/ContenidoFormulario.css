@@ -1,9 +1,5 @@
-.Registro{
-    display: none;
-    
-    
-}
-#Contenedor{    
+#Contenedor{   
+    display: none; 
     background-color:rgba(37, 35, 12, 0.8); 
     margin-top: 10px;
     position: absolute;
@@ -15,7 +11,6 @@
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgb(255, 255, 255, .5);
     z-index: 0;
-
 }
 #Contenedor h1{
     color: #b17b16;
@@ -26,18 +21,35 @@
     padding-left: 1%;
     padding-right: 1%;
 }
-.Registro form{
+.Registro #formReg{
     display: grid;
-    grid-template-rows: repeat(5,1fr);
+    grid-template-rows: repeat(4,1fr);
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 2%;
-    grid-template-areas:"nombres apellidos"
-                        "usuario fechnacimiento"
-                        "contraseña repetircontraseña"
-                        "email captcha"
-                        "boton captcha";    
+    grid-template-areas:"usuario usuario"                        
+                        "contraReg reContraReg"
+                        "e-mail captcha"
+                        "registrar captcha";    
     margin: auto;    
 }
+/*posicion de los inputs de registros*/
+#PUsuario{
+    grid-area: usuario;
+}
+#PContraReg{
+    grid-area: contraReg;
+}
+#PReContraReg{
+    grid-area: reContraReg;
+}
+#PEmailReg{
+    grid-area: e-mail;
+}
+#PbotonReg{
+    grid-area: registrar;
+    margin-bottom: 2%;
+}
+
 .Login form{
     display:grid;
     grid-template-rows: repeat(3,1fr);
@@ -65,7 +77,6 @@
     border:0px;
     border-bottom: 2px solid rgba(180, 32, 52, 0.836);
 }
-
 .Registro form p{
     margin: 0;
     padding: 5px;    
@@ -79,10 +90,6 @@
     padding: -5px;
     text-align: center;
     height: 100%;
-}
-#boton{
-   grid-area: boton;
-   margin-bottom: 2%;
 }
 #botonLog{
     display: grid;
@@ -154,6 +161,6 @@ form > p > .medio{
 @media (min-width: 1200px) { 
     #Contenedor{
         left: 20%;
-        right: 20%;              
+        right: 20%;            
     }
 }

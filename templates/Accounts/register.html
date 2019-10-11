@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+{% block titulo %}
+    Sesión
+{% endblock titulo %}
+
+{% load static %}
+
+{% block dependencias_individuales %}
+    <link rel="stylesheet" type="text/css" href="{% static 'Css/PagFormularios/General.css' %}">
+    <link rel="stylesheet" href="{% static 'Css/PagFormularios/ContenidoFormulario.css' %}">
+
+    <!--Include Animate.css-->
+    <link rel="stylesheet" href="{% static 'Css/Animate.css' %}">
+
+    <!--Include jQuery UI-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% endblock dependencias_individuales %}
+
+{% block Pagina %}
+    <div id="divBackground"></div>
+    <div id="Contenedor" class="basic">              
+        {% block formulario %}
+        <div class="Registro">
+            <div class="row">
+                <h1>Registro</h1>
+                <button class="back">
+                    <i class="fas fa-chevron-circle-left"></i>
+                </button>
+            </div>
+            <form id="formReg" method="POST" action="{% url 'registro' %}">
+                {% csrf_token %}
+                <p id="PUsuario"><label for="">Nombre de Usuario</label><input class="entrada errado" id="usuarioReg" name="username" onchange="validar()" autocomplete="off" type="text"></p>
+                <p id="PContraReg"><label for="">contraseña</label><input class="entrada errado" id="contraseniaReg" name="password1" onchange="validar()" autocomplete="off" type="password"></p>
+                <p id="PReContraReg"><label for="">Repetir contraseña</label><input class="entrada errado" id="reContraseniaReg" name="password2" onchange="validar()" autocomplete="off" type="password"></p>
+                <p id="PEmailReg"><label for="">E-mail</label><input class="entrada errado" id="emailReg" name="email" onchange="validar()" autocomplete="off" type="text"></p>
+                <p id="PbotonReg">
+                    <button id="botonReg" type="submit" class="formButton" disabled onclick="subir()">Enviar</button>
+                </p>
+            </form>
+        </div>
+        {% endblock formulario %}
+        
+        <script src="{% static 'Js/scriptFormularios.js' %}"></script>
+    </div>
+{% endblock Pagina %}

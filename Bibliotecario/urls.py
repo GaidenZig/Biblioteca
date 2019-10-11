@@ -16,12 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from Apps.Biblioteca.views import Home
-from django.contrib.auth.decorators import login_required
-from Apps.usuarios.views import Login
+from Apps.usuarios.views import register, Login_view, logout_view
+from . import settings
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Biblioteca/', include(('Apps.Biblioteca.urls','Biblioteca'))),
-    path('home/', Home, name='index'),   
-    path('accounts/login/', Login.as_view(), name='login'),      
+    path('', Home, name='index'),   
+    path('register/',register, name='registro'),
+    path('login/',Login_view, name='login'),
+    path('logout/',logout_view, name='logout'),
 ]
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

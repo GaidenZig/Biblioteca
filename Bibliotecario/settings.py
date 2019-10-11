@@ -26,6 +26,7 @@ SECRET_KEY = '5b@3d^%d6!&5kg+a9)q-r53aqqx*(wrbb%we_)09cte(4svs$%'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL="usuarios.MyUser"
 
 
 # Application definition
@@ -120,5 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
