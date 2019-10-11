@@ -30,3 +30,7 @@ def cargarLibro(request):
     print(request.GET)
 
 
+def galeria(request):
+    libros=Libro.objects.all()
+    return render(request,'Biblioteca/galeria.html',{'libros':libros})
+

@@ -63,7 +63,7 @@
                         seguido de dos puntos, ni idea de por qué .-. -->
                     <li><a href="{% url 'index' %}"> Home</a></li>
                     <li><a href="#">Favoritos</a></li>
-                    <li><a href="#">Galeria</a></li> 
+                    <li><a href="{% url 'galeria' %}">Galeria</a></li> 
                     <li>
                     {% if user.is_authenticated %}
                         <div id="Login_menu">                          
