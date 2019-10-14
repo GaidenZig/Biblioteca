@@ -16,54 +16,81 @@
 
 {% block Pagina %}
 <div id="divBackground">
-        <div id="divContenedor" class="container-fluid">
+        <div id="divContenedor">
             <div class="row">
-                <div class="contenedorImg col-xs-12 col-sm-7 col-md-5 col-lg-3">
-                    <img src="Img/portada-libro.jpg" alt="" id="Portada">
+                <div class="contenedorImg col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <img src='{{libro.portada.url}}' alt="Portada de libro" id="Portada">
                 </div>
 
-                <div class="contenedorDatos col-xs-12 col-sm-5 col-md-6 col-lg-6">
-                    <h1 id="tituloLibro">PAGAR (CON LA MISMA MONEDA)</h1>
+                <div class="contenedorDatos col-xs-12 col-sm-5 col-md-7 col-lg-6">
+                    <h1 id="tituloLibro">{{libro.titulo}}</h1>
                     <div id="infoLibro">
                         <!--Autor-->
                         <b>Autor: </b>
-                        <span id="autor" class="datos">Margaret Atwood</span>
+                        <span id="autor" class="datos">
+                            {% for autor in autores %}
+                                {{autor.apellido}} {{autor.primer_nombre}},
+                            {% endfor %}
+                        </span>
                         <br><br>
                         <!--Páginas-->
                         <b>Páginas: </b>
-                        <span id="paginas" class="datos">248</span>
+                        <span id="paginas" class="datos">{{libro.paginas}}</span>
                         <br><br>
                         <!--Editorial-->
                         <b>Editorial: </b>
-                        <span id="editorial" class="datos">BRUGUERA</span>
+                        <span id="editorial" class="datos">{{editorial.nombre}}</span>
                         <br><br>
                         <!--ISBN-->
                         <b>ISBN: </b>
-                        <span id="isbn" class="datos">9788402421050</span>
+                        <span id="isbn" class="datos">{{libro.isbn}}</span>
                         <br><br>
                         <!--Disponibilidad-->
                         <b>Disponibilidad: </b>
                         <span id="disponibilidad" class="datos">No Disponible</span>
                         <br>
-                        <div class="rating">
-                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                            <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                            <input type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                            <input type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                            <input type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                            <input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                        </div>
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-sm-3">
-                    <div id="espacioPubli">
-
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-3">
+                    <div class="bookmark-inside">                        
+                        <div class="bookmark-param">
+                            <h2>{{libro.estrellas}}</h2>
+                            <div class="rankeo">
+                                <div class="stars-outer">
+                                    <div class="stars-inner"></div>
+                                </div>
+                            </div>                            
+                        </div>    
+                        <img src="{% static 'Img/bookmark-strips.png' %}" alt="" 
+                             class="bookmark-background col-xs-12">
                     </div>
+
+                    <div class="rating-block">    
+                        <div class="rating-box">
+                            <h2>{{libro.estrellas}}</h2>
+                            <div class="rankeo">
+                                <div class="stars-outer">
+                                    <div class="stars-inner"></div>
+                                </div>
+                            </div>                                                   
+                        </div>
+                    </div>
+                    <script>
+                        let valor;                            
+                        let starPercentage; 
+                        let starPercentageRounded;
+                        mostrarEstrellas();
+
+                        function mostrarEstrellas(){
+                            valor=parseFloat("{{libro.estrellas}}");                            
+                            starPercentage = (valor / 5) * 100; 
+                            starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                            console.log(starPercentageRounded);                            
+                            document.querySelector(`.rankeo .stars-inner`).style.width = starPercentageRounded; 
+                        }
+
+                    </script>
                 </div>
             </div>
 
@@ -73,115 +100,21 @@
                     <li class="pestania" tabindex="0" onclick="Autores()">Autores</li>
                 </ul>
                 <div class="col-md-9 descripcionLibro">
-                    Margaret Atwood nos ofrece una sorprendente interpretación del tema de la deuda, de gran actualidad dada la crisis económica por la que atraviesa el mundo tras el colapso de un sistema de deudas interconectadas. En su imaginativa, amena y profunda aproximación a este asunto, Atwood sugiere que la deuda es como el aire, algo que se da por seguro hasta que las cosas empiezan a ir mal. Es entonces cuando, mientras abrimos la boca intentando respirar, caemos en la cuenta de lo mucho que nos interesa. "Pagar (con la misma moneda)" no es un libro sobre la práctica de la deuda en las altas finanzas, aunque también la menciona. Más bien, es una investigación sobre la idea de la deuda como tema central de la religión, la literatura y la estructura de las sociedades humanas. Al investigar el modo en que el concepto de deuda ha conformado nuestro pensamientos desde la antigüedad hasta el presente (a través de las historias que nos contamos unos a otros, de conceptos como «equilibrio» «venganza» o «pecado» y del modo en que establecemos nuestras relaciones sociales), Atwood demuestra que la idea de lo que debemos a otro –es decir, la «deuda»-, se ha ido formando en la imaginación humana y es una de las metáforas más dinámicas que existen.
+                    <p>{{libro.resumen}}</p>
                 </div>
                 <div class="col-md-9 descripcionAutores">
-                    Margaret Eleanor Atwood es una prolífica poetisa, novelista, crítica literaria, profesora y activista política canadiense. Es miembro del organismo de derechos humanos Amnistía Internacional y una de las personas que presiden BirdLife International, en defensa de las aves.
+                    <p>
+                        {% for autor in autores %}
+                        <b>{{autor.primer_nombre}} {{autor.apellido}}</b>                        
+                        <p>{{autor.descripcion}}</p>
+                        <br>
+                        {% endfor %}
+                    </p>
                 </div>
-                <script src="Js/scriptLibros.js"></script>
+                <script src="{% static 'Js/scriptLibros.js' %}"></script>
             </div>
-
-            <br>
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <div id="exampleSlider2">
-                        <div class='MS-content'>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/top/d3a3401cb53e03f7d51c2b81c558045e-product.jpg)">
-                                    <div class="texto">
-                                       <p>Bien dicen que ''hay grandes libros en el mundo y grandes mundos en los libro'', y ¿qué mejor que una nueva aventura por descubrir con cada ejemplar? Pues, si es un amante de la lectura o recién se está iniciando en ella, leer es una actividad que estimula su mente y potencia su imaginación a niveles asombrosos, sobre todo si encuentra ese que se convierte en su favorito o incluso si solo se trata de alguna recomendación hecha por un amigo.</p> 
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">Allende La Biografia</a>
-                                </div>
-                            </div>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/terror/5c1275a950c7615f5f8b4567.__RS360x360__.jpg)">
-                                    <div class="texto">
-                                        <p>Margaret Atwood nos ofrece una sorprendente interpretación del tema de la deuda, de gran actualidad dada la crisis económica por la que atraviesa el mundo tras el colapso de un sistema de deudas interconectadas. En su imaginativa, amena y profunda aproximación a este asunto, Atwood sugiere que la deuda es como el aire, algo que se da por seguro hasta que las cosas empiezan a ir mal. Es entonces cuando, mientras abrimos la boca intentando respirar, caemos en la cuenta de lo mucho que nos interesa.</p> 
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">Frankenstein o el moderno Prometeo</a>
-                                </div>
-                        </div>
-                        <div class='item'>
-                            <div class="imagen" style="background-image:url(Img/portadas/top/bd9a8bf7ad3af10ebd1843560a948dd8-product.jpg)">
-                                <div class="texto">
-                                 <p>Cuando Michael y Verity eran pareja compartían un juego privado muy especial. No era el típico juego de dos amantes a puerta cerrada. Era algo público y mucho más perverso cuyas normas solo conocían ellos.
-                                        De todo eso ya ha pasado un año. Verity ya no le devuelve las llamadas a Mike, no contesta a sus correos, y está a punto de casarse con otro. Pero él sigue enamorado y convencido de que ella todavía le quiere. Cree que su matrimonio no es más que una nueva versión del juego</p>
-                                 </div>
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                                <a class="btn_ver" href="Libro.html">Nuestro Juego Mas Cruel</a>
-                            </div>
-                        </div>
-                        <div class='item'>
-                            <div class="imagen" style="background-image:url(Img/portadas/terror/libros-terror.jpg)">
-                                <div class="texto">
-                                    <p>El resplandor es la tercera novela de terror del escritor estadounidense Stephen King, publicada en 1977. El título se inspiró en la canción de John Lennon "Instant Karma!", que contiene la línea «We all shine on..</p>
-                                </div>
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                                <a class="btn_ver" href="Libro.html">El resplandor (novela)</a>
-                            </div>
-                    </div>
-                    <div class='item'>
-                        <div class="imagen" style="background-image:url(Img/portada-libro.jpg)">
-                            <div class="texto">
-                             <p>Margaret Atwood nos ofrece una sorprendente interpretación del tema de la deuda, de gran actualidad dada la crisis económica por la que atraviesa el mundo tras el colapso de un sistema de deudas interconectadas. En su imaginativa, amena y profunda aproximación a este asunto, Atwood sugiere que la deuda es como el aire, algo que se da por seguro hasta que las cosas empiezan a ir mal. Es entonces cuando, mientras abrimos la boca intentando respirar, caemos en la cuenta de lo mucho que nos interesa.</p> 
-                            </div>
-                            <div class="stars-outer">
-                                <div class="stars-inner"></div>
-                            </div>
-                            <a class="btn_ver" href="Libro.html">PAGAR (CON LA MISMA MONEDA)</a>
-                        </div>
-                    </div>
-                    <div class='item'>
-                        <div class="imagen" style="background-image:url(Img/portadas/terror/EL354038.jpg)">
-                            <div class="texto">
-                                <p>It es una novela de terror publicada en 1986 por el escritor estadounidense Stephen King. Cuenta la historia de un grupo de siete niños que son aterrorizados por un malvado monstruo -al que llaman «Eso»- que es capaz de cambiar de forma, alimentándose del terror que produce en sus víctimas. </p>
-                            </div>
-                            <div class="stars-outer">
-                                <div class="stars-inner"></div>
-                            </div>
-                            <a class="btn_ver" href="Libro.html">It (novela)</a>
-                        </div>
-                </div>
-                        </div>
-                        <div class='MS-controls'>
-                            <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
-                            <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>              
-            
+            <br>                         
         </div>
-        <!--Initialize element carousel with multislide-->
-         <!-- Initialize elements with Multislider -->
-         <script>
-         
-            $('#exampleSlider2').multislider({
-                interval: 3200,
-                slideAll: false,
-                duration: 500,
-            });
-           
-        </script>
         <br>
     </div>
 {% endblock Pagina %}
-
-<body>
-    
-
-</body>
-
-</html>

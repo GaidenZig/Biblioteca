@@ -25,7 +25,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/General.Css' %}" />       
         <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}">
         <link rel="stylesheet" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}">
-        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/books_carousels.css' %}">
+        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/books_carousels.css' %}">  
 
         <!-- Include Multislider -->
         <script src="{% static 'JQuery Library/multislider.js' %}"></script>
@@ -42,7 +42,7 @@
             <h1 class="logo">
                 {% load static %}
               <img src="{% static 'Img/LonelyBot.png' %}" alt="icono" class="icono"> 
-                Book's Rg
+                Book's R
             </h1>
         </div>
 
@@ -153,7 +153,7 @@
                                     </div>                                    
                                 </div>
                                 <script type="text/javascript">                                                                    
-                                    puntuacion="{{t.puntuacion}}";
+                                    puntuacion="{{t.estrellas}}";
                                     value=parseFloat(puntuacion);
                                     key="{{t.titulo}}";
                                     puntuaciones.set(key,value);                                    
@@ -163,9 +163,9 @@
                             <script>                                
                                 for (const [key, value] of puntuaciones.entries()) {
                                 let starPercentage = (value / stars) * 100;                                  
-                                let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-                                console.log(starPercentageRounded);                            
+                                let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
                                 document.querySelector(`.rankeo .stars-inner`).style.width = starPercentageRounded; 
+                                console.log(key,document.querySelector(`.rankeo .stars-inner`)); 
                                 }
                             </script>
                         <div class='MS-controls'>
