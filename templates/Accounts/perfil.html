@@ -6,7 +6,7 @@
     {% block dependencias_individuales %} 
  <link href="{% static 'Css/pagPerfil/general.css' %}" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/General.Css' %}" />       
-      
+    <link href="{% static 'Css/pagPerfil/bootstrap.min.css' %}" rel="stylesheet">
    {% endblock dependencias_individuales %}
 
 
@@ -14,7 +14,7 @@
         {% if user.is_authenticated %}
                    <div class="row color">
                     <div class="col-md-12 col-sm-12 col-xs-12 image-section">
-                        <img src="1.jpg">
+                        <img src="{% static 'Img/Libreria1.jpg' %}">
                     </div>
                     <div class="row user-left-part">
                         <div class="col-md-5 col-sm-5 col-xs-12 user-profil-part pull-left">
