@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login,get_user_model,logout
 from .forms import UserCreationForm,UserLoginForm
+
 
 # Create your views here.
 
@@ -31,7 +32,5 @@ def Login_view(request, *args, **kwargs):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect("/")
-
-
 
 

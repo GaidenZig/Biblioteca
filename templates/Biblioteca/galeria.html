@@ -4,10 +4,10 @@
 
     <!--En este bloque irían todas las dependecias específicas de cada pagina que herede de index-->
     {% block dependencias_individuales %} 
-        <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/General.Css' %}" />       
-        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}">
+          <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}">
         <link rel="stylesheet" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}">
         <link rel="stylesheet" href="{% static 'Css/PagPrincipal/books_carousels.css' %}">
+       <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/General.Css' %}" />       
       
    {% endblock dependencias_individuales %}
 
@@ -21,30 +21,33 @@
             <div class="row">
                  {% for libro in libros %}
                     <div class="item  col-xs-3  col-sm-3 col-md-3 col-lg-3 ">
-                      <div class="marco">
-                        <div class="imagen">
-                            <img src="{{libro.portada.url}}" alt="Portada de libro" 
-                                onclick="sendBook('{{libro.titulo}}')">
-                                            
+                        <div class="marco ">
+                            <div class="imagen">
+                                    <img src="{{libro.portada.url}}" alt="Portada de libro" 
+                                        onclick="sendBook('{{libro.titulo}}')">                 
                             </div>
+                           
                             <div class="datos">
                                 <div class="rankeo">
-                                        <div class="stars-outer">
-                                            <div class="stars-inner"></div>
-                                        </div>
+                                            <div class="stars-outer">
+                                                <div class="stars-inner"></div>
+                                            </div>
                                 </div>
-                                <div class="resumen">
-                                    <p>{{libro.resumen|truncatechars:100}}</p>
-                                </div>                                                                               
+                                    <div class="resumen">
+                                        <p>{{libro.resumen|truncatechars:100}}</p>
+                                    </div>                                                                               
                             </div>
-                         </div>                                    
-                     </div>
+                            
+                        </div>                                    
+                    </div>
                  {% endfor %}                                                       
             </div>
           
             <!--Parallax-->
             <script src="{% static 'Js/Parallax.js' %}"></script>
-            
+
+            <script src="{% static 'Js/booksSlides.js' %}"></script>
+
             <div id="bajo_navegador" class="row separador">
                 <div class="col-xs-4 col-xs-offset-4">
                     <div id="Separador">

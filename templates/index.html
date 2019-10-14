@@ -40,7 +40,7 @@
     <div class="row navBar">
         <div class="col-xs-12  col-sm-12 col-md-4 col-lg-3  center-sm center-xs">
             <h1 class="logo">
-                {% load static %}
+               
               <img src="{% static 'Img/LonelyBot.png' %}" alt="icono" class="icono"> 
                 Book's Rg
             </h1>
@@ -72,7 +72,7 @@
                                 <span class="name_profile" >{{user.username}}</span>
                             </div>                                                        
                             <ul class="Login_menu_content">
-                                <li><a href="">Perfil</a></li>
+                                <li><a href="{% url 'perfil'  %}">Perfil</a></li>
                                 <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
                             </ul>
                         </div>

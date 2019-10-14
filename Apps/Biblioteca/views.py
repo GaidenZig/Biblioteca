@@ -34,3 +34,7 @@ def galeria(request):
     libros=Libro.objects.all()
     return render(request,'Biblioteca/galeria.html',{'libros':libros})
 
+def perfil(request):    
+    current_user=request.user 
+    return render(request,'Accounts/perfil.html',{'user':current_user})
+
