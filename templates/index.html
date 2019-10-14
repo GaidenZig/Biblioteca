@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!--Include GoogleFonts-->
-    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet"/>
     <script src="https://kit.fontawesome.com/3f1a99f494.js"></script>
 
     <title>{% block titulo %}Home{% endblock titulo %}</title>
@@ -23,9 +23,9 @@
     <!--En este bloque irían todas las dependecias específicas de cada pagina que herede de index-->
     {% block dependencias_individuales %} 
         <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/General.Css' %}" />       
-        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}">
-        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}">
-        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/books_carousels.css' %}">  
+        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}"/>
+        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}"/>
+        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/books_carousels.css' %}"/>  
 
         <!-- Include Multislider -->
         <script src="{% static 'JQuery Library/multislider.js' %}"></script>
@@ -65,7 +65,7 @@
                     <li><a href="#">Favoritos</a></li>
                     <li><a href="#">Galeria</a></li> 
                     <li>
-                    {% if user.is_authenticated %}
+                    {% if user.is_active %}
                         <div id="Login_menu">                          
                             <div class="Login_menu_grid">
                                 <img class="img_profile" src="{{user.img_perfil.url}}" alt="imagen de Perfil">
@@ -142,7 +142,7 @@
                                         onclick="sendBook()">
                                     </div>
                                     <div class="datos">
-                                        <div class="rankeo">
+                                        <div class="rankeo {{t.id}}">
                                             <div class="stars-outer">
                                                 <div class="stars-inner"></div>
                                             </div>
@@ -155,7 +155,7 @@
                                 <script type="text/javascript">                                                                    
                                     puntuacion="{{t.estrellas}}";
                                     value=parseFloat(puntuacion);
-                                    key="{{t.titulo}}";
+                                    key="{{t.id}}";
                                     puntuaciones.set(key,value);                                    
                                 </script>
                             {% endfor %}                                                       
@@ -164,8 +164,8 @@
                                 for (const [key, value] of puntuaciones.entries()) {
                                 let starPercentage = (value / stars) * 100;                                  
                                 let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
-                                document.querySelector(`.rankeo .stars-inner`).style.width = starPercentageRounded; 
-                                console.log(key,document.querySelector(`.rankeo .stars-inner`)); 
+                                document.querySelector(`.${CSS.escape(key)} .stars-inner`).style.width = starPercentageRounded; 
+                                console.log(key,document.querySelector(`.${CSS.escape(key)}.stars-inner`)); 
                                 }
                             </script>
                         <div class='MS-controls'>

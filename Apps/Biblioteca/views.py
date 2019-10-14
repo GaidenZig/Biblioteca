@@ -14,7 +14,7 @@ from .models import Genero, Libro, Autor, Editorial
 #documentación para las queries: https://docs.djangoproject.com/en/3.0/ref/models/querysets/#django.db.models.query.QuerySet.all
 
 def Home(request):    
-    current_user={'nombre':'hola'}   
+    current_user=request.user   
     top_libros=Libro.objects.filter(estrellas__gt=4)
     return render(request,'index.html',{'user':current_user,'top':top_libros})
     
