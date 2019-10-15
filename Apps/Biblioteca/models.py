@@ -38,6 +38,9 @@ class Libro(models.Model):
     def __str__(self):
         return self.titulo
 
+
+#Puntuacion y la instancia de libros se hacen automaticamente según las reglas negocio de la aplicación
+
 class InstanciaLibro(models.Model):
     fech_inicio=models.DateField('Fecha de entrega', null=False, blank=False)
     fech_vencimiento=models.DateField('Fecha de devolución', null=False, blank=False)
