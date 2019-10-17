@@ -6,7 +6,7 @@ class Autor(models.Model):
     id= models.AutoField(primary_key=True)
     primer_nombre = models.CharField(max_length=100, blank=False, null=False)
     apellido = models.CharField(max_length=100, blank=False, null=False)
-    nacimiento = models.DateField(blank=True, null=False)
+    nacimiento = models.DateField(blank=False, null=False)
     muerte = models.DateField('Fallecimiento', null=True, blank=True)
 
     def __str__(self):

@@ -1,0 +1,120 @@
+{% extends 'index.html' %}
+{% block titulo%}Libro - {{libro.titulo}} {% endblock titulo %}
+{% load static %}
+
+{% block dependencias_individuales %} 
+<link rel="stylesheet" type="text/css" href="{% static 'Css/PagLibro/General.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Css/PagLibro/datosLibro.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Css/PagLibro/librosRecomendados.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Css/PagLibro/starRating.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Css/PagLibro/books_carousels.css' %}">
+
+<!-- Include Multislider -->
+<script src="{% static 'JQuery Library/multislider.js' %}"></script>
+{% endblock dependencias_individuales %} 
+
+{% block Pagina %}
+<div id="divBackground">
+        <div id="divContenedor">
+            <div class="row">
+                <div class="contenedorImg col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <img src='{{libro.portada.url}}' alt="Portada de libro" id="Portada">
+                </div>
+
+                <div class="contenedorDatos col-xs-12 col-sm-5 col-md-7 col-lg-6">
+                    <h1 id="tituloLibro">{{libro.titulo}}</h1>
+                    <div id="infoLibro">
+                        <!--Autor-->
+                        <b>Autor: </b>
+                        <span id="autor" class="datos">
+                            {% for autor in autores %}
+                                {{autor.apellido}} {{autor.primer_nombre}},
+                            {% endfor %}
+                        </span>
+                        <br><br>
+                        <!--Páginas-->
+                        <b>Páginas: </b>
+                        <span id="paginas" class="datos">{{libro.paginas}}</span>
+                        <br><br>
+                        <!--Editorial-->
+                        <b>Editorial: </b>
+                        <span id="editorial" class="datos">{{editorial.nombre}}</span>
+                        <br><br>
+                        <!--ISBN-->
+                        <b>ISBN: </b>
+                        <span id="isbn" class="datos">{{libro.isbn}}</span>
+                        <br><br>
+                        <!--Disponibilidad-->
+                        <b>Disponibilidad: </b>
+                        <span id="disponibilidad" class="datos">No Disponible</span>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-3">
+                    <div class="bookmark-inside">                        
+                        <div class="bookmark-param">
+                            <h2>{{libro.estrellas}}</h2>
+                            <div class="rankeo">
+                                <div class="stars-outer">
+                                    <div class="stars-inner"></div>
+                                </div>
+                            </div>                            
+                        </div>    
+                        <img src="{% static 'Img/bookmark-strips.png' %}" alt="" 
+                             class="bookmark-background col-xs-12">
+                    </div>
+
+                    <div class="rating-block">    
+                        <div class="rating-box">
+                            <h2>{{libro.estrellas}}</h2>
+                            <div class="rankeo">
+                                <div class="stars-outer">
+                                    <div class="stars-inner"></div>
+                                </div>
+                            </div>                                                   
+                        </div>
+                    </div>
+                    <script>
+                        let valor;                            
+                        let starPercentage; 
+                        let starPercentageRounded;
+                        mostrarEstrellas();
+                        function mostrarEstrellas(){
+                            valor=parseFloat("{{libro.estrellas}}");                            
+                            starPercentage = (valor / 5) * 100; 
+                            starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                            console.log(starPercentageRounded);                            
+                            document.querySelector(`.rankeo .stars-inner`).style.width = starPercentageRounded; 
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <div class="row">
+                
+                <ul class="col-md-3 tabs">
+                    
+                    <li class="pestania" tabindex="0" onclick="Descripcion()">Resumen</li>
+                    <li class="pestania" tabindex="0" onclick="Autores()">Autores</li>
+                </ul>
+                <div class="col-md-9 descripcionLibro">
+                    <p>{{libro.resumen}}</p>
+                </div>
+                <div class="col-md-9 descripcionAutores">
+                    <p>
+                        {% for autor in autores %}
+                        <b>{{autor.primer_nombre}} {{autor.apellido}}</b>                        
+                        <p>{{autor.descripcion}}</p>
+                        <br>
+                        {% endfor %}
+                    </p>
+                </div>
+                <script src="{% static 'Js/scriptLibros.js' %}"></script>
+            </div>
+            <br>                         
+        </div>
+        <br>
+    </div>
+{% endblock Pagina %}

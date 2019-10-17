@@ -24,7 +24,7 @@ def crearAutor(request):
             return redirect('index')       
     else:
         autor_form=AutorForm()
-    return render(request,'Biblioteca/crear_autor.html')
+    return render(request,'Biblioteca/crear_autor.html',{'autor_form':autor_form})
 
 def cargarLibro(request):
     print(request.GET)
@@ -37,4 +37,7 @@ def galeria(request):
 def perfil(request):    
     current_user=request.user 
     return render(request,'Accounts/perfil.html',{'user':current_user})
+
+def libro(request): 
+    return render(request,'Biblioteca/Libro.html',{})
 
