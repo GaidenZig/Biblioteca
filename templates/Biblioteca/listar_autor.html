@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lista de autores</title>
+</head>
+<body>
+ 
+ {% if autores  %}
+    <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>NACIMIENTO</th>
+                    <th>MUERTE</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for autor in autores %}
+                    </tr>
+                        <td>{{ autor.id }}</td>
+                        <td>{{ autor.primer_nombre }}</td>
+                        <td>{{ autor.apellido }}</td>
+                        <td>{{ autor.nacimiento }}</td>
+                        <td>{{ autor.fallecimiento }}</td>
+                     </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+ {% else %}
+    <h1>NO HAY AUTORES REGISTRADOS</h1>
+ {% endif %}
+</body>
+</html>

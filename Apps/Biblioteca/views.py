@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from Apps.usuarios.models import MyUser
-from .models import Genero, Libro
+from .models import Genero, Libro,Autor
 
 # Create your views here.
 def Home(request):    
@@ -25,6 +25,10 @@ def crearAutor(request):
     else:
         autor_form=AutorForm()
     return render(request,'Biblioteca/crear_autor.html',{'autor_form':autor_form})
+
+def listarAutor(request):
+    autores=Autor.objects.all()
+    return render(request,'Biblioteca/listar_autor.html',{'autores':autores})
 
 def cargarLibro(request):
     print(request.GET)

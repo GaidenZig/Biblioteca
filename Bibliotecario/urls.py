@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Apps.Biblioteca.views import Home ,galeria,perfil,libro,crearAutor
+from Apps.Biblioteca.views import Home ,galeria,perfil,libro,crearAutor,listarAutor
 from Apps.usuarios.views import register, Login_view, logout_view 
 from . import settings
 from django.contrib.staticfiles.urls import static
@@ -32,6 +32,7 @@ urlpatterns = [
     path('perfil/',perfil, name='perfil'),
     path('libro/',libro, name='libro'),
     path('crearAutor/',crearAutor, name='crearAutor'),
+    path('listar_autor/', listarAutor,name='listar_autor'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
