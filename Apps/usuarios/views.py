@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login,get_user_model,logout
-from .forms import UserCreationForm,UserLoginForm
+from django.views.generic import CreateView,ListView
+from .forms import UserCreationForm,UserLoginForm,LibroForm
+from Apps.Biblioteca.models import Autor,Libro
 
 # Create your views here.
 
@@ -31,6 +33,20 @@ def Login_view(request, *args, **kwargs):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect("/")
+
+#Mantenedores de admin
+def baseAdmin(request):
+    return render(request,'Accounts/Admin/adminBase.html')
+
+#(Mantenedores) Libros
+class ListadoLibros(ListView):
+    model=Libro
+    template_name= ''
+
+class CrearLibro(CreateView):  
+    model:Libro
+    form_class:LibroForm
+
 
 
 

@@ -137,9 +137,9 @@
                             {% for t in top %}
                                 <div class="item">
                                     <div class="imagen">                                        
-                                        <a id="send" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
+                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
                                         <img src="{{t.portada.url}}" alt="Portada de libro" 
-                                        onclick="sendBook()">
+                                        onclick="sendBook('{{t.id}}')">
                                     </div>
                                     <div class="datos">
                                         <div class="rankeo {{t.id}}">
@@ -471,8 +471,9 @@
             <script src="{% static 'Js/Parallax.js' %}"></script>
             <!--Enviado libros-->
             <script> 
-                function sendBook(){
-                    document.getElementById('send').click();
+                function sendBook(id){
+                    let identificador="img"+id;
+                    document.getElementById(identificador).click();
                 }
             </script>
 

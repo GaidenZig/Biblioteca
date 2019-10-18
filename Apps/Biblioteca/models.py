@@ -32,7 +32,7 @@ class Libro(models.Model):
     isbn=models.CharField('ISBN', max_length=13, help_text='13 Caracteres <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
     genero = models.ManyToManyField(Genero, help_text="Seleccione un genero")
     fech_salida=models.DateField('Fecha de publicación', null=True, blank=True)
-    estrellas=models.FloatField()
+    estrellas=models.FloatField(default=0)
     paginas=models.IntegerField(null=True, blank=True)
 
     def __str__(self):
