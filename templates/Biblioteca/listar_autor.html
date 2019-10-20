@@ -17,6 +17,7 @@
                     <th>APELLIDO</th>
                     <th>NACIMIENTO</th>
                     <th>MUERTE</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +27,9 @@
                         <td>{{ autor.primer_nombre }}</td>
                         <td>{{ autor.apellido }}</td>
                         <td>{{ autor.nacimiento }}</td>
-                        <td>{{ autor.fallecimiento }}</td>
+                        <td>{{ autor.muerte }}</td>
+                        <td><a href="{% url 'Biblioteca:editar_autor' autor.id %}">Editar</a></td>
+                        <td><a href="{% url 'Biblioteca:eliminar_autor' autor.id %}">Eliminar</a></td>
                      </tr>
                 {% endfor %}
             </tbody>
