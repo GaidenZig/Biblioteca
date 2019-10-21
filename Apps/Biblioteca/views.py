@@ -3,7 +3,7 @@ from .forms import AutorForm
 from django.template import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
-from sjango.core.paginator import Paginator
+from django.core.paginator import Paginator
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -19,6 +19,9 @@ def Home(request):
     top_libros=Libro.objects.filter(puntuacion__gt=4)
     if queryset:
         libros=Libro.objects.filter(Q(titulo__icontains=queryset))
+        paginator=Paginator(libros,1)
+        page=request.GET.get('page')
+        libros=paginator.get_page('page')
         return render(request,'Biblioteca/galeria.html',{'libros':libros})
     return render(request,'index.html',{'user':current_user,'top':top_libros})
 
@@ -67,7 +70,9 @@ def galeria(request):
     libros=Libro.objects.all() 
     if queryset:
         libros=Libro.objects.filter(Q(titulo__icontains=queryset))
-    paginate_by=3
+    paginator=Paginator(libros,4)
+    page=request.GET.get('page')
+    libros=paginator.get_page(page)
     return render(request,'Biblioteca/galeria.html',{'libros':libros})
 
 def perfil(request):    

@@ -1,15 +1,15 @@
 {% extends 'index.html' %}
 {% load static %}
     <title>{% block titulo %}Galeria{% endblock titulo %}</title>
-
+    
     <!--En este bloque irían todas las dependecias específicas de cada pagina que herede de index-->
     {% block dependencias_individuales %} 
+    
           <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}">
         <link rel="stylesheet" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}">
         <link rel="stylesheet" href="{% static 'Css/PagPrincipal/books_carousels.css' %}">
        <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/General.Css' %}" />       
-      
-   {% endblock dependencias_individuales %}
+      {% endblock dependencias_individuales %}
 
 
     {% block Pagina %}
@@ -42,7 +42,7 @@
                     </div>
                  {% endfor %}                                                       
             </div>
-          
+         
             <!--Parallax-->
             <script src="{% static 'Js/Parallax.js' %}"></script>
 
@@ -55,17 +55,31 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="row around-xs around-sm around-md around-lg">
+                    
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                        {% if libros.has_previous %}
+                           <a href="?page={{ libros.previous_page_number }}" class="btn_next_prev">Anterior</a>
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        {% if libros.has_next %}
+                        <a href="?page={{ libros.next_page_number }}" class="btn_next_prev">Siguiente</a>
+                                            
+                    {% endif %}
+                    </div> 
+                </div>
+         
+                <div id="bajo_navegador" class="row separador">
+                        <div class="col-xs-4 col-xs-offset-4">
+                            <div id="Separador">
+                              
+                            </div>
+                        </div>
+                    </div>
         </div>
 
-           <div id="bajo_navegador" class="row separador">
-                <div class="col-xs-4 col-xs-offset-4">
-                    <div id="Separador">
-                      
-                    </div>
-                </div>
-            </div>
-
+       
 
     {% endblock Pagina %}
 
