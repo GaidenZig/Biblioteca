@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Apps.Biblioteca.views import Home ,galeria,perfil,libro,crearAutor,listarAutor
-from Apps.usuarios.views import register, Login_view, logout_view 
+from Apps.Biblioteca.views import Home ,adminBase,galeria,perfil,libro,crearAutor,crearGenero,listarGenero,listarAutor,listarAutor
+from Apps.usuarios.views import register, Login_view, logout_view ,crearUsuarior,listarUsuario
 from . import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -24,6 +24,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Biblioteca/', include(('Apps.Biblioteca.urls','Biblioteca'))),
+    path('usuarios/', include(('Apps.usuarios.urls','usuarios'))),
     path('', Home, name='index'),   
     path('register/',register, name='registro'),
     path('login/',Login_view, name='login'),
@@ -31,8 +32,15 @@ urlpatterns = [
     path('galeria/',galeria, name='galeria'),
     path('perfil/',perfil, name='perfil'),
     path('libro/',libro, name='libro'),
-    path('crearAutor/',crearAutor, name='crearAutor'),
+
+    #paginas_de_administrador
+    path('adminBase/',adminBase ,name='adminBase'),
+    path('listar_usuarios/', listarUsuario,name='listar_usuarios'),
+    path('crear_autor/', crearAutor,name='crear_autor'),
+    path('crear_genero/', crearGenero,name='crear_genero'),
+    path('crear_usuario/', crearUsuarior,name='crear_usuario'),
     path('listar_autor/', listarAutor,name='listar_autor'),
+    path('listar_genero/', listarGenero,name='listar_genero'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

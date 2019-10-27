@@ -1,10 +1,9 @@
 from django.urls import path
-from .views import crearAutor,cargarLibro,listarAutor,editarAutor,eliminarAutor
+from .views import crearAutor,cargarLibro,listarAutor,editarGenero,eliminarGenero,editarAutor,eliminarAutor,adminBase
 
 urlpatterns=[
-    path('crear_autor/', crearAutor,name='crear_autor'),
-    path('listar_autor/', listarAutor,name='listar_autor'),
-    path('Libro/',cargarLibro,name='libro'),
     path('editar_autor/<int:id>/', editarAutor,name='editar_autor'),
     path('eliminar_autor/<int:id>/', eliminarAutor,name='eliminar_autor'),
+    path('editar_genero/<int:id>/', editarGenero,name='editar_genero'),
+    path('eliminar_genero/<int:id>/', eliminarGenero,name='eliminar_genero'),
 ]

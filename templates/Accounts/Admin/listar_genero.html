@@ -1,0 +1,39 @@
+{% extends 'Accounts/Admin/adminBase.html' %}
+{% block titulo %}
+    Listar autores
+{% endblock titulo %}
+
+{% load static %}
+{% block principal %} 
+ {% if genero  %}
+
+ <div class="card-header">
+    <strong class="card-title">Listado de Generos</strong>
+</div>
+<div class="table-responsive">
+    <table  class="table table-striped table-bordered table-hover " cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>ACTIVO</th>
+                    <th>OPCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for gene in genero %}
+                    </tr>
+                        <td>{{ gene.id }}</td>
+                        <td>{{ gene.nombre }}</td>
+                        <td>{{ gene.activo }}</td>
+                        <td><a href="{% url 'Biblioteca:editar_genero' gene.id %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'Biblioteca:eliminar_genero' gene.id %}" class="btn btn-danger">Eliminar</a></td>
+                     </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</div>
+ {% else %}
+    <h1>NO HAY GENEROS REGISTRADOS</h1>
+ {% endif %}
+ {% endblock principal %}

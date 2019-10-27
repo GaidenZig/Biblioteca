@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login,get_user_model,logout
-from .forms import UserCreationForm,UserLoginForm
+from .forms import UserCreationForm,UserLoginForm,userForm
+from django.core.exceptions import ObjectDoesNotExist
+from .models import MyUser
 
 
 # Create your views here.
@@ -29,8 +31,45 @@ def Login_view(request, *args, **kwargs):
         return HttpResponseRedirect("/")
     return render(request,'Accounts/login.html',{"form":form})
 
+def crearUsuarior(request):
+    if request.method == 'POST':
+        print(request.POST)
+        user_form = userForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('index')       
+    else:
+        user_form=userForm()
+    return render(request,'Accounts/Admin/crear_usuario.html',{'user_form':user_form})
+
+def listarUsuario(request):
+    usuarios=MyUser.objects.all()
+    return render(request,'Accounts/Admin/listar_usuarios.html',{'usuarios':usuarios})
+
+def editarUsuario(request,id):
+    user_form=None
+    error=None
+    try:
+        user=MyUser.objects.get(id = id)
+        if request.method =='GET':
+            user_form=userForm(instance = user)
+        else:
+            user_form=userForm(request.POST,instance=user)
+            if user_form.is_valid():
+                user_form.save()
+            return redirect('listar_usuarios')
+    except ObjectDoesNotExist as e:
+        error=e   
+    return render(request,'Accounts/Admin/editar_usuarios.html',{'user_form':user_form,'error':error})
+
+def eliminarUsuario(request,id):
+    user=MyUser.objects.get(id=id)
+    user.delete()
+    return redirect('listar_usuarios')
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect("/")
+
 
 

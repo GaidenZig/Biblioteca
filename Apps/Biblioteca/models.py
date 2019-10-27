@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models 
 from Apps.usuarios.models import MyUser
 
 # Create your models here.
@@ -13,6 +13,7 @@ class Autor(models.Model):
         return '%s, %s' % (self.apellido, self.primer_nombre)
 
 class Genero(models.Model):
+    id= models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, help_text="Ingrese el nombre del género (p. ej. Ciencia Ficción, Poesía Francesa etc.)")
     activo = models.BooleanField(default=False)
     
