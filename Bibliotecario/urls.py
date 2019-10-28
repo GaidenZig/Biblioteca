@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Apps.Biblioteca.views import Home ,adminBase,galeria,perfil,libro,crearAutor,crearGenero,listarGenero,listarAutor,listarAutor
+from Apps.Biblioteca.views import Home ,adminBase,galeria,loginAdmin,perfil,libro,crearAutor,crearGenero,listarGenero,listarAutor,listarAutor
 from Apps.usuarios.views import register, Login_view, logout_view ,crearUsuarior,listarUsuario
 from . import settings
 from django.contrib.staticfiles.urls import static
@@ -35,6 +35,7 @@ urlpatterns = [
 
     #paginas_de_administrador
     path('adminBase/',adminBase ,name='adminBase'),
+    path('loginAdmin/',loginAdmin ,name='loginAdmin'),
     path('listar_usuarios/', listarUsuario,name='listar_usuarios'),
     path('crear_autor/', crearAutor,name='crear_autor'),
     path('crear_genero/', crearGenero,name='crear_genero'),

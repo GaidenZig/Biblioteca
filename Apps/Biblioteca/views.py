@@ -4,7 +4,8 @@ from django.template import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.core.paginator import Paginator
-
+from django.http import HttpResponseRedirect
+from Apps.usuarios.forms import UserLoginForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
@@ -48,6 +49,15 @@ def libro(request):
 def adminBase(request):    
     current_user=request.user   
     return render(request,'Accounts/Admin/adminBase.html',{'user':current_user})
+
+def loginAdmin(request, *args, **kwargs):    
+    form= UserLoginForm(request.POST or None)
+    if form.is_valid():
+        user_obj = form.cleaned_data.get('user_obj')
+        login(request,user_obj)        
+        return render(request,'Accounts/Admin/adminBase.html')
+    return render(request,'Accounts/Admin/loginAdmin.html',{"form":form})
+
 
 # CRUD  de autor
 

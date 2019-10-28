@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{% static 'Css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'JQuery Library/jquery-3.2.0.min.js' %}"></script>
+    <script src="{% static 'JQuery Library/bootstrap.js' %}"></script>
+    <title>Login Administrativo</title>
+</head>
+<body>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 order-2 order-md-1">
+            <h4 class="mb-3">Bienvenido</h4>
+            <hr class="mb-4">
+            <form action="" method="post">{% csrf_token %}
+                <div class="mb-3">
+                    <label for="username"><b>Usuario</b></label>
+                    <input type="text" class="form-control" placeholder="" name="query">
+                </div>
+    
+                <div class="mb-3">
+                    <label for="password"><b>Contraseña</b></label>
+                    <input type="password" class="form-control" placeholder="" name="password">
+                </div>
+                <br>
+                <input type="submit" value="Entrar" class="btn btn-block btn-lg btn-danger">
+    
+                <br>
+            </form>
+        </div>
+    
+    </div>
+    
+</body>
+</html>
