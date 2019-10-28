@@ -1,0 +1,59 @@
+*{
+    padding: 0;
+    margin: 0; 
+}
+html{
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+body{
+    height: 100%;
+    width: 100%;
+    padding: inherit;
+    margin: inherit;
+    background-color: rgb(243, 243, 243);
+}
+hr{
+    display: none;
+}
+#Contenedor{
+    height: 100%;    
+    background-color: rgb(255, 255, 255);
+}
+#navegador{    
+}
+#divMenu{
+}
+#divContenido{
+}
+#bottom{
+    display: flexbox;
+    align-content: flex-end;
+}
+
+/*mediaQuerys configuraciones*/
+
+/*xs----Extra small*/
+@media screen and (min-width:320px){
+}
+/*sm----small (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    hr{
+        display:block;
+        border: none;
+        border-left: 1px solid rgba(51, 51, 51, 0.842);
+        height: 95vh;
+        width: 1px;
+    }
+}
+/*md----medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { 
+}
+/*lg----large devices (desktops, 992px and up)*/
+@media (min-width: 992px) { }
+/*xl----Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) { 
+
+}

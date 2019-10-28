@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/navigation_bar_style.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/buscador.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'Css/footer.css' %}"/>
+    <link rel="stylesheet" href="{% static 'Css/PagPrincipal/adminConfig.css' %}">
 
     <!-- Include jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -85,6 +86,14 @@
         </div>
     </div>
     <!--Barra de navegacion-->
+    {% block adminConfig %}
+        {% if user.is_superuser is True %}
+            <div class="adminConfg">
+                <a href="{% url 'Mantes:administracion' %}"><img src="{% static 'Img/adminConfig.png' %}" alt=""> </a>                           
+                <div class="adminConfigCosmetic"></div> 
+            </div>                       
+        {% endif %}
+    {% endblock adminConfig %}
 
     <!--En este bloque iría todo el contenido de la pagina actual que herede de index-->
     {% block Pagina %}

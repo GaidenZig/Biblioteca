@@ -1,0 +1,28 @@
+.adminConfg{
+    position:fixed;
+    width: 60px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.986);
+    bottom: 30%;
+    align-items: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 1px 1px 4px 2px rgba(87, 87, 87, 0.726);
+    z-index: 10;
+    right: 0;
+}
+.adminConfigCosmetic{
+    height: 60px;
+    width: 3px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    background: rgba(255, 255, 255, 0.986);
+    position: fixed;
+    right: 0;
+    bottom: 28.5%;
+    box-shadow: 1px 0px 4px 2px rgba(87, 87, 87, 0.726);
+}
+.adminConfg img{
+    width: 100%;
+    height: 100%;    
+}
