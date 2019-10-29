@@ -41,4 +41,20 @@ h2{
     }
 }
 
+.marco{
+    margin-top: 50px;
+    height: 380px;
+    width: 240px;
+    background: #ffffff;
+}
 
+.btn_next_prev{
+    display: block;
+    padding: 13px 13px;
+    text-decoration: none;
+    color: #ffffff;
+    background: firebrick;
+    width: 70px;
+    text-align: center;
+    border-radius: 25px;
+}

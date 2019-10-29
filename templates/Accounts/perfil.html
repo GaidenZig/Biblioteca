@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{% load static %}
+    <title>{% block titulo %}Perfil{% endblock titulo %}</title>
+
+    <!--En este bloque irían todas las dependecias específicas de cada pagina que herede de index-->
+    {% block dependencias_individuales %} 
+ <link href="{% static 'Css/pagPerfil/general.css' %}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/General.Css' %}" />       
+    <link href="{% static 'Css/pagPerfil/bootstrap.min.css' %}" rel="stylesheet">
+   {% endblock dependencias_individuales %}
+
+
+ {% block Pagina %}
+        {% if user.is_authenticated %}
+                   <div class="row color">
+                    <div class="col-md-12 col-sm-12 col-xs-12 image-section">
+                        <img src="{% static 'Img/Libreria1.jpg' %}">
+                    </div>
+                    <div class="row user-left-part">
+                        <div class="col-md-5 col-sm-5 col-xs-12 user-profil-part pull-left">
+                            <div class="row ">
+                                <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+                                    <img src="{{user.img_perfil.url}}" class="rounded-circle">
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-7 col-xs-12 pull-right profile-right-section">
+                            <div class="row profile-right-section-row">
+                                <div class="col-md-12 profile-header">
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-8 col-xs-6 profile-header-section1 pull-left">
+                                            <h1><span >{{user.username}}</span></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                       
+                                            <div id="profile">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Email</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h1><span >{{user.Email}}</span></h1>
+                                                    </div>
+                                                        </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>ID</label>
+                                                         </div>
+                                                        <div class="col-md-6">
+                                                          <span >{{user.id}}</span>
+                                                        </div>
+                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Descripcion</label>
+                                                        </div>
+                                                       <div class="col-md-6">
+                                                           <span >{{user.Descripcion}}</span>
+                                                        </div>
+                                                    </div>         
+                                             </div>
+                                
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {% else %}
+                        <h1>ERROR 404</h1>
+                    {% endif %}
+    
+               
+
+ 
+
+
+            <!--Parallax-->
+            <script src="{% static 'Js/Parallax.js' %}"></script>
+
+        
+    {% endblock Pagina %}

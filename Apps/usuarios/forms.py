@@ -6,6 +6,24 @@ from Apps.Biblioteca.models import Libro
 
 User = get_user_model()
 
+class userForm(forms.ModelForm):
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+
+    def clean_password(self):
+        password1 = self.cleaned_data.get('password1')
+        return password1
+
+    def save(self, commit=True):
+        user=super(userForm, self).save(commit=False)
+        user.set_password(self.cleaned_data['password1'])
+        if commit:
+            user.save()
+        return user
+
+    class Meta:
+        model = User
+        fields=['id','username','password1', 'email','is_superuser','is_staff','img_perfil','activo','descripcion']
+
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
@@ -52,77 +70,3 @@ class UserLoginForm(forms.Form):
         self.cleaned_data["user_obj"]=user_obj
 
         return super(UserLoginForm, self).clean(*args, **kwargs)
-
-#Mantenedores de admin
-class LibroForm(forms.ModelForm):
-    class Meta:
-        model=Libro
-        fields=['titulo','portada','resumen','editorial','autor','isbn','genero','fech_salida','estrellas','paginas']
-        label={
-            'titulo':'Titulo del libro',
-            'portada':'Imagen de portada',
-            'resumen':'Descripcion breve del libro',
-            'editorial':'Editorial del libro',
-            'autor':'el autor',
-            'isbn':'numero identificador unico del libro de 13 digitos',
-            'genero':'generos del libro',
-            'fech_salida':'fecha de publicacion del libro',
-            'estrellas':'puntuacion(por defecto es 0)',
-            'paginas':'numero de paginas del libro'
-        }
-        widgets={
-            'titulo': forms.TextInput(
-                attrs={
-                    'class':'libro-control',
-                    'placeholder':'Ingrese titulo del libro'
-                }
-            ),
-            'portada':forms.FileInput(
-                attrs={
-                    'class':'libro-control',
-                    'accept':'image/'
-                }
-            ),
-            'resumen':forms.TextInput(
-                attrs={
-                    'class':'libro-control',
-                    'placeholder':'Una breve descripcion del libro'
-                }
-            ),
-            'editorial':forms.Select(
-                attrs={
-                    'class':'libro-control'                    
-                }
-            ),
-            'autor':forms.SelectMultiple(
-                attrs={
-                    'class':'libro-control'                    
-                }
-            ),
-            'isbn':forms.TextInput(
-                attrs={
-                    'class':'libro-control',
-                    'placeholder':'Isbn del libro (13 dígitos)'
-                }
-            ),
-            'genero':forms.SelectMultiple(
-                attrs={
-                    'class':'libro-control'                    
-                }
-            ),
-            'fech_salida':forms.SelectDateWidget(
-                attrs={
-                    'class':'libro-control-date'                    
-                }
-            ),
-            'estrellas':forms.NumberInput(
-                attrs={
-                    'class':'libro-control'
-                }
-            ),
-            'paginas':forms.NumberInput(
-                attrs={
-                    'class':'libro-control'
-                }
-            )
-        }

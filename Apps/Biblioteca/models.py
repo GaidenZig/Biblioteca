@@ -6,7 +6,7 @@ class Autor(models.Model):
     id= models.AutoField(primary_key=True)
     primer_nombre = models.CharField(max_length=100, blank=False, null=False)
     apellido = models.CharField(max_length=100, blank=False, null=False)
-    nacimiento = models.DateField(blank=True, null=False)
+    nacimiento = models.DateField(blank=False, null=False)
     muerte = models.DateField('Fallecimiento', null=True, blank=True)
     descripcion= models.TextField(null=True, blank=True, max_length=2000, help_text="bibliografía corta del autor")
 
@@ -14,6 +14,7 @@ class Autor(models.Model):
         return '%s, %s' % (self.apellido, self.primer_nombre)
 
 class Genero(models.Model):
+    id= models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, help_text="Ingrese el nombre del género (p. ej. Ciencia Ficción, Poesía Francesa etc.)")
     activo = models.BooleanField(default=False)
     

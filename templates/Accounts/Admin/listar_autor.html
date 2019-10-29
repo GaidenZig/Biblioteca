@@ -1,0 +1,39 @@
+{% extends 'Accounts/Admin/adminBase.html' %}
+{% block titulo %}
+    Listar autores
+{% endblock titulo %}
+
+{% load static %}
+{% block principal %} 
+ {% if autores  %}
+ <div class="table-responsive">
+    <table  class="table table-striped table-bordered table-hover " cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>NACIMIENTO</th>
+                    <th>MUERTE</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for autor in autores %}
+                    </tr>
+                        <td>{{ autor.id }}</td>
+                        <td>{{ autor.primer_nombre }}</td>
+                        <td>{{ autor.apellido }}</td>
+                        <td>{{ autor.nacimiento }}</td>
+                        <td>{{ autor.muerte }}</td>
+                        <td><a href="{% url 'Biblioteca:editar_autor' autor.id %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'Biblioteca:eliminar_autor' autor.id %}" class="btn btn-danger">Eliminar</a></td>
+                     </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</div>
+ {% else %}
+    <h1>NO HAY AUTORES REGISTRADOS</h1>
+ {% endif %}
+ {% endblock principal %}

@@ -41,7 +41,7 @@
     <div class="row navBar">
         <div class="col-xs-12  col-sm-12 col-md-4 col-lg-3  center-sm center-xs">
             <h1 class="logo">
-                {% load static %}
+               
               <img src="{% static 'Img/LonelyBot.png' %}" alt="icono" class="icono"> 
                 Book's R
             </h1>
@@ -52,9 +52,9 @@
             <label id="img-menu" for="btn-menu"><i class="fas fa-hamburger"></i></label>            
             <nav class="menu">
                 <ul>
-                    <form id="form_buscador">
+                    <form method="get" id="form_buscador">
                         <fieldset id="fiel_buscador" class="row">
-                            <input id="input_buscador" class="col-xs-10" type="search" >
+                            <input id="input_buscador" class="col-xs-10" type="text" placeholder="Buscar" name="Buscar" value="{{request.GET.Buscar}}">
                             <button id="btn_buscador" class="col-xs-2" type="submit"><i class="fas fa-search"></i></button>
                         </fieldset>
                     </form>
@@ -64,16 +64,16 @@
                         seguido de dos puntos, ni idea de por qué .-. -->
                     <li><a href="{% url 'index' %}"> Home</a></li>
                     <li><a href="#">Favoritos</a></li>
-                    <li><a href="#">Galeria</a></li> 
+                    <li><a href="{% url 'galeria' %}">Galeria</a></li> 
                     <li>
-                    {% if user.is_active %}
+                    {% if user.is_authenticated %}
                         <div id="Login_menu">                          
                             <div class="Login_menu_grid">
                                 <img class="img_profile" src="{{user.img_perfil.url}}" alt="imagen de Perfil">
                                 <span class="name_profile" >{{user.username}}</span>
                             </div>                                                        
                             <ul class="Login_menu_content">
-                                <li><a href="">Perfil</a></li>
+                                <li><a href="{% url 'perfil'  %}">Perfil</a></li>
                                 <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
                             </ul>
                         </div>

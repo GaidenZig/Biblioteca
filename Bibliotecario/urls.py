@@ -15,18 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Apps.Biblioteca.views import Home
+from Apps.Biblioteca.views import Home ,galeria,perfil
 from Apps.usuarios.views import register, Login_view, logout_view
 from . import settings
 from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Biblioteca/', include('Apps.Biblioteca.urls','Biblio')),
-    path('Admin/',include('Apps.usuarios.urls','Mantes')),
+    path('Biblioteca/', include(('Apps.Biblioteca.urls','Biblio'))),
+    path('Admin/', include(('Apps.usuarios.urls','Mantes'))),
     path('', Home, name='index'),   
     path('register/',register, name='registro'),
     path('login/',Login_view, name='login'),
     path('logout/',logout_view, name='logout'),
+    path('galeria/',galeria, name='galeria'),
+    path('perfil/',perfil, name='perfil'),
 ]
+urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

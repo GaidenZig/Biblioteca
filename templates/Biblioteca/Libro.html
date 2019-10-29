@@ -81,7 +81,6 @@
                         let starPercentage; 
                         let starPercentageRounded;
                         mostrarEstrellas();
-
                         function mostrarEstrellas(){
                             valor=parseFloat("{{libro.estrellas}}");                            
                             starPercentage = (valor / 5) * 100; 
@@ -89,7 +88,6 @@
                             console.log(starPercentageRounded);                            
                             document.querySelector(`.rankeo .stars-inner`).style.width = starPercentageRounded; 
                         }
-
                     </script>
                 </div>
             </div>
