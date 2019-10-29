@@ -26,8 +26,8 @@
                         <td>{{ gene.id }}</td>
                         <td>{{ gene.nombre }}</td>
                         <td>{{ gene.activo }}</td>
-                        <td><a href="{% url 'Biblioteca:editar_genero' gene.id %}" class="btn btn-primary">Editar</a>
-                        <a href="{% url 'Biblioteca:eliminar_genero' gene.id %}" class="btn btn-danger">Eliminar</a></td>
+                        <td><a href="{% url 'Biblio:editar_genero' gene.id %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'Biblio:eliminar_genero' gene.id %}" class="btn btn-danger">Eliminar</a></td>
                      </tr>
                 {% endfor %}
             </tbody>

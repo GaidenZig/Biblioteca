@@ -3,7 +3,7 @@ from .views import crearAutor, editarAutor, eliminarAutor, listarAutor
 from .views import crearGenero, editarGenero, eliminarGenero, listarGenero
 from .views import cargarLibro
 
-app_name='Biblioteca'
+app_name='Biblio'
 urlpatterns=[
     path('Libro/<pk>',cargarLibro,name='libro'),
 

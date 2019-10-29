@@ -89,7 +89,7 @@
     {% block adminConfig %}
         {% if user.is_superuser is True %}
             <div class="adminConfg">
-                <a href="{% url 'Mantes:administracion' %}"><img src="{% static 'Img/adminConfig.png' %}" alt=""> </a>                           
+                <a href="{% url 'Mantenedores:administracion' %}"><img src="{% static 'Img/adminConfig.png' %}" alt=""> </a>                           
                 <div class="adminConfigCosmetic"></div> 
             </div>                       
         {% endif %}

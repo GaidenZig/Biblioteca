@@ -21,13 +21,16 @@ from Apps.usuarios.models import MyUser
 def Home(request):   
     queryset=request.GET.get("Buscar") 
     current_user=request.user   
-    top_libros=Libro.objects.filter(puntuacion__gt=4)
+    top_libros=Libro.objects.filter(estrellas__gt=4)
     if queryset:
         libros=Libro.objects.filter(Q(titulo__icontains=queryset))
         paginator=Paginator(libros,1)
         page=request.GET.get('page')
         libros=paginator.get_page('page')
+        print("paso el query set")
         return render(request,'Biblioteca/galeria.html',{'libros':libros})
+    
+    print(top_libros)
     return render(request,'index.html',{'user':current_user,'top':top_libros})
 
 def cargarLibro(request,pk):    
