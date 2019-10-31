@@ -1,11 +1,15 @@
 from django import forms
-from .models import Autor,Genero, Libro
+from .models import Autor,Genero, Libro,Editorial
 
 class AutorForm(forms.ModelForm):
     class Meta:
         model = Autor
         fields=['primer_nombre','apellido','nacimiento','muerte']
         
+class EditorialForm(forms.ModelForm):
+    class Meta:
+        model = Editorial
+        fields=['nombre']
 
 class GeneroForm(forms.ModelForm):
     class Meta:

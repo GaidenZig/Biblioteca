@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView,ListView
 
 from .models import Genero, Libro, Autor, Editorial
-from .forms import AutorForm, GeneroForm,LibroForm
+from .forms import AutorForm, GeneroForm,LibroForm,EditorialForm
 from Apps.usuarios.models import MyUser
 
 # Create your views here.
@@ -130,3 +130,42 @@ class ListadoLibros(ListView):
 class CrearLibro(CreateView):  
     model:Libro
     form_class:LibroForm
+
+
+#(Mantenedores) Editorial
+
+def crearEditorial(request):
+    if request.method == 'POST':
+        print(request.POST)
+        editorial_form = EditorialForm(request.POST)
+        if editorial_form.is_valid():
+            editorial_form.save()
+            return redirect('Biblio:listar_editorial')       
+    else:
+        editorial_form=EditorialForm()
+    return render(request,'Accounts/Admin/crear_editorial.html',{'editorial_form':editorial_form})
+
+def listarEditorial(request):
+    editorial=Editorial.objects.all()
+    return render(request,'Accounts/Admin/listar_editorial.html',{'editorial':editorial})
+
+def editarEditorial(request,id):
+    editorial_form=None
+    error=None
+    try:
+        editorial=Editorial.objects.get(id = id)
+        if request.method =='GET':
+            editorial_form=EditorialForm(instance = editorial)
+        else:
+            editorial_form=EditorialForm(request.POST,instance=editorial)
+            if editorial_form.is_valid():
+                editorial_form.save()
+            return redirect('Biblio:listar_editorial')
+    except ObjectDoesNotExist as e:
+        error=e   
+    return render(request,'Accounts/Admin/editar_editorial.html',{'editorial_form':editorial_form,'error':error})
+
+def eliminarEditorial(request,id):
+    editorial=Editorial.objects.get(id=id)
+    editorial.delete()
+    return redirect('Biblio:listar_editorial')

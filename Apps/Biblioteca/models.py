@@ -23,6 +23,8 @@ class Genero(models.Model):
 
 class Editorial(models.Model):
     nombre=models.CharField(unique=True,max_length=80)
+    def __str__(self):
+        return self.nombre
 
 class Libro(models.Model):
     titulo=models.CharField('Titulo', max_length=100)
