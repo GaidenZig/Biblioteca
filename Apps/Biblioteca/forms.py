@@ -31,56 +31,56 @@ class LibroForm(forms.ModelForm):
         widgets={
             'titulo': forms.TextInput(
                 attrs={
-                    'class':'libro-control',
+                    'class':'form-control',
                     'placeholder':'Ingrese titulo del libro'
                 }
             ),
             'portada':forms.FileInput(
                 attrs={
-                    'class':'libro-control',
+                    'class':'form-control',
                     'accept':'image/'
                 }
             ),
             'resumen':forms.TextInput(
                 attrs={
-                    'class':'libro-control',
+                    'class':'form-control',
                     'placeholder':'Una breve descripcion del libro'
                 }
             ),
             'editorial':forms.Select(
                 attrs={
-                    'class':'libro-control'                    
+                    'class':'form-control'                    
                 }
             ),
             'autor':forms.SelectMultiple(
                 attrs={
-                    'class':'libro-control'                    
+                    'class':'form-control'                    
                 }
             ),
             'isbn':forms.TextInput(
                 attrs={
-                    'class':'libro-control',
+                    'class':'form-control',
                     'placeholder':'Isbn del libro (13 dígitos)'
                 }
             ),
             'genero':forms.SelectMultiple(
                 attrs={
-                    'class':'libro-control'                    
+                    'class':'form-control'                    
                 }
             ),
             'fech_salida':forms.SelectDateWidget(
                 attrs={
-                    'class':'libro-control-date'                    
+                    'class':'form-control-date'                    
                 }
             ),
             'estrellas':forms.NumberInput(
                 attrs={
-                    'class':'libro-control'
+                    'class':'form-control'
                 }
             ),
             'paginas':forms.NumberInput(
                 attrs={
-                    'class':'libro-control'
+                    'class':'form-control'
                 }
             )
         }

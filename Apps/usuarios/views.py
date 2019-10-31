@@ -68,7 +68,7 @@ def editarUsuario(request,id):
             user_form=userForm(request.POST,instance=user)
             if user_form.is_valid():
                 user_form.save()
-            return redirect('listar_usuarios')
+            return redirect('Mantenedores:listar_usuarios')
     except ObjectDoesNotExist as e:
         error=e   
     return render(request,'Accounts/Admin/editar_usuarios.html',{'user_form':user_form,'error':error})
@@ -76,7 +76,7 @@ def editarUsuario(request,id):
 def eliminarUsuario(request,id):
     user=MyUser.objects.get(id=id)
     user.delete()
-    return redirect('listar_usuarios')
+    return redirect('Mantenedores:listar_usuarios')
 
 
 

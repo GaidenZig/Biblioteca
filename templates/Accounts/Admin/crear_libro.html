@@ -1,0 +1,18 @@
+{% extends 'Accounts/Admin/adminBase.html' %}
+{% block titulo %}
+    Crear libro
+{% endblock titulo %}
+{% load static %}
+{% block principal %} 
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xs-12 col-ms-11 col-lg-11">
+        <form method="POST" >
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Crear</button>
+        </form>
+    </div>
+    </div>
+</div>
+{% endblock principal %}
