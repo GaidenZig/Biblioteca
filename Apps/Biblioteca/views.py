@@ -19,19 +19,11 @@ from Apps.usuarios.models import MyUser
 
 # Create your views here.
 def Home(request):   
-    queryset=request.GET.get("Buscar") 
     current_user=request.user   
     top_libros=Libro.objects.filter(estrellas__gt=4)
-    if queryset:
-        libros=Libro.objects.filter(Q(titulo__icontains=queryset))
-        paginator=Paginator(libros,1)
-        page=request.GET.get('page')
-        libros=paginator.get_page('page')
-        print("paso el query set")
-        return render(request,'Biblioteca/galeria.html',{'libros':libros})
-    
     print(top_libros)
     return render(request,'index.html',{'user':current_user,'top':top_libros})
+
 
 def cargarLibro(request,pk):    
     libro=Libro.objects.get(id__exact=pk)
@@ -44,7 +36,7 @@ def galeria(request):
     libros=Libro.objects.all() 
     if queryset:
         libros=Libro.objects.filter(Q(titulo__icontains=queryset))
-    paginator=Paginator(libros,4)
+    paginator=Paginator(libros,1)
     page=request.GET.get('page')
     libros=paginator.get_page(page)
     return render(request,'Biblioteca/galeria.html',{'libros':libros})
@@ -61,7 +53,7 @@ def crearAutor(request):
         autor_form = AutorForm(request.POST)
         if autor_form.is_valid():
             autor_form.save()
-            return redirect('index')       
+            return redirect('Biblio:listar_autor')       
     else:
         autor_form=AutorForm()
     return render(request,'Accounts/Admin/crear_autor.html',{'autor_form':autor_form})
@@ -81,7 +73,7 @@ def editarAutor(request,id):
             autor_form=AutorForm(request.POST,instance=autor)
             if autor_form.is_valid():
                 autor_form.save()
-            return redirect('listar_autor')
+            return redirect('Biblio:listar_autor') 
     except ObjectDoesNotExist as e:
         error=e   
     return render(request,'Accounts/Admin/editar_autor.html',{'autor_form':autor_form,'error':error})
@@ -89,7 +81,7 @@ def editarAutor(request,id):
 def eliminarAutor(request,id):
     autor=Autor.objects.get(id=id)
     autor.delete()
-    return redirect('listar_autor')
+    return redirect('Biblio:listar_autor') 
    
 
 #(Mantenedores) Genero
@@ -100,7 +92,7 @@ def crearGenero(request):
         genero_form = GeneroForm(request.POST)
         if genero_form.is_valid():
             genero_form.save()
-            return redirect('listar_genero')       
+            return redirect('Biblio:listar_genero')       
     else:
         genero_form=GeneroForm()
     return render(request,'Accounts/Admin/crear_genero.html',{'genero_form':genero_form})
@@ -120,7 +112,7 @@ def editarGenero(request,id):
             genero_form=GeneroForm(request.POST,instance=genero)
             if genero_form.is_valid():
                 genero_form.save()
-            return redirect('listar_genero')
+            return redirect('Biblio:listar_genero')
     except ObjectDoesNotExist as e:
         error=e   
     return render(request,'Accounts/Admin/editar_genero.html',{'genero_form':genero_form,'error':error})
@@ -128,7 +120,7 @@ def editarGenero(request,id):
 def eliminarGenero(request,id):
     genero=Genero.objects.get(id=id)
     genero.delete()
-    return redirect('listar_genero')
+    return redirect('Biblio:listar_genero')
 
 #(Mantenedores) Libros
 class ListadoLibros(ListView):
