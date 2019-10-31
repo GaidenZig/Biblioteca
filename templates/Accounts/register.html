@@ -22,11 +22,11 @@
     <div id="Contenedor" class="basic">              
         {% block formulario %}
         <div class="Registro">
-            <div class="row">
-                <h1>Registro</h1>
-                <button class="back">
+            <div class="row">                
+                <h1 class="col-xs-6 col-sm-4 col-md-3">Registro</h1>
+                <a class="col-xs-1 back" href="{% url 'login' %}">                    
                     <i class="fas fa-chevron-circle-left"></i>
-                </button>
+                </a>
             </div>
             <form id="formReg" method="POST" action="{% url 'registro' %}">
                 {% csrf_token %}
