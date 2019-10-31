@@ -230,6 +230,7 @@
 }
 
 .imagen{
+  display:block;
   background-size:100%; 
   height: 60%; 
 }
@@ -259,6 +260,9 @@
   opacity: 0;
   font-size: 1.1rem;
 }
+.Htitulo{
+  display: none;
+}
 
 .imagen:hover .texto{
   opacity: 1;
@@ -277,6 +281,7 @@ font-size: 1rem;
 .btn_ver:hover{
   background: #830606;
 }
+
 /*estrellas*/
 .stars-outer {
   display: inline-block;
@@ -293,10 +298,7 @@ font-size: 1rem;
   position: absolute;
   top: 0;
   left: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 50%;
-  
+  overflow: hidden;  
 }
  
 .stars-inner::before{

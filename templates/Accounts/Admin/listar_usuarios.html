@@ -30,8 +30,8 @@
                         <td>{{ user.is_staff }}</td>
                         <td>{{ user.activo }}</td>
                         <td>{{ user.descripcion }}</td>
-                        <td><a href="{% url 'usuarios:editar_usuarios' user.id %}" class="btn btn-primary">Editar</a>
-                        <a href="{% url 'usuarios:eliminar_usuarios' user.id %}" class="btn btn-danger">Eliminar</a></td>
+                        <td><a href="{% url 'Mantenedores:editar_usuarios' user.id %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'Mantenedores:eliminar_usuarios' user.id %}" class="btn btn-danger">Eliminar</a></td>
                      </tr>
                 {% endfor %}
             </tbody>

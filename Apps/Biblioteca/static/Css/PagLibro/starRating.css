@@ -1,39 +1,103 @@
-.rating { 
-    border: none;
-    float: left;
-    margin-bottom: 10px;
+/*bookmark*/
+.bookmark-background{
+    min-height: 240px;
+    max-height: 458px;
 }
-.rating > input { 
-    display: none; 
-} 
-.rating > label:before { 
-    margin: 5px;
-    font-size: 1.25em;
-    font-family: FontAwesome;
-    display: inline-block;
-    content: '\f005';
+.bookmark-inside{
+    display: none;
+    position: relative;
+    height: 100%;
+    align-items: center;
 }
-.rating > .half:before { 
-    content: '\f089';
+.bookmark-param{
     position: absolute;
+    top: 11%;
+    left: 17%;
+    z-index:3;    
 }
-.rating > label { 
-    color: rgb(175, 174, 174); 
-   float: right; 
+.bookmark-param {
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
 }
 
-/*Interación*/
-.rating > input:checked ~ label, /* mostrar estrella dorada al clickear*/
-.rating:not(:checked) > label:hover, /* hover en la estrella actual */
-.rating:not(:checked) > label:hover ~ label { /* hover estrellas anteriores en la lista */ 
-    color: #FFD700;  
-} 
+/*estrellas estáticas*/
+.stars-outer {
+    display: flex;
+    position: relative;
+    font-family: FontAwesome; 
+    color: #000000;
+    font-size: 12px; 
+    margin:auto;
+}
+   
+.stars-outer::before {
+    content: "\f006 \f006 \f006 \f006 \f006";
+}
+   
+.stars-inner {
+    position: absolute;
+    top:0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 12px;       
+}
+   
+.stars-inner::before{
+    content: "\f005 \f005 \f005 \f005 \f005";
+    color: #ffd000;
+}
 
-.rating > input:checked + label:hover, /* hover strella actual cuando cambia el rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* iluminar la selección actual */
-.rating > input:checked ~ label:hover ~ label {
-     color: #FFED85;  
-} 
 
+/*mediaQuerys configuraciones*/
+
+/*xs----Extra small*/
+@media screen and (min-width:320px){
+}
+/*sm----small (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    .bookmark-inside{
+        display: block;
+    }
+    .rating-block{
+        display: none;
+    }
+}
+/*md----medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { 
+}
+/*lg----large devices (desktops, 992px and up)*/
+@media (min-width: 992px) { 
+    .bookmark-param{        
+        top: 15%;
+        left: 25%;    
+    }
+    .bookmark-param h2{ 
+        font-size:38px;
+        margin-bottom: 50px;
+    }
+    .stars-outer {
+        font-size: 18px;
+    }
+    .stars-inner{
+        font-size: 18px;
+    }
+}
+/*xl----Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) { 
+    .bookmark-param{        
+        top: 12%;
+        left: 14%;    
+    }
+    .bookmark-param h2{ 
+        font-size:45px;
+    }
+    
+    .stars-outer {
+        font-size: 24px;
+    }
+    .stars-inner{
+        font-size: 24px;
+    }
+}
   

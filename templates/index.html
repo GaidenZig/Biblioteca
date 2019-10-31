@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +10,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/navigation_bar_style.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/buscador.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'Css/footer.css' %}"/>
+    <link rel="stylesheet" href="{% static 'Css/PagPrincipal/adminConfig.css' %}">
 
     <!-- Include jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!--Include GoogleFonts-->
-    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet"/>
     <script src="https://kit.fontawesome.com/3f1a99f494.js"></script>
 
     <title>{% block titulo %}Home{% endblock titulo %}</title>
@@ -23,9 +24,9 @@
     <!--En este bloque irían todas las dependecias específicas de cada pagina que herede de index-->
     {% block dependencias_individuales %} 
         <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/General.Css' %}" />       
-        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}">
-        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}">
-        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/books_carousels.css' %}">
+        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}"/>
+        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}"/>
+        <link rel="stylesheet" href="{% static 'Css/PagPrincipal/books_carousels.css' %}"/>  
 
         <!-- Include Multislider -->
         <script src="{% static 'JQuery Library/multislider.js' %}"></script>
@@ -42,7 +43,7 @@
             <h1 class="logo">
                
               <img src="{% static 'Img/LonelyBot.png' %}" alt="icono" class="icono"> 
-                Book's Rg
+                Book's R
             </h1>
         </div>
 
@@ -51,7 +52,7 @@
             <label id="img-menu" for="btn-menu"><i class="fas fa-hamburger"></i></label>            
             <nav class="menu">
                 <ul>
-                    <form method="get" id="form_buscador">
+                    <form method="get" id="form_buscador" action="{% url 'galeria' %}"}>
                         <fieldset id="fiel_buscador" class="row">
                             <input id="input_buscador" class="col-xs-10" type="text" placeholder="Buscar" name="Buscar" value="{{request.GET.Buscar}}">
                             <button id="btn_buscador" class="col-xs-2" type="submit"><i class="fas fa-search"></i></button>
@@ -85,6 +86,14 @@
         </div>
     </div>
     <!--Barra de navegacion-->
+    {% block adminConfig %}
+        {% if user.is_superuser is True %}
+            <div class="adminConfg">
+                <a href="{% url 'Mantenedores:administracion' %}"><img src="{% static 'Img/adminConfig.png' %}" alt=""> </a>                           
+                <div class="adminConfigCosmetic"></div> 
+            </div>                       
+        {% endif %}
+    {% endblock adminConfig %}
 
     <!--En este bloque iría todo el contenido de la pagina actual que herede de index-->
     {% block Pagina %}
@@ -113,6 +122,15 @@
         <script src="{% static 'Js/slide_show.js' %}"></script>
 
         <div id="margin_contenido">
+            <!--Esta variables es para el uso de todos los slides-->
+            <script>                
+                let puntuaciones=new Map();
+                let puntuacion="";
+                let value=0;
+                let key="";
+                const stars=5; //total de estrellas en la puntuacion       
+            </script>
+
             <!--Separador 1-->
             <div id="bajo_navegador" class="row separador">
                 <div class="col-xs-4 col-xs-offset-4">
@@ -127,12 +145,13 @@
                         <div class='MS-content'>
                             {% for t in top %}
                                 <div class="item">
-                                    <div class="imagen">
+                                    <div class="imagen">                                        
+                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
                                         <img src="{{t.portada.url}}" alt="Portada de libro" 
-                                        onclick="sendBook('{{t.titulo}}')">
+                                        onclick="sendBook('{{t.id}}')">
                                     </div>
                                     <div class="datos">
-                                        <div class="rankeo">
+                                        <div class="rankeo {{t.id}}">
                                             <div class="stars-outer">
                                                 <div class="stars-inner"></div>
                                             </div>
@@ -142,8 +161,22 @@
                                         </div>                                                                               
                                     </div>                                    
                                 </div>
+                                <script type="text/javascript">                                                                    
+                                    puntuacion="{{t.estrellas}}";
+                                    value=parseFloat(puntuacion);
+                                    key="{{t.id}}";
+                                    puntuaciones.set(key,value);                                    
+                                </script>
                             {% endfor %}                                                       
                         </div>
+                            <script>                                
+                                for (const [key, value] of puntuaciones.entries()) {
+                                let starPercentage = (value / stars) * 100;                                  
+                                let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
+                                document.querySelector(`.${CSS.escape(key)} .stars-inner`).style.width = starPercentageRounded; 
+                                console.log(key,document.querySelector(`.${CSS.escape(key)}.stars-inner`)); 
+                                }
+                            </script>
                         <div class='MS-controls'>
                             <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
                             <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
@@ -446,7 +479,12 @@
             <!--Parallax-->
             <script src="{% static 'Js/Parallax.js' %}"></script>
             <!--Enviado libros-->
-            <script src="{% static 'Js/booksSlides.js' %}"></script>
+            <script> 
+                function sendBook(id){
+                    let identificador="img"+id;
+                    document.getElementById(identificador).click();
+                }
+            </script>
 
             <!--Separador final-->
             <div id="bajo_navegador" class="row separador">

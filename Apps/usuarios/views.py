@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login,get_user_model,logout
 from .forms import UserCreationForm,UserLoginForm,userForm
+from Apps.Biblioteca.models import Autor,Libro
 from django.core.exceptions import ObjectDoesNotExist
 from .models import MyUser
-
 
 # Create your views here.
 
@@ -31,13 +31,24 @@ def Login_view(request, *args, **kwargs):
         return HttpResponseRedirect("/")
     return render(request,'Accounts/login.html',{"form":form})
 
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect("/")
+
+#Mantenedores de admin
+def adminBase(request):    
+    current_user=request.user   
+    return render(request,'Accounts/Admin/adminBase.html',{'user':current_user})
+
+
+#(Mantenedores) Usuarios
 def crearUsuarior(request):
     if request.method == 'POST':
         print(request.POST)
         user_form = userForm(request.POST)
         if user_form.is_valid():
             user_form.save()
-            return redirect('index')       
+            return redirect('Mantenedores:listar_usuarios')    
     else:
         user_form=userForm()
     return render(request,'Accounts/Admin/crear_usuario.html',{'user_form':user_form})
@@ -57,7 +68,7 @@ def editarUsuario(request,id):
             user_form=userForm(request.POST,instance=user)
             if user_form.is_valid():
                 user_form.save()
-            return redirect('listar_usuarios')
+            return redirect('Mantenedores:listar_usuarios')
     except ObjectDoesNotExist as e:
         error=e   
     return render(request,'Accounts/Admin/editar_usuarios.html',{'user_form':user_form,'error':error})
@@ -65,11 +76,7 @@ def editarUsuario(request,id):
 def eliminarUsuario(request,id):
     user=MyUser.objects.get(id=id)
     user.delete()
-    return redirect('listar_usuarios')
-
-def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect("/")
+    return redirect('Mantenedores:listar_usuarios')
 
 
 

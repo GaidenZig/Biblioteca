@@ -2,6 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django import forms
+from Apps.Biblioteca.models import Libro
 
 User = get_user_model()
 
@@ -69,4 +70,3 @@ class UserLoginForm(forms.Form):
         self.cleaned_data["user_obj"]=user_obj
 
         return super(UserLoginForm, self).clean(*args, **kwargs)
-

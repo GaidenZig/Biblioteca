@@ -26,8 +26,8 @@
                         <td>{{ autor.apellido }}</td>
                         <td>{{ autor.nacimiento }}</td>
                         <td>{{ autor.muerte }}</td>
-                        <td><a href="{% url 'Biblioteca:editar_autor' autor.id %}" class="btn btn-primary">Editar</a>
-                        <a href="{% url 'Biblioteca:eliminar_autor' autor.id %}" class="btn btn-danger">Eliminar</a></td>
+                        <td><a href="{% url 'Biblio:editar_autor' autor.id %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'Biblio:eliminar_autor' autor.id %}" class="btn btn-danger">Eliminar</a></td>
                      </tr>
                 {% endfor %}
             </tbody>

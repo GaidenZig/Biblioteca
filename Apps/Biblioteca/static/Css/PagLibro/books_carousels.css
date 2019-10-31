@@ -398,30 +398,4 @@ font-size: 1rem;
 .btn_ver:hover{
   background: #830606;
 }
-/*estrellas*/
-.stars-outer {
-  display: inline-block;
-  position: relative;
-  font-family: FontAwesome; 
-  color: #000000;   
-}
- 
-.stars-outer::before {
-  content: "\f006 \f006 \f006 \f006 \f006";
-}
- 
-.stars-inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 50%;
-  
-}
- 
-.stars-inner::before{
-  content: "\f005 \f005 \f005 \f005 \f005";
-  color: #ffd000;
-}
 
