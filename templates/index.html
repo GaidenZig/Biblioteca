@@ -52,7 +52,7 @@
             <label id="img-menu" for="btn-menu"><i class="fas fa-hamburger"></i></label>            
             <nav class="menu">
                 <ul>
-                    <form method="get" id="form_buscador">
+                    <form method="get" id="form_buscador" action="{% url 'galeria' %}"}>
                         <fieldset id="fiel_buscador" class="row">
                             <input id="input_buscador" class="col-xs-10" type="text" placeholder="Buscar" name="Buscar" value="{{request.GET.Buscar}}">
                             <button id="btn_buscador" class="col-xs-2" type="submit"><i class="fas fa-search"></i></button>

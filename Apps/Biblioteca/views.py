@@ -12,7 +12,7 @@ from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 
 from .models import Genero, Libro, Autor, Editorial
-from .forms import AutorForm, GeneroForm,LibroForm
+from .forms import AutorForm, GeneroForm,LibroForm,EditorialForm
 from Apps.usuarios.models import MyUser
 
 # Create your views here.
@@ -20,19 +20,11 @@ from Apps.usuarios.models import MyUser
 
 # Create your views here.
 def Home(request):   
-    queryset=request.GET.get("Buscar") 
     current_user=request.user   
     top_libros=Libro.objects.filter(estrellas__gt=4)
-    if queryset:
-        libros=Libro.objects.filter(Q(titulo__icontains=queryset))
-        paginator=Paginator(libros,1)
-        page=request.GET.get('page')
-        libros=paginator.get_page('page')
-        print("paso el query set")
-        return render(request,'Biblioteca/galeria.html',{'libros':libros})
-    
     print(top_libros)
     return render(request,'index.html',{'user':current_user,'top':top_libros})
+
 
 def cargarLibro(request,pk):    
     libro=Libro.objects.get(id__exact=pk)
@@ -45,7 +37,7 @@ def galeria(request):
     libros=Libro.objects.all() 
     if queryset:
         libros=Libro.objects.filter(Q(titulo__icontains=queryset))
-    paginator=Paginator(libros,4)
+    paginator=Paginator(libros,1)
     page=request.GET.get('page')
     libros=paginator.get_page(page)
     return render(request,'Biblioteca/galeria.html',{'libros':libros})
@@ -82,7 +74,7 @@ def editarAutor(request,id):
             autor_form=AutorForm(request.POST,instance=autor)
             if autor_form.is_valid():
                 autor_form.save()
-            return redirect('Biblio:listar_autor')
+            return redirect('Biblio:listar_autor') 
     except ObjectDoesNotExist as e:
         error=e   
     return render(request,'Accounts/Admin/editar_autor.html',{'autor_form':autor_form,'error':error})
@@ -90,7 +82,7 @@ def editarAutor(request,id):
 def eliminarAutor(request,id):
     autor=Autor.objects.get(id=id)
     autor.delete()
-    return redirect('Biblio:listar_autor')
+    return redirect('Biblio:listar_autor') 
    
 
 #(Mantenedores) Genero
@@ -152,3 +144,41 @@ class editarLibro(UpdateView):
 class eliminarLibro(DeleteView):
     model= Libro    
     success_url= reverse_lazy('Biblio:listar_libro')
+
+#(Mantenedores) Editorial
+
+def crearEditorial(request):
+    if request.method == 'POST':
+        print(request.POST)
+        editorial_form = EditorialForm(request.POST)
+        if editorial_form.is_valid():
+            editorial_form.save()
+            return redirect('Biblio:listar_editorial')       
+    else:
+        editorial_form=EditorialForm()
+    return render(request,'Accounts/Admin/crear_editorial.html',{'editorial_form':editorial_form})
+
+def listarEditorial(request):
+    editorial=Editorial.objects.all()
+    return render(request,'Accounts/Admin/listar_editorial.html',{'editorial':editorial})
+
+def editarEditorial(request,id):
+    editorial_form=None
+    error=None
+    try:
+        editorial=Editorial.objects.get(id = id)
+        if request.method =='GET':
+            editorial_form=EditorialForm(instance = editorial)
+        else:
+            editorial_form=EditorialForm(request.POST,instance=editorial)
+            if editorial_form.is_valid():
+                editorial_form.save()
+            return redirect('Biblio:listar_editorial')
+    except ObjectDoesNotExist as e:
+        error=e   
+    return render(request,'Accounts/Admin/editar_editorial.html',{'editorial_form':editorial_form,'error':error})
+
+def eliminarEditorial(request,id):
+    editorial=Editorial.objects.get(id=id)
+    editorial.delete()
+    return redirect('Biblio:listar_editorial')

@@ -48,7 +48,7 @@ def crearUsuarior(request):
         user_form = userForm(request.POST)
         if user_form.is_valid():
             user_form.save()
-            return redirect('index')       
+            return redirect('Mantenedores:listar_usuarios')    
     else:
         user_form=userForm()
     return render(request,'Accounts/Admin/crear_usuario.html',{'user_form':user_form})

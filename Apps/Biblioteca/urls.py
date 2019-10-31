@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .views import crearAutor, editarAutor, eliminarAutor, listarAutor
 from .views import crearGenero, editarGenero, eliminarGenero, listarGenero
 from .views import crearLibro, editarLibro, eliminarLibro, listarLibro, cargarLibro
+from .views import crearEditorial,editarEditorial,eliminarEditorial,listarEditorial
 
 app_name='Biblio'
 urlpatterns=[
@@ -22,4 +23,9 @@ urlpatterns=[
     path('eliminar_genero/<int:id>/', eliminarGenero,name='eliminar_genero'),
     path('crear_genero/', crearGenero,name='crear_genero'),
     path('listar_genero/', listarGenero,name='listar_genero'),
+
+    path('editar_editorial/<int:id>/', editarEditorial,name='editar_editorial'),
+    path('eliminar_editorial/<int:id>/', eliminarEditorial,name='eliminar_editorial'),
+    path('crear_editorial/', crearEditorial,name='crear_editorial'),
+    path('listar_editorial/', listarEditorial,name='listar_editorial'),
 ]

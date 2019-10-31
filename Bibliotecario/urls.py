@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('Biblioteca/', include(('Apps.Biblioteca.urls','Biblio'))),
     path('Admin/', include(('Apps.usuarios.urls','Mantenedores'))),
-    path('', Home, name='index'),   
+    path('',Home, name='index'),   
     path('register/',register, name='registro'),
     path('login/',Login_view, name='login'),
     path('logout/',logout_view, name='logout'),
