@@ -45,7 +45,7 @@ def adminBase(request):
 def crearUsuarior(request):
     if request.method == 'POST':
         print(request.POST)
-        user_form = userForm(request.POST)
+        user_form = userForm(request.POST, request.FILES)
         if user_form.is_valid():
             user_form.save()
             return redirect('Mantenedores:listar_usuarios')    
@@ -62,11 +62,14 @@ def editarUsuario(request,id):
     error=None
     try:
         user=MyUser.objects.get(id = id)
+        print(request.GET)
         if request.method =='GET':
             user_form=userForm(instance = user)
+            print(request.GET)
         else:
-            user_form=userForm(request.POST,instance=user)
+            user_form=userForm(request.POST,request.FILES,instance=user)
             if user_form.is_valid():
+                print(request.POST)
                 user_form.save()
             return redirect('Mantenedores:listar_usuarios')
     except ObjectDoesNotExist as e:

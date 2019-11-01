@@ -28,7 +28,7 @@ class Editorial(models.Model):
 
 class Libro(models.Model):
     titulo=models.CharField('Titulo', max_length=100)
-    portada=models.ImageField(upload_to='images/', default='images/no-book-image.jpg')
+    portada=models.ImageField(upload_to='images/',null=True, default='images/no-book-image.jpg')
     resumen=models.TextField(max_length=2000, help_text="Ingrese el resumen del libro")
     editorial=models.ForeignKey(Editorial,on_delete=models.SET_NULL, blank=True, null=True)
     autor=models.ManyToManyField(Autor,help_text="selecciones un autor")
