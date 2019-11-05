@@ -1,0 +1,42 @@
+.scene2{
+    display:none;
+    position:fixed;
+    height: 100%;
+    width: 100%;
+    left:0;
+    top:0;
+    right: 0;
+    bottom: 0; 
+    background-color:rgba(13, 14, 13, 0.815); 
+    z-index:50;
+}
+.reservar{ 
+    position: fixed;   
+    left:10%;
+    top:35%;
+    right: 10%;
+    bottom: 35%;    
+    border-radius:5px;
+    box-shadow: 0 0 8px 5px rgba(13, 14, 13, 0.863);
+    background-color:rgb(255, 255, 255); 
+}
+#formReserva{
+    text-align: center;
+}
+hr{
+    border-style: solid;
+    border-color: rgba(14, 14, 14, 0.22);
+    width: 50%;
+    border-width: 0.3px;
+}
+.fechaDev{
+    margin-top:0;margin-bottom:0;    
+}
+.fechaIni{
+    margin-top:0;margin-bottom:0;
+}
+.formReserva input{
+    border-radius: 5px;
+    border-width: 0;
+    color:rgba(14, 14, 14, 0.22);
+}

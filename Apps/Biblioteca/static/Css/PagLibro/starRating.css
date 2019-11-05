@@ -47,6 +47,36 @@
     content: "\f005 \f005 \f005 \f005 \f005";
     color: #ffd000;
 }
+.rating-box h2{
+    cursor: pointer;
+}
+.rating-box h2:hover{
+    color:rgba(43, 66, 43, 0.822);
+}
+
+/*Cuadro de puntuación*/
+.scene{
+    display:none;
+    position:fixed;
+    height: 100%;
+    width: 100%;
+    left:0;
+    top:0;
+    right: 0;
+    bottom: 0; 
+    background-color:rgba(13, 14, 13, 0.815); 
+    z-index:50;
+}
+.puntuar{ 
+    position: fixed;   
+    left:10%;
+    top:35%;
+    right: 10%;
+    bottom: 35%;    
+    border-radius:5px;
+    box-shadow: 0 0 8px 5px rgba(13, 14, 13, 0.863);
+    background-color:rgb(255, 255, 255); 
+}
 
 
 /*mediaQuerys configuraciones*/
@@ -62,9 +92,21 @@
     .rating-block{
         display: none;
     }
+    .puntuar{
+        left:25%;
+        top:25%;
+        right: 25%;
+        bottom: 25%;
+    }
 }
 /*md----medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) { 
+    .puntuar{
+        left:25%;
+        top:25%;
+        right: 25%;
+        bottom: 25%;
+    }
 }
 /*lg----large devices (desktops, 992px and up)*/
 @media (min-width: 992px) { 
@@ -82,6 +124,12 @@
     .stars-inner{
         font-size: 18px;
     }
+    .puntuar{
+        left:25%;
+        top:25%;
+        right: 25%;
+        bottom: 25%;
+    }
 }
 /*xl----Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) { 
@@ -98,6 +146,12 @@
     }
     .stars-inner{
         font-size: 24px;
+    }
+    .puntuar{
+        left:25%;
+        top:25%;
+        right: 25%;
+        bottom: 25%;
     }
 }
   

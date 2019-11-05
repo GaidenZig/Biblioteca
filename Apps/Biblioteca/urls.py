@@ -4,10 +4,14 @@ from .views import crearAutor, editarAutor, eliminarAutor, listarAutor
 from .views import crearGenero, editarGenero, eliminarGenero, listarGenero
 from .views import crearLibro, editarLibro, eliminarLibro, listarLibro, cargarLibro
 from .views import crearEditorial,editarEditorial,eliminarEditorial,listarEditorial
+from .views import puntuacion, puntuar, reservar
 
 app_name='Biblio'
 urlpatterns=[
     path('libro/<pk>',cargarLibro,name='libro'),
+    path('recargar_puntuacion/',puntuacion,name='puntos'),
+    path('votar/',puntuar,name='votar'),
+    path('reservar/',reservar,name='reservar'),
 
     path('editar_libro/<int:pk>',login_required(editarLibro.as_view()),name='editar_libro'),
     path('eliminar_libro/<int:pk>',login_required(eliminarLibro.as_view()),name='eliminar_libro'),

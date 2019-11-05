@@ -54,7 +54,7 @@ def crearUsuarior(request):
     return render(request,'Accounts/Admin/crear_usuario.html',{'user_form':user_form})
 
 def listarUsuario(request):
-    usuarios=MyUser.objects.all()
+    usuarios=MyUser.objects.filter(activo__exact=True)
     return render(request,'Accounts/Admin/listar_usuarios.html',{'usuarios':usuarios})
 
 def editarUsuario(request,id):
@@ -65,9 +65,9 @@ def editarUsuario(request,id):
         if request.method =='GET':
             user_form=userForm(instance = user)
         else:
-            user_form=userForm(request.POST,instance=user)
+            user_form=userForm(request.POST,request.FILES,instance=user)
             if user_form.is_valid():
-                user_form.save()
+                user_form.save()            
             return redirect('Mantenedores:listar_usuarios')
     except ObjectDoesNotExist as e:
         error=e   
@@ -75,7 +75,8 @@ def editarUsuario(request,id):
 
 def eliminarUsuario(request,id):
     user=MyUser.objects.get(id=id)
-    user.delete()
+    user.activo=False
+    user.save()
     return redirect('Mantenedores:listar_usuarios')
 
 

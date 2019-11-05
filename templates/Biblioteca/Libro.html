@@ -9,110 +9,286 @@
 <link rel="stylesheet" type="text/css" href="{% static 'Css/PagLibro/starRating.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/mainly_carousel.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'Css/PagLibro/books_carousels.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'Css/PagLibro/reservas.css' %}">
 
 <!-- Include Multislider -->
 <script src="{% static 'JQuery Library/multislider.js' %}"></script>
+
+<!--Include Animate.css-->
+<link rel="stylesheet" href="{% static 'Css/Animate.css' %}">
+
+<!--Include jQuery UI-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% endblock dependencias_individuales %} 
 
 {% block Pagina %}
 <div id="divBackground">
-        <div id="divContenedor">
-            <div class="row">
-                <div class="contenedorImg col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <img src='{{libro.portada.url}}' alt="Portada de libro" id="Portada">
-                </div>
-
-                <div class="contenedorDatos col-xs-12 col-sm-5 col-md-7 col-lg-6">
-                    <h1 id="tituloLibro">{{libro.titulo}}</h1>
-                    <div id="infoLibro">
-                        <!--Autor-->
-                        <b>Autor: </b>
-                        <span id="autor" class="datos">
-                            {% for autor in autores %}
-                                {{autor.apellido}} {{autor.primer_nombre}},
-                            {% endfor %}
-                        </span>
-                        <br><br>
-                        <!--Páginas-->
-                        <b>Páginas: </b>
-                        <span id="paginas" class="datos">{{libro.paginas}}</span>
-                        <br><br>
-                        <!--Editorial-->
-                        <b>Editorial: </b>
-                        <span id="editorial" class="datos">{{editorial.nombre}}</span>
-                        <br><br>
-                        <!--ISBN-->
-                        <b>ISBN: </b>
-                        <span id="isbn" class="datos">{{libro.isbn}}</span>
-                        <br><br>
-                        <!--Disponibilidad-->
-                        <b>Disponibilidad: </b>
-                        <span id="disponibilidad" class="datos">No Disponible</span>
-                        <br>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-3">
-                    <div class="bookmark-inside">                        
-                        <div class="bookmark-param">
-                            <h2>{{libro.estrellas}}</h2>
-                            <div class="rankeo">
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                            </div>                            
-                        </div>    
-                        <img src="{% static 'Img/bookmark-strips.png' %}" alt="" 
-                             class="bookmark-background col-xs-12">
-                    </div>
-
-                    <div class="rating-block">    
-                        <div class="rating-box">
-                            <h2>{{libro.estrellas}}</h2>
-                            <div class="rankeo">
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                            </div>                                                   
-                        </div>
-                    </div>
-                    <script>
-                        let valor;                            
-                        let starPercentage; 
-                        let starPercentageRounded;
-                        mostrarEstrellas();
-                        function mostrarEstrellas(){
-                            valor=parseFloat("{{libro.estrellas}}");                            
-                            starPercentage = (valor / 5) * 100; 
-                            starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-                            console.log(starPercentageRounded);                            
-                            document.querySelector(`.rankeo .stars-inner`).style.width = starPercentageRounded; 
-                        }
-                    </script>
-                </div>
+    <div id="divContenedor">
+        <div class="row">
+            <div class="contenedorImg col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                <img src='{{libro.portada.url}}' alt="Portada de libro" id="Portada">
             </div>
 
-            <div class="row">
-                <ul class="col-md-3 tabs">
-                    <li class="pestania" tabindex="0" onclick="Descripcion()">Resumen</li>
-                    <li class="pestania" tabindex="0" onclick="Autores()">Autores</li>
-                </ul>
-                <div class="col-md-9 descripcionLibro">
-                    <p>{{libro.resumen}}</p>
-                </div>
-                <div class="col-md-9 descripcionAutores">
-                    <p>
+            <div class="contenedorDatos col-xs-12 col-sm-5 col-md-7 col-lg-6">
+                <h1 id="tituloLibro">{{libro.titulo}}</h1>
+                <div id="infoLibro">
+                    <!--Autor-->
+                    <b>Autor: </b>
+                    <span id="autor" class="datos">
                         {% for autor in autores %}
-                        <b>{{autor.primer_nombre}} {{autor.apellido}}</b>                        
-                        <p>{{autor.descripcion}}</p>
-                        <br>
+                            {{autor.apellido}} {{autor.primer_nombre}},
                         {% endfor %}
-                    </p>
+                    </span>
+                    <br><br>
+                    <!--Páginas-->
+                    <b>Páginas: </b>
+                    <span id="paginas" class="datos">{{libro.paginas}}</span>
+                    <br><br>
+                    <!--Editorial-->
+                    <b>Editorial: </b>
+                    <span id="editorial" class="datos">{{editorial.nombre}}</span>
+                    <br><br>
+                    <!--ISBN-->
+                    <b>ISBN: </b>
+                    <span id="isbn" class="datos">{{libro.isbn}}</span>
+                    <br><br>
+                    <!--Disponibilidad-->
+                    <b>Disponibilidad: </b>
+                    <span id="disponibilidad" class="datos">No Disponible</span>
+                    <br>
+                    {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-primary" onclick="ventanaReservar()">Reservar</button>                    
+                    {% endif %}
+                    
                 </div>
-                <script src="{% static 'Js/scriptLibros.js' %}"></script>
             </div>
-            <br>                         
+
+            <div class="col-xs-12 col-sm-3 col-md-2 col-lg-3">
+                <div class="bookmark-inside">                        
+                    <div class="bookmark-param">
+                        {%if user.is_authenticated and yaVoto is False%}
+                            <h2 onclick="ventanaPuntuar()">{{libro.estrellas}}</h2>
+                        {% else %}
+                            <h2>{{libro.estrellas}}</h2>
+                        {% endif %}
+                        <div class="rankeo">
+                            <div class="stars-outer">
+                                <div class="stars-inner"></div>
+                            </div>
+                        </div>                            
+                    </div>    
+                    <img src="{% static 'Img/bookmark-strips.png' %}" alt="" 
+                            class="bookmark-background col-xs-12">
+                </div>
+
+                <div class="rating-block">    
+                    <div class="rating-box">
+                        {%if user.is_authenticated and yaVoto is False%}
+                            <h2 onclick="ventanaPuntuar()">{{libro.estrellas}}</h2>
+                        {% else %}
+                            <h2>{{libro.estrellas}}</h2>
+                        {% endif %}
+                        
+                        <div class="rankeo">
+                            <div class="stars-outer">
+                                <div class="stars-inner"></div>
+                            </div>
+                        </div>                                                   
+                    </div>
+                </div>
+                <script>
+                    let idLibro="{{libro.id}}";
+                    let valor=parseFloat("{{libro.estrellas}}");                            
+                    let starPercentage; 
+                    let starPercentageRounded;                    
+                    mostrarEstrellas();
+                    function mostrarEstrellas(){                                            
+                        starPercentage = (valor / 5) * 100; 
+                        starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                        console.log(starPercentageRounded);                            
+                        document.querySelector(`.rankeo .stars-inner`).style.width = starPercentageRounded; 
+                    }                   
+                </script>
+            </div>
         </div>
-        <br>
+
+        <div class="row">
+            <ul class="col-md-3 tabs">
+                <li class="pestania" tabindex="0" onclick="Descripcion()">Resumen</li>
+                <li class="pestania" tabindex="0" onclick="Autores()">Autores</li>
+            </ul>
+            <div class="col-md-9 descripcionLibro">
+                <p>{{libro.resumen}}</p>
+            </div>
+            <div class="col-md-9 descripcionAutores">
+                <p>
+                    {% for autor in autores %}
+                    <b>{{autor.primer_nombre}} {{autor.apellido}}</b>                        
+                    <p>{{autor.descripcion}}</p>
+                    <br>
+                    {% endfor %}
+                </p>
+            </div>
+            <script src="{% static 'Js/scriptLibros.js' %}"></script>
+        </div>
+        <br>                         
+        <script>
+            let urL="{% url 'Biblio:puntos' %}"
+            setInterval(renovarPuntuación,5000);
+            function renovarPuntuación(){
+                $.ajax({
+                    data : {'id':idLibro},
+                    url : urL,
+                    type : 'get',
+                    success : function(data){
+                        valor=data.puntuacion;
+                        mostrarEstrellas();
+                        console.log(valor);
+                    }
+                })
+            };       
+        </script>
     </div>
+    <br>
+    <div class="scene" >
+        <div class="puntuar">
+            <div>
+                <div class="row">
+                    <input type="text" name="valor" id="puntos">
+                </div>  
+                <button type="button" class="row" onclick="enviarPuntuacion();noVentanaPuntuar()">
+                    Enviar
+                </button>
+            </div>                      
+        </div>
+    </div>
+    <div class="scene2">
+        <div class="reservar">
+            <div id="formReserva" class="row">            
+                <h2 class="col-xs-12">Tiempo de reserva</h2>
+                <p class="col-xs-6 fechaIni"><input id="inicio" type="text" name="fechaInicio" onchange="actualizarFechas()"></input></p>
+                <p class="col-xs-6 fechaDev"><input id="devolucion" type="text" name="fechaDevolucion" ></input></p>
+                <hr/>
+                <p class="col-xs-12"><button type="button" onclick="noVentanaReservar();enviarReserva()">¡Listo!</button></p>                                                            
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let idUser="{{user.id}}";        
+        let idBook="{{libro.id}}";
+        let puntos;        
+        function enviarPuntuacion(){
+            puntos=document.getElementById("puntos").value;
+            console.log(puntos);
+            $.ajax({                
+                data: {'puntos':puntos, 'idUsuario':idUser, 'idLibro':idBook},
+                url: "{% url 'Biblio:votar' %}",
+                type: 'get',
+                success: function(data){
+
+                },
+                error: function(data){
+
+                }
+            })
+        }; 
+
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+
+        let pet= "{% url 'Biblio:reservar' %}";
+        let met= "POST";
+        let hoy=new Date();        
+        let fechaInicio,fechaDevolucion        
+        anioInicio= hoy.getFullYear().toString();
+        mesInicio= ("0"+(hoy.getMonth()+1)).slice(-2).toString();
+        diaInicio= ("0"+hoy.getDate()).slice(-2).toString();                 
+        fechaInicio= $.datepicker.parseDate('yy-mm-dd', anioInicio+"-"+mesInicio+"-"+diaInicio);
+        
+        mesInicio= ("0"+((hoy.addDays(14)).getMonth()+1)).slice(-2).toString();            
+        diaInicio=("0"+(hoy.addDays(14).getDate())).slice(-2).toString();
+        fechaDevolucion=$.datepicker.parseDate('yy-mm-dd', anioInicio+"-"+mesInicio+"-"+diaInicio);
+                
+        //Datepicker
+        $(function () {
+            $('#inicio').datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+            $('#devolucion').datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+            $('#inicio').datepicker().datepicker('setDate', fechaInicio);
+            $('#devolucion').datepicker().datepicker('setDate', fechaDevolucion);
+        });                
+
+        function actualizarFechas(){            
+            fechaInicio=$('#inicio').datepicker('getDate');            
+            anioInicio= fechaInicio.getFullYear().toString();
+            mesInicio= ("0"+((fechaInicio.addDays(14)).getMonth()+1)).slice(-2).toString();            
+            diaInicio=("0"+(fechaInicio.addDays(14).getDate())).slice(-2).toString();             
+            fechaDevolucion=$.datepicker.parseDate('yy-mm-dd', anioInicio+"-"+mesInicio+"-"+diaInicio);
+
+            $('#inicio').datepicker().datepicker('setDate', fechaInicio);
+            $('#devolucion').datepicker().datepicker('setDate', fechaDevolucion);
+        }        
+        function enviarReserva(){
+            fechaInicio=$('#inicio').datepicker('getDate');
+            fechaDevolucion=$('#devolucion').datepicker('getDate');                    
+            fechaInicio= fechaInicio.getFullYear().toString()+"-"+("0"+(fechaInicio.getMonth())).slice(-2).toString()+"-"+("0"+(fechaInicio.getDate())).slice(-2).toString();
+            fechaDevolucion= fechaDevolucion.getFullYear().toString()+"-"+("0"+(fechaDevolucion.getMonth())).slice(-2).toString()+"-"+("0"+(fechaDevolucion.getDate())).slice(-2).toString();            
+            $.ajax({                                              
+                data: {'idUsuario':idUser,'idLibro':idBook,'fechIni':fechaInicio,'fechVenci':fechaDevolucion, csrfmiddlewaretoken:"{{ csrf_token}}"},
+                url:pet,
+                type: met,
+                success:function(data){
+                    alert("hecho!");
+                },
+            })
+        }
+       
+
+
+        scenePuntuar= document.getElementsByClassName('scene')[0];
+        sceneReservar= document.getElementsByClassName('scene2')[0];
+        fichaPuntuar= document.getElementsByClassName('puntuar')[0];
+        fichaReservar= document.getElementsByClassName('reservar')[0];
+        
+        function ventanaPuntuar(){
+            animarVentanaEmergente(scenePuntuar);
+            scenePuntuar.style.display='block';           
+            animarFichaEmergente(fichaPuntuar);
+        }
+        function noVentanaPuntuar(){
+            scenePuntuar.style.display='none'; 
+        } 
+        function ventanaReservar(){
+            animarVentanaEmergente(sceneReservar);
+            sceneReservar.style.display='block'; 
+            animarFichaEmergente(fichaReservar);            
+        }
+        function noVentanaReservar(){
+            sceneReservar.style.display='none';
+        }
+
+        function animarVentanaEmergente(escena) {
+            escena.className+=" animated fadeIn";            
+            escena.addEventListener('animationend',function(){
+                escena.className=escena.className.replace(" animated","");
+                escena.className=escena.className.replace(" fadeIn","");            
+            });
+        }
+        function animarFichaEmergente(ficha) {
+            ficha.className+=" animated slideInRight";            
+            ficha.addEventListener('animationend',function(){
+                ficha.className=ficha.className.replace(" animated","");
+                ficha.className=ficha.className.replace(" slideInRight","");            
+            });
+        }
+    </script>
+</div>
 {% endblock Pagina %}
