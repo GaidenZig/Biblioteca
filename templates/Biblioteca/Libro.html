@@ -91,16 +91,21 @@
                     </script>
                 </div>
             </div>
-
             <div class="row">
                 <ul class="col-md-3 tabs">
+                    {% if user.is_authenticated %}
+                    <li> <form method=""  action=" " class="pestania soli">
+                            <button  class="solicitar " type="submit">Solicitar</button>
+                        </form></li>
+                        <br>
+                    {% endif %}
                     <li class="pestania" tabindex="0" onclick="Descripcion()">Resumen</li>
                     <li class="pestania" tabindex="0" onclick="Autores()">Autores</li>
                 </ul>
-                <div class="col-md-9 descripcionLibro">
+                <div class="col-md-9 col-xs-12 col-sm-12 descripcionLibro">
                     <p>{{libro.resumen}}</p>
                 </div>
-                <div class="col-md-9 descripcionAutores">
+                <div class="col-md-9 col-xs-12 col-sm-12 descripcionAutores">
                     <p>
                         {% for autor in autores %}
                         <b>{{autor.primer_nombre}} {{autor.apellido}}</b>                        

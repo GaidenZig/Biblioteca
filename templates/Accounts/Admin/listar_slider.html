@@ -1,0 +1,30 @@
+{% extends 'Accounts/Admin/adminBase.html' %}
+{% block titulo %}
+    Slider Index
+{% endblock titulo %}
+
+{% load static %}
+{% block principal %} 
+ {% if slider  %}
+ <div class="table-responsive">
+    <table  class="table table-striped table-bordered table-hover " cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for slide in slider %}
+                    </tr>
+                        <td>{{ slide.id }}</td>
+                        <td><a href="{% url 'Biblio:editar_slider' slide.id %}" class="btn btn-primary">Editar</a></td>
+                     </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</div>
+ {% else %}
+    <h1>NO HAY SLIDER CREADO</h1>
+ {% endif %}
+ {% endblock principal %}

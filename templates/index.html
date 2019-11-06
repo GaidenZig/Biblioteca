@@ -10,15 +10,17 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/navigation_bar_style.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/buscador.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'Css/footer.css' %}"/>
-    <link rel="stylesheet" href="{% static 'Css/PagPrincipal/adminConfig.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Css/PagPrincipal/libros.css' %}"/>
+    <link rel="stylesheet" href="{% static 'Css/PagPrincipal/adminConfig.css' %}"/>
 
     <!-- Include jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!--Include GoogleFonts-->
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet"/>
     <script src="https://kit.fontawesome.com/3f1a99f494.js"></script>
-
+    <link href="https://fonts.googleapis.com/css?family=Anton|Bowlby+One+SC|Jomolhari|Staatliches&display=swap" rel="stylesheet">
     <title>{% block titulo %}Home{% endblock titulo %}</title>
 
     <!--En este bloque irían todas las dependecias específicas de cada pagina que herede de index-->
@@ -64,7 +66,7 @@
                         seguido de dos puntos, ni idea de por qué .-. -->
                     <li><a href="{% url 'index' %}"> Home</a></li>
                     <li><a href="#">Favoritos</a></li>
-                    <li><a href="{% url 'galeria' %}">Galeria</a></li> 
+                    <li><a href="{% url 'galeria' %}">Libros</a></li> 
                     <li>
                     {% if user.is_authenticated %}
                         <div id="Login_menu">                          
@@ -74,11 +76,11 @@
                             </div>                                                        
                             <ul class="Login_menu_content">
                                 <li><a href="{% url 'perfil'  %}">Perfil</a></li>
-                                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                                <li><a href="{% url 'logout_web' %}">Cerrar sesión</a></li>
                             </ul>
                         </div>
                     {% else %}
-                        <a href="{% url 'login' %}" id="sesion">Login</a>
+                        <a href="{% url 'login_web' %}" id="sesion">Login</a>
                     {% endif %}        
                     </li>
                 </ul>
@@ -105,10 +107,12 @@
         <div id="bajo_navegador" class="row">
             <div class="col-xs-12">
                 <div class="slide_show">
-                    <div class="my_slide fade"><img class="imagenes" src="{% static 'Img/portadas/41556_1.jpg' %}" alt="imagen de presentacion 1"></div>
-                    <div class="my_slide fade"><img class="imagenes" src="{% static 'Img/portadas/Bklx0nFjQg_1256x620.jpg' %}" alt="imagen de presentacion 2"></div>
-                    <div class="my_slide fade"><img class="imagenes" src="{% static 'Img/portadas/florencia-viadana-1J8k0qqUfYY-unsplash.jpg' %}" alt="imagen de presentacion 3"></div>
-                </div>
+                    {% for i  in slider %}
+                    <div class="my_slide fade"><img class="imagenes" src="{{i.slider1.url}}" alt="imagen de presentacion 1"></div>
+                    <div class="my_slide fade"><img class="imagenes" src="{{i.slider2.url}}" alt="imagen de presentacion 2"></div>
+                    <div class="my_slide fade"><img class="imagenes" src="{{i.slider3.url}}" alt="imagen de presentacion 3"></div>
+                    {% endfor %}
+                   </div>
             </div>
         </div>
 
@@ -121,7 +125,7 @@
         </div>
         <script src="{% static 'Js/slide_show.js' %}"></script>
 
-        <div id="margin_contenido">
+        <div >
             <!--Esta variables es para el uso de todos los slides-->
             <script>                
                 let puntuaciones=new Map();
@@ -132,41 +136,42 @@
             </script>
 
             <!--Separador 1-->
-            <div id="bajo_navegador" class="row separador">
-                <div class="col-xs-4 col-xs-offset-4">
-                    <h2>Top</h2>
+            <br>
+            <div  id="margin_contenido_titulo">    
+                <div  id="di">
+                        <h2 id="h21">Top</h2>  
                 </div>
             </div>
-
+            
             <!--Top libros-->
-            <div class="row">
+            <div >
+            <div class="row" id="margin_contenido">
                 <div class="col-xs-12">
                     <div id="exampleSlider">
                         <div class='MS-content'>
                             {% for t in top %}
+                    
                                 <div class="item">
-                                    <div class="imagen">                                        
-                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
-                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
-                                        onclick="sendBook('{{t.id}}')">
-                                    </div>
-                                    <div class="datos">
-                                        <div class="rankeo {{t.id}}">
-                                            <div class="stars-outer">
-                                                <div class="stars-inner"></div>
-                                            </div>
-                                        </div>
-                                        <div class="resumen">
-                                            <p>{{t.resumen|truncatechars:100}}</p>
-                                        </div>                                                                               
-                                    </div>                                    
-                                </div>
-                                <script type="text/javascript">                                                                    
-                                    puntuacion="{{t.estrellas}}";
-                                    value=parseFloat(puntuacion);
-                                    key="{{t.id}}";
-                                    puntuaciones.set(key,value);                                    
-                                </script>
+                                                                         
+                                            <div class="card">
+                                                    <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
+                                                    <img src="{{t.portada.url}}" alt="Portada de libro" 
+                                                    onclick="sendBook('{{t.id}}')">
+                                                    <div class="rankeo {{t.id}}">
+                                                        <div class="stars-outer">
+                                                            <div class="stars-inner"></div>
+                                                        </div>
+                                                    </div>
+                                                    <h4>{{t.titulo|truncatechars:20}}</h4>
+                                                    <p>{{t.resumen|truncatechars:100}}</p>
+                                                    
+                                                    <script type="text/javascript">                                                                    
+                                                        puntuacion="{{t.estrellas}}";
+                                                        value=parseFloat(puntuacion);
+                                                        key="{{t.id}}";
+                                                        puntuaciones.set(key,value);                                    
+                                                    </script>
+                                           </div></div> 
                             {% endfor %}                                                       
                         </div>
                             <script>                                
@@ -184,273 +189,176 @@
                     </div>
                 </div>
             </div>
+        </div>
 
             <!--Separador 2-->
             <a name="favoritos"></a>
-            <div id="bajo_navegador" class="row separador">
-                <div class="col-xs-4 col-xs-offset-4">
-                    <h2>Más votados</h2>
+            <div class="row separador">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <h2 id="h22">Más votados</h2>
                 </div>
             </div>
- 
-           
+            <div   id="margin_contenido_titulo">    
+                <div id="di2">  
+                </div>
+            </div>
 
             <!--Más votados-->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div id="exampleSlider2">
-                        <div class='MS-content'>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url('/static/Img/portadas/top/d3a3401cb53e03f7d51c2b81c558045e-product.jpg')">
-                                    <div class="texto">
-                                       <p>Bien dicen que ''hay grandes libros en el mundo y grandes mundos en los libro'', y ¿qué mejor que una nueva aventura por descubrir con cada ejemplar? Pues, si es un amante de la lectura o recién se está iniciando en ella, leer es una actividad que estimula su mente y potencia su imaginación a niveles asombrosos, sobre todo si encuentra ese que se convierte en su favorito o incluso si solo se trata de alguna recomendación hecha por un amigo.</p> 
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">Allende La Biografia</a>
-                                </div>
+            <div class="row" id="margin_contenido">
+                    <div class="col-xs-12">
+                        <div id="exampleSlider2">
+                            <div class='MS-content'>
+                                {% for t in top %}
+                        
+                                    <div class="item">
+                                                                             
+                                                <div class="card">
+                                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
+                                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
+                                                        onclick="sendBook('{{t.id}}')">
+                                                        <div class="rankeo {{t.id}}">
+                                                            <div class="stars-outer">
+                                                                <div class="stars-inner"></div>
+                                                            </div>
+                                                        </div>
+                                                        <h4>{{t.titulo|truncatechars:20}}</h4>
+                                                        <p>{{t.resumen|truncatechars:100}}</p>
+                                                        
+                                                        <script type="text/javascript">                                                                    
+                                                            puntuacion="{{t.estrellas}}";
+                                                            value=parseFloat(puntuacion);
+                                                            key="{{t.id}}";
+                                                            puntuaciones.set(key,value);                                    
+                                                        </script>
+                                               </div></div> 
+                                {% endfor %}                                                       
                             </div>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/terror/5c1275a950c7615f5f8b4567.__RS360x360__.jpg)">
-                                    <div class="texto">
-                                        <p>Margaret Atwood nos ofrece una sorprendente interpretación del tema de la deuda, de gran actualidad dada la crisis económica por la que atraviesa el mundo tras el colapso de un sistema de deudas interconectadas. En su imaginativa, amena y profunda aproximación a este asunto, Atwood sugiere que la deuda es como el aire, algo que se da por seguro hasta que las cosas empiezan a ir mal. Es entonces cuando, mientras abrimos la boca intentando respirar, caemos en la cuenta de lo mucho que nos interesa.</p> 
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">Frankenstein o el moderno Prometeo</a>
-                                </div>
-                            
-                        </div>
-                        <div class='item'>
-                            <div class="imagen" style="background-image:url(Img/portadas/top/bd9a8bf7ad3af10ebd1843560a948dd8-product.jpg)">
-                                <div class="texto">
-                                 <p>Cuando Michael y Verity eran pareja compartían un juego privado muy especial. No era el típico juego de dos amantes a puerta cerrada. Era algo público y mucho más perverso cuyas normas solo conocían ellos.
-                                        De todo eso ya ha pasado un año. Verity ya no le devuelve las llamadas a Mike, no contesta a sus correos, y está a punto de casarse con otro. Pero él sigue enamorado y convencido de que ella todavía le quiere. Cree que su matrimonio no es más que una nueva versión del juego</p>
-                                 </div>
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                                <a class="btn_ver" href="Libro.html">Nuestro Juego Mas Cruel</a>
+                                <script>                                
+                                    for (const [key, value] of puntuaciones.entries()) {
+                                    let starPercentage = (value / stars) * 100;                                  
+                                    let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
+                                    document.querySelector(`.${CSS.escape(key)} .stars-inner`).style.width = starPercentageRounded; 
+                                    console.log(key,document.querySelector(`.${CSS.escape(key)}.stars-inner`)); 
+                                    }
+                                </script>
+                            <div class='MS-controls'>
+                                <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
+                                <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
                             </div>
-                        </div>
-                        <div class='item'>
-                            <div class="imagen" style="background-image:url(Img/portadas/terror/libros-terror.jpg)">
-                                <div class="texto">
-                                    <p>El resplandor es la tercera novela de terror del escritor estadounidense Stephen King, publicada en 1977. El título se inspiró en la canción de John Lennon "Instant Karma!", que contiene la línea «We all shine on..</p>
-                                </div>
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                                <a class="btn_ver" href="Libro.html">El resplandor (novela)</a>
-                            </div>
-                    </div>
-                    <div class='item'>
-                        <div class="imagen" style="background-image:url(Img/portada-libro.jpg)">
-                            <div class="texto">
-                             <p>Margaret Atwood nos ofrece una sorprendente interpretación del tema de la deuda, de gran actualidad dada la crisis económica por la que atraviesa el mundo tras el colapso de un sistema de deudas interconectadas. En su imaginativa, amena y profunda aproximación a este asunto, Atwood sugiere que la deuda es como el aire, algo que se da por seguro hasta que las cosas empiezan a ir mal. Es entonces cuando, mientras abrimos la boca intentando respirar, caemos en la cuenta de lo mucho que nos interesa.</p> 
-                            </div>
-                            <div class="stars-outer">
-                                <div class="stars-inner"></div>
-                            </div>
-                            <a class="btn_ver" href="Libro.html">PAGAR (CON LA MISMA MONEDA)</a>
-                        </div>
-                    </div>
-                    <div class='item'>
-                        <div class="imagen" style="background-image:url(Img/portadas/terror/EL354038.jpg)">
-                            <div class="texto">
-                                <p>It es una novela de terror publicada en 1986 por el escritor estadounidense Stephen King. Cuenta la historia de un grupo de siete niños que son aterrorizados por un malvado monstruo -al que llaman «Eso»- que es capaz de cambiar de forma, alimentándose del terror que produce en sus víctimas. </p>
-                            </div>
-                            <div class="stars-outer">
-                                <div class="stars-inner"></div>
-                            </div>
-                            <a class="btn_ver" href="Libro.html">It (novela)</a>
-                        </div>
-                </div>
-                        </div>
-                        <div class='MS-controls'>
-                            <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
-                            <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
                         </div>
                     </div>
                 </div>
-            </div>
+    
 
-            <!--Separador 3-->
-            <div id="bajo_navegador" class="row separador">
-                <div class="col-xs-4 col-xs-offset-4">
-                    <h2>Nuevos</h2>
-                </div>
-            </div>
 
+            
+            <div  id="margin_contenido_titulo">    
+                    <div  id="di">
+                            <h2 id="h21">Nuevos</h2>  
+                    </div>
+            </div>
             <!--Nuevos-->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div id="exampleSlider3">
-                        <div class='MS-content'>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/terror/5c1275a950c7615f5f8b4567.__RS360x360__.jpg)">
-                                    <div class="texto">
-                                        <p>Margaret Atwood nos ofrece una sorprendente interpretación del tema de la deuda, de gran actualidad dada la crisis económica por la que atraviesa el mundo tras el colapso de un sistema de deudas interconectadas. En su imaginativa, amena y profunda aproximación a este asunto, Atwood sugiere que la deuda es como el aire, algo que se da por seguro hasta que las cosas empiezan a ir mal. Es entonces cuando, mientras abrimos la boca intentando respirar, caemos en la cuenta de lo mucho que nos interesa.</p> 
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">Frankenstein o el moderno Prometeo</a>
-                                </div>
-                        </div>
-                        <div class='item'>
-                            <div class="imagen" style="background-image:url(Img/portadas/top/bd9a8bf7ad3af10ebd1843560a948dd8-product.jpg)">
-                                <div class="texto">
-                                 <p>Cuando Michael y Verity eran pareja compartían un juego privado muy especial. No era el típico juego de dos amantes a puerta cerrada. Era algo público y mucho más perverso cuyas normas solo conocían ellos.
-                                        De todo eso ya ha pasado un año. Verity ya no le devuelve las llamadas a Mike, no contesta a sus correos, y está a punto de casarse con otro. Pero él sigue enamorado y convencido de que ella todavía le quiere. Cree que su matrimonio no es más que una nueva versión del juego</p>
-                                 </div>
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                                <a class="btn_ver" href="Libro.html">Nuestro Juego Mas Cruel</a>
+            <div class="row" id="margin_contenido">
+                    <div class="col-xs-12">
+                        <div id="exampleSlider3">
+                            <div class='MS-content'>
+                                {% for t in top %}
+                        
+                                    <div class="item">
+                                                                             
+                                                <div class="card">
+                                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
+                                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
+                                                        onclick="sendBook('{{t.id}}')">
+                                                        <div class="rankeo {{t.id}}">
+                                                            <div class="stars-outer">
+                                                                <div class="stars-inner"></div>
+                                                            </div>
+                                                        </div>
+                                                        <h4>{{t.titulo|truncatechars:20}}</h4>
+                                                        <p>{{t.resumen|truncatechars:100}}</p>
+                                                        
+                                                        <script type="text/javascript">                                                                    
+                                                            puntuacion="{{t.estrellas}}";
+                                                            value=parseFloat(puntuacion);
+                                                            key="{{t.id}}";
+                                                            puntuaciones.set(key,value);                                    
+                                                        </script>
+                                               </div></div> 
+                                {% endfor %}                                                       
                             </div>
-                        </div>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/terror/misery_princ.jpg)">
-                                    <div class="texto">
-                                        <p>Misery libro es una novela de terror de que fue publicada en el año 1987, su autor es el famoso Stephen King. Uno de los libros más populares y exitosos de King, se centra en Paul Sheldon, un prolífico novelista más conocido por sus novelas románticas de la época victoriana protagonizadas por el personaje Misery Chastain.</p>    
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">Misery (novela)</a>
-                                </div>
-                           </div>
-                           <div class='item'>
-                            <div class="imagen" style="background-image:url(Img/portadas/top/d3a3401cb53e03f7d51c2b81c558045e-product.jpg)">
-                                <div class="texto">
-                                   <p>Bien dicen que ''hay grandes libros en el mundo y grandes mundos en los libro'', y ¿qué mejor que una nueva aventura por descubrir con cada ejemplar? Pues, si es un amante de la lectura o recién se está iniciando en ella, leer es una actividad que estimula su mente y potencia su imaginación a niveles asombrosos, sobre todo si encuentra ese que se convierte en su favorito o incluso si solo se trata de alguna recomendación hecha por un amigo.</p> 
-                                </div>
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                                <a class="btn_ver" href="Libro.html">Allende La Biografia</a>
+                                <script>                                
+                                    for (const [key, value] of puntuaciones.entries()) {
+                                    let starPercentage = (value / stars) * 100;                                  
+                                    let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
+                                    document.querySelector(`.${CSS.escape(key)} .stars-inner`).style.width = starPercentageRounded; 
+                                    console.log(key,document.querySelector(`.${CSS.escape(key)}.stars-inner`)); 
+                                    }
+                                </script>
+                            <div class='MS-controls'>
+                                <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
+                                <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
                             </div>
-                        </div>
-                        <div class='item'>
-                            <div class="imagen" style="background-image:url(Img/portadas/terror/libros-terror.jpg)">
-                                <div class="texto">
-                                    <p>El resplandor es la tercera novela de terror del escritor estadounidense Stephen King, publicada en 1977. El título se inspiró en la canción de John Lennon "Instant Karma!", que contiene la línea «We all shine on..</p>
-                                </div>
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                                <a class="btn_ver" href="Libro.html">El resplandor (novela)</a>
-                            </div>
-                         </div>
-                            <div class='item'>
-                                <div class="imagen" style="background-image:url(Img/portadas/terror/EL354038.jpg)">
-                                    <div class="texto">
-                                        <p>It es una novela de terror publicada en 1986 por el escritor estadounidense Stephen King. Cuenta la historia de un grupo de siete niños que son aterrorizados por un malvado monstruo -al que llaman «Eso»- que es capaz de cambiar de forma, alimentándose del terror que produce en sus víctimas. </p>
-                                    </div>
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <a class="btn_ver" href="Libro.html">It (novela)</a>
-                                </div>
-                             </div>
-                        </div>
-                        <div class='MS-controls'>
-                            <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
-                            <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
                         </div>
                     </div>
                 </div>
-            </div>
+    
 
-            <!--Separador 4-->
-            <div id="bajo_navegador" class="row separador">
-                <div class="col-xs-4 col-xs-offset-4">
-                    <h2>Terror</h2>
+            <div class="row separador">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <h2 id="h22">Terror</h2>
+                    </div>
                 </div>
-            </div>
-
+                <div   id="margin_contenido_titulo">    
+                    <div id="di2">  
+                    </div>
+                </div>
             <!--Terror-->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div id="exampleSlider4">
-                        <div class='MS-content'>
-                            <div class='item'>
-                                    <div class="imagen" style="background-image:url(Img/portadas/terror/5c1275a950c7615f5f8b4567.__RS360x360__.jpg)">
-                                        <div class="texto">
-                                            <p>Margaret Atwood nos ofrece una sorprendente interpretación del tema de la deuda, de gran actualidad dada la crisis económica por la que atraviesa el mundo tras el colapso de un sistema de deudas interconectadas. En su imaginativa, amena y profunda aproximación a este asunto, Atwood sugiere que la deuda es como el aire, algo que se da por seguro hasta que las cosas empiezan a ir mal. Es entonces cuando, mientras abrimos la boca intentando respirar, caemos en la cuenta de lo mucho que nos interesa.</p> 
-                                        </div>
-                                        <div class="stars-outer">
-                                            <div class="stars-inner"></div>
-                                        </div>
-                                        <a class="btn_ver" href="Libro.html">Frankenstein o el moderno Prometeo</a>
-                                    </div>
+            <div class="row" id="margin_contenido">
+                    <div class="col-xs-12">
+                        <div id="exampleSlider4">
+                            <div class='MS-content'>
+                                {% for t in top %}
+                        
+                                    <div class="item">
+                                                                             
+                                                <div class="card">
+                                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
+                                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
+                                                        onclick="sendBook('{{t.id}}')">
+                                                        <div class="rankeo {{t.id}}">
+                                                            <div class="stars-outer">
+                                                                <div class="stars-inner"></div>
+                                                            </div>
+                                                        </div>
+                                                        <h4>{{t.titulo|truncatechars:20}}</h4>
+                                                        <p>{{t.resumen|truncatechars:100}}</p>
+                                                        
+                                                        <script type="text/javascript">                                                                    
+                                                            puntuacion="{{t.estrellas}}";
+                                                            value=parseFloat(puntuacion);
+                                                            key="{{t.id}}";
+                                                            puntuaciones.set(key,value);                                    
+                                                        </script>
+                                               </div></div> 
+                                {% endfor %}                                                       
                             </div>
-                            <div class='item'>
-                                    <div class="imagen" style="background-image:url(Img/portadas/terror/the-turn-of-the-screw-119.jpg)">
-                                        <div class="texto">
-                                            <p>Una joven institutriz acude al cuidado de dos niños huérfanos en una vetusta mansión victoriana. Lo que en principio parece un cometido agradable derivará en una situación de pesadilla. Los niños viven impactados por un pasado inmediato en el que la anterior institutriz, la señorita Jessel, y Peter Quint, el criado y ayuda de cámara del patrón (el tío de los niños), mantenían una turbia relación. Se podría suponer que se dieron ciertos abusos</p>
-                                        </div>
-                                        <div class="stars-outer">
-                                            <div class="stars-inner"></div>
-                                        </div>
-                                        <a class="btn_ver" href="Libro.html">The Turn of the Screw</a>
-                                    </div>
+                                <script>                                
+                                    for (const [key, value] of puntuaciones.entries()) {
+                                    let starPercentage = (value / stars) * 100;                                  
+                                    let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
+                                    document.querySelector(`.${CSS.escape(key)} .stars-inner`).style.width = starPercentageRounded; 
+                                    console.log(key,document.querySelector(`.${CSS.escape(key)}.stars-inner`)); 
+                                    }
+                                </script>
+                            <div class='MS-controls'>
+                                <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
+                                <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
                             </div>
-                            <div class='item'>
-                                    <div class="imagen" style="background-image:url(Img/portadas/terror/9788466705660.jpg)">
-                                        <div class="texto">
-                                            <p>Margaret Atwood nos ofrece una sorprendente interpretación del tema de la deuda, de gran actualidad dada la crisis económica por la que atraviesa el mundo tras el colapso de un sistema de deudas interconectadas. En su imaginativa, amena y profunda aproximación a este asunto, Atwood sugiere que la deuda es como el aire, algo que se da por seguro hasta que las cosas empiezan a ir mal. Es entonces cuando, mientras abrimos la boca intentando respirar, caemos en la cuenta de lo mucho que nos interesa.</p> 
-                                        </div>
-                                        <div class="stars-outer">
-                                            <div class="stars-inner"></div>
-                                        </div>
-                                        <a class="btn_ver" href="Libro.html">El gato negro</a>
-                                    </div>
-                            </div>
-                            <div class='item'>
-                                    <div class="imagen" style="background-image:url(Img/portadas/terror/libros-terror.jpg)">
-                                        <div class="texto">
-                                            <p>El resplandor es la tercera novela de terror del escritor estadounidense Stephen King, publicada en 1977. El título se inspiró en la canción de John Lennon "Instant Karma!", que contiene la línea «We all shine on..</p>
-                                        </div>
-                                        <div class="stars-outer">
-                                            <div class="stars-inner"></div>
-                                        </div>
-                                        <a class="btn_ver" href="Libro.html">El resplandor (novela)</a>
-                                    </div>
-                            </div>
-                            <div class='item'>
-                                    <div class="imagen" style="background-image:url(Img/portadas/terror/misery_princ.jpg)">
-                                        <div class="texto">
-                                            <p>Misery libro es una novela de terror de que fue publicada en el año 1987, su autor es el famoso Stephen King. Uno de los libros más populares y exitosos de King, se centra en Paul Sheldon, un prolífico novelista más conocido por sus novelas románticas de la época victoriana protagonizadas por el personaje Misery Chastain.</p>    
-                                        </div>
-                                        <div class="stars-outer">
-                                            <div class="stars-inner"></div>
-                                        </div>
-                                        <a class="btn_ver" href="Libro.html">Misery (novela)</a>
-                                    </div>
-                            </div>
-                            <div class='item'>
-                                    <div class="imagen" style="background-image:url(Img/portadas/terror/EL354038.jpg)">
-                                        <div class="texto">
-                                            <p>It es una novela de terror publicada en 1986 por el escritor estadounidense Stephen King. Cuenta la historia de un grupo de siete niños que son aterrorizados por un malvado monstruo -al que llaman «Eso»- que es capaz de cambiar de forma, alimentándose del terror que produce en sus víctimas. </p>
-                                        </div>
-                                        <div class="stars-outer">
-                                            <div class="stars-inner"></div>
-                                        </div>
-                                        <a class="btn_ver" href="Libro.html">It (novela)</a>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class='MS-controls'>
-                            <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
-                            <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
                         </div>
                     </div>
                 </div>
-            </div>
+    
 
             <!-- Initialize elements with Multislider -->
             <script>
@@ -485,16 +393,7 @@
                     document.getElementById(identificador).click();
                 }
             </script>
-
-            <!--Separador final-->
-            <div id="bajo_navegador" class="row separador">
-                <div class="col-xs-4 col-xs-offset-4">
-                    <div id="Separador">
-                      
-                    </div>
-                </div>
-            </div>
-
+<br><br><br>
         </div>
     {% endblock Pagina %}
 

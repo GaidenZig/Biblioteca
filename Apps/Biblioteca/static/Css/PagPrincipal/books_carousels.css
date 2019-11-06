@@ -23,24 +23,22 @@
 #exampleSlider3 .MS-content .item,
 #exampleSlider4 .MS-content .item{   
     display: inline-block;
-    height: 360px;
+    height: 400px;
     overflow: hidden;
     position: relative;
     vertical-align: top;
     text-align: center;
     white-space: normal;
-    background-color: #fafafa;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
+    border-radius: 20px;
     width: 20%;
-    border-left:1px solid #000000 
+
 }
 @media (max-width: 1650px) {
   #exampleSlider .MS-content .item,
   #exampleSlider2 .MS-content .item ,
   #exampleSlider3 .MS-content .item,
   #exampleSlider4 .MS-content .item{
-    height:375px ;
+  height: 400px;
    
   }
 }
@@ -49,7 +47,7 @@
   #exampleSlider2 .MS-content .item ,
   #exampleSlider3 .MS-content .item,
   #exampleSlider4 .MS-content .item{
-   height: 350px;
+   height: 450px;
    
   }
 }
@@ -242,7 +240,7 @@
   height: 40%;
 }
 .rankeo{
-  height: 15%;
+  height: 3%;
 }
 .resumen{
   height:85%;
@@ -288,6 +286,7 @@ font-size: 1rem;
   position: relative;
   font-family: FontAwesome; 
   color: #000000;   
+  margin-bottom: 3px;
 }
  
 .stars-outer::before {

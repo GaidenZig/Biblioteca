@@ -23,7 +23,6 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser,PermissionsMixin):
-    id= models.AutoField(primary_key=True)
     username= models.CharField(max_length=10, validators=[
         RegexValidator(
             regex=USERNAME_REGEX,
@@ -34,7 +33,7 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
     is_superuser=models.BooleanField(default=False)
     is_staff=models.BooleanField(default=False)
     img_perfil= models.ImageField(upload_to='images/')
-    activo=models.BooleanField(default=True)
+    is_active=models.BooleanField(default=True)
     descripcion=models.TextField(max_length=1000, null=True,blank=True)
     objects= MyUserManager()
     USERNAME_FIELD='username'

@@ -11,8 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 
-from .models import Genero, Libro, Autor, Editorial
-from .forms import AutorForm, GeneroForm,LibroForm,EditorialForm
+from .models import Genero, Libro, Autor, Editorial,Slider
+from .forms import AutorForm, GeneroForm,LibroForm,EditorialForm,SliderForm
 from Apps.usuarios.models import MyUser
 
 # Create your views here.
@@ -21,9 +21,10 @@ from Apps.usuarios.models import MyUser
 # Create your views here.
 def Home(request):   
     current_user=request.user   
+    slider=Slider.objects.all()
     top_libros=Libro.objects.filter(estrellas__gt=4)
     print(top_libros)
-    return render(request,'index.html',{'user':current_user,'top':top_libros})
+    return render(request,'index.html',{'user':current_user,'top':top_libros,'slider':slider})
 
 
 def cargarLibro(request,pk):    
@@ -37,7 +38,7 @@ def galeria(request):
     libros=Libro.objects.all() 
     if queryset:
         libros=Libro.objects.filter(Q(titulo__icontains=queryset))
-    paginator=Paginator(libros,1)
+    paginator=Paginator(libros,4)
     page=request.GET.get('page')
     libros=paginator.get_page(page)
     return render(request,'Biblioteca/galeria.html',{'libros':libros})
@@ -173,7 +174,7 @@ def editarEditorial(request,id):
             editorial_form=EditorialForm(request.POST,instance=editorial)
             if editorial_form.is_valid():
                 editorial_form.save()
-            return redirect('Biblio:listar_editorial')
+                return redirect('Biblio:listar_editorial')
     except ObjectDoesNotExist as e:
         error=e   
     return render(request,'Accounts/Admin/editar_editorial.html',{'editorial_form':editorial_form,'error':error})
@@ -182,3 +183,39 @@ def eliminarEditorial(request,id):
     editorial=Editorial.objects.get(id=id)
     editorial.delete()
     return redirect('Biblio:listar_editorial')
+
+
+def crearSlider(request):
+    if request.method == 'POST':
+        print(request.POST)
+        slider_form = SliderForm(request.POST,request.FILES)
+        slider=Slider.objects.all()
+        if slider:
+            return redirect('Biblio:listar_slider') 
+        else:
+            if slider_form.is_valid():
+                slider_form.save()
+                return redirect('Biblio:listar_slider')       
+    else:
+        slider_form=SliderForm()
+    return render(request,'Accounts/Admin/crear_slider.html',{'slider_form':slider_form})
+
+def listarSlider(request):
+    slider=Slider.objects.all()
+    return render(request,'Accounts/Admin/listar_slider.html',{'slider':slider})
+
+def editarSlider(request,id):
+    slider_form=None
+    error=None
+    try:
+        slider=Slider.objects.get(id = id)
+        if request.method =='GET':
+            slider_form=SliderForm(instance = slider)
+        else:
+            slider_form=SliderForm(request.POST,request.FILES,instance=slider)
+            if slider_form.is_valid():
+                slider_form.save()
+                return redirect('Biblio:listar_slider')
+    except ObjectDoesNotExist as e:
+        error=e   
+    return render(request,'Accounts/Admin/editar_slider.html',{'slider_form':slider_form,'error':error})

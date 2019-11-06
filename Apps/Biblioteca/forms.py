@@ -1,5 +1,5 @@
 from django import forms
-from .models import Autor,Genero, Libro,Editorial
+from .models import Autor,Genero, Libro,Editorial,Slider
 
 class AutorForm(forms.ModelForm):
     class Meta:
@@ -10,6 +10,11 @@ class EditorialForm(forms.ModelForm):
     class Meta:
         model = Editorial
         fields=['nombre']
+
+class SliderForm(forms.ModelForm):
+    class Meta:
+        model=Slider
+        fields = "__all__"
 
 class GeneroForm(forms.ModelForm):
     class Meta:

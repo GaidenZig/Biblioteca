@@ -5,6 +5,11 @@ from .forms import UserCreationForm,UserLoginForm,userForm
 from Apps.Biblioteca.models import Autor,Libro
 from django.core.exceptions import ObjectDoesNotExist
 from .models import MyUser
+from django.conf import settings
+from django.core.mail import send_mail
+from datetime import *
+
+
 
 # Create your views here.
 
@@ -18,7 +23,7 @@ def register(request, *args, **kwargs):
     form = UserCreationForm(request.POST or None)    
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect('/login')
+        return HttpResponseRedirect('/login_web')
        
     context={'form':form}
     return render(request,"Accounts/register.html",context)
@@ -29,7 +34,7 @@ def Login_view(request, *args, **kwargs):
         user_obj = form.cleaned_data.get('user_obj')
         login(request,user_obj)        
         return HttpResponseRedirect("/")
-    return render(request,'Accounts/login.html',{"form":form})
+    return render(request,'Accounts/login_web.html',{"form":form})
 
 def logout_view(request):
     logout(request)
@@ -37,14 +42,13 @@ def logout_view(request):
 
 #Mantenedores de admin
 def adminBase(request):    
-    current_user=request.user   
-    return render(request,'Accounts/Admin/adminBase.html',{'user':current_user})
+    usuarios=MyUser.objects.filter(is_superuser=False).order_by('-id')
+    return render(request,'Accounts/Admin/adminBase.html',{'usuarios':usuarios})
 
 
 #(Mantenedores) Usuarios
 def crearUsuarior(request):
     if request.method == 'POST':
-        print(request.POST)
         user_form = userForm(request.POST, request.FILES)
         if user_form.is_valid():
             user_form.save()
@@ -62,16 +66,13 @@ def editarUsuario(request,id):
     error=None
     try:
         user=MyUser.objects.get(id = id)
-        print(request.GET)
         if request.method =='GET':
             user_form=userForm(instance = user)
-            print(request.GET)
         else:
             user_form=userForm(request.POST,request.FILES,instance=user)
             if user_form.is_valid():
-                print(request.POST)
                 user_form.save()
-            return redirect('Mantenedores:listar_usuarios')
+                return redirect('Mantenedores:listar_usuarios')
     except ObjectDoesNotExist as e:
         error=e   
     return render(request,'Accounts/Admin/editar_usuarios.html',{'user_form':user_form,'error':error})

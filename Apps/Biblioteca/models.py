@@ -26,6 +26,12 @@ class Editorial(models.Model):
     def __str__(self):
         return self.nombre
 
+class Slider(models.Model):
+    slider1=models.ImageField(upload_to='images/',default='images/no-book-image.jpg')
+    slider2=models.ImageField(upload_to='images/',default='images/no-book-image.jpg')
+    slider3=models.ImageField(upload_to='images/',default='images/no-book-image.jpg')
+
+
 class Libro(models.Model):
     titulo=models.CharField('Titulo', max_length=100)
     portada=models.ImageField(upload_to='images/',null=True, default='images/no-book-image.jpg')
