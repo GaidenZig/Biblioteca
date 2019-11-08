@@ -8,10 +8,11 @@
     right: 0;
     bottom: 0; 
     background-color:rgba(13, 14, 13, 0.815); 
-    z-index:50;
+    z-index:30;
 }
 .reservar{ 
-    position: fixed;   
+    display:none;
+    position:fixed;   
     left:10%;
     top:35%;
     right: 10%;
@@ -19,6 +20,13 @@
     border-radius:5px;
     box-shadow: 0 0 8px 5px rgba(13, 14, 13, 0.863);
     background-color:rgb(255, 255, 255); 
+    z-index: 40;
+}
+.reservar h2{
+    font-size: 15px;
+}
+.listo{
+    margin-top:10px;
 }
 #formReserva{
     text-align: center;
@@ -39,4 +47,46 @@ hr{
     border-radius: 5px;
     border-width: 0;
     color:rgba(14, 14, 14, 0.22);
+}
+
+/*mediaQuerys configuraciones*/
+
+/*xs----Extra small*/
+@media screen and (min-width:320px){
+}
+/*sm----small (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    .reservar{
+        left:25%;
+        top:25%;
+        right: 25%;
+        bottom: 25%;
+    }
+}
+/*md----medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { 
+    .reservar{
+        left:25%;
+        top:25%;
+        right: 25%;
+        bottom: 25%;
+    }
+}
+/*lg----large devices (desktops, 992px and up)*/
+@media (min-width: 992px) { 
+    .reservar{
+        left:22%;
+        top:25%;
+        right: 22%;
+        bottom: 25%;
+    }
+}
+/*xl----Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) { 
+    .reservar{
+        left:25%;
+        top:25%;
+        right: 25%;
+        bottom: 25%;
+    }
 }

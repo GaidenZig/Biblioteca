@@ -65,17 +65,19 @@
     right: 0;
     bottom: 0; 
     background-color:rgba(13, 14, 13, 0.815); 
-    z-index:50;
+    z-index:30;
 }
 .puntuar{ 
+    display: none;
     position: fixed;   
     left:10%;
-    top:35%;
+    top:25%;
     right: 10%;
-    bottom: 35%;    
+    bottom: 25%;    
     border-radius:5px;
     box-shadow: 0 0 8px 5px rgba(13, 14, 13, 0.863);
     background-color:rgb(255, 255, 255); 
+    z-index: 40;
 }
 
 
@@ -125,9 +127,9 @@
         font-size: 18px;
     }
     .puntuar{
-        left:25%;
+        left:22%;
         top:25%;
-        right: 25%;
+        right: 22%;
         bottom: 25%;
     }
 }

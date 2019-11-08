@@ -43,19 +43,19 @@
                     <br><br>
                     <!--Páginas-->
                     <b>Páginas: </b>
-                    <span id="paginas" class="datos">{{libro.paginas}}</span>
+                    <span id="paginas" class="datos">{{libro.paginas}}.</span>
                     <br><br>
                     <!--Editorial-->
                     <b>Editorial: </b>
-                    <span id="editorial" class="datos">{{editorial.nombre}}</span>
+                    <span id="editorial" class="datos">{{editorial.nombre}}.</span>
                     <br><br>
                     <!--ISBN-->
                     <b>ISBN: </b>
-                    <span id="isbn" class="datos">{{libro.isbn}}</span>
+                    <span id="isbn" class="datos">{{libro.isbn}}.</span>
                     <br><br>
                     <!--Disponibilidad-->
                     <b>Disponibilidad: </b>
-                    <span id="disponibilidad" class="datos">No Disponible</span>
+                    <span id="disponibilidad" class="datos">{{libro.copias}} copias.</span>
                     <br>
                     {% if user.is_authenticated %}
                     <button type="button" class="btn btn-primary" onclick="ventanaReservar()">Reservar</button>                    
@@ -151,27 +151,25 @@
         </script>
     </div>
     <br>
-    <div class="scene" >
-        <div class="puntuar">
-            <div>
-                <div class="row">
-                    <input type="text" name="valor" id="puntos">
-                </div>  
-                <button type="button" class="row" onclick="enviarPuntuacion();noVentanaPuntuar()">
-                    Enviar
-                </button>
-            </div>                      
-        </div>
+    <div class="scene" onclick="noVentanaPuntuar()"></div>
+    <div class="puntuar">
+        <div>
+            <div class="row">
+                <input type="text" name="valor" id="puntos">
+            </div>  
+            <button type="button" class="row" onclick="enviarPuntuacion();noVentanaPuntuar()">
+                Enviar
+            </button>
+        </div>                      
     </div>
-    <div class="scene2">
-        <div class="reservar">
-            <div id="formReserva" class="row">            
-                <h2 class="col-xs-12">Tiempo de reserva</h2>
-                <p class="col-xs-6 fechaIni"><input id="inicio" type="text" name="fechaInicio" onchange="actualizarFechas()"></input></p>
-                <p class="col-xs-6 fechaDev"><input id="devolucion" type="text" name="fechaDevolucion" ></input></p>
-                <hr/>
-                <p class="col-xs-12"><button type="button" onclick="noVentanaReservar();enviarReserva()">¡Listo!</button></p>                                                            
-            </div>
+    <div class="scene2" onclick="noVentanaReservar()"></div>
+    <div class="reservar">
+        <div id="formReserva" class="row">            
+            <h2 class="col-xs-12">Tiempo de reserva</h2>
+            <p class="col-xs-12 col-sm-6 fechaIni"><input id="inicio" type="text" name="fechaInicio" onchange="actualizarFechas()"></input></p>
+            <p class="col-xs-12 col-sm-6 fechaDev"><input id="devolucion" type="text" name="fechaDevolucion" ></input></p>
+            <hr/>
+            <p class="col-xs-12 listo"><button type="button" onclick="noVentanaReservar();enviarReserva()">¡Listo!</button></p>                                                            
         </div>
     </div>
 
@@ -187,7 +185,7 @@
                 url: "{% url 'Biblio:votar' %}",
                 type: 'get',
                 success: function(data){
-
+                    
                 },
                 error: function(data){
 
@@ -260,19 +258,23 @@
         
         function ventanaPuntuar(){
             animarVentanaEmergente(scenePuntuar);
-            scenePuntuar.style.display='block';           
+            scenePuntuar.style.display='block'; 
+            fichaPuntuar.style.display='block';          
             animarFichaEmergente(fichaPuntuar);
         }
         function noVentanaPuntuar(){
             scenePuntuar.style.display='none'; 
+            fichaPuntuar.style.display='none';
         } 
         function ventanaReservar(){
             animarVentanaEmergente(sceneReservar);
             sceneReservar.style.display='block'; 
+            fichaReservar.style.display='block';
             animarFichaEmergente(fichaReservar);            
         }
         function noVentanaReservar(){
             sceneReservar.style.display='none';
+            fichaReservar.style.display='none';
         }
 
         function animarVentanaEmergente(escena) {
