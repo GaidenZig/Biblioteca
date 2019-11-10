@@ -5,6 +5,30 @@ class AutorForm(forms.ModelForm):
     class Meta:
         model = Autor
         fields=['primer_nombre','apellido','nacimiento','muerte']
+        widgets={
+            'primer_nombre': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Ingrese el Nombre del Autor'
+                }
+            ),
+            'apellido': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Ingrese el Apellido del Autor'
+                }
+            ),
+            'nacimiento':forms.SelectDateWidget(
+                attrs={
+                    'class':'form-control-date'                    
+                }
+            ),
+            'muerte':forms.SelectDateWidget(
+                attrs={
+                    'class':'form-control-date'                    
+                }
+            )
+        }
         
 class EditorialForm(forms.ModelForm):
     class Meta:

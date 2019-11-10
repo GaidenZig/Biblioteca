@@ -52,7 +52,7 @@ body{
 @media (max-width: 425px) {
 
     .galeria_min{
-        margin-left: 20px;
+        margin-left: 20%;
     }
 }
 #recuperar_button{
