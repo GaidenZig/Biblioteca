@@ -27,10 +27,11 @@ urlpatterns = [
     path('Admin/', include(('Apps.usuarios.urls','Mantenedores'))),
     path('',Home, name='index'),   
     path('register/',register, name='registro'),
-    path('login/',Login_view, name='login'),
-    path('logout/',logout_view, name='logout'),
+    path('login_web/',Login_view, name='login_web'),
+    path('logout_web/',logout_view, name='logout_web'),
     path('galeria/',galeria, name='galeria'),
     path('perfil/',perfil, name='perfil'),
+    path('account/',include('django.contrib.auth.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

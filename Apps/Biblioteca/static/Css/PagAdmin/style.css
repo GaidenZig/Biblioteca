@@ -28,10 +28,52 @@ hr{
 }
 #divContenido{
 }
+#merror{
+    text-align: center;
+    padding-left:15%;
+    padding-right:15%;
+    
+}
+#aerror{
+    display: block;
+    align-content: center;
+    background: rgb(109, 144, 199);
+    border-radius: 15px;
+    padding: 12px;
+    width: auto;
+    margin-left: 30%;
+    margin-right: 30%;
+    color: #ffffff;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+#imgerror{
+    width: 50%;
+    height: 50%;
+}
+
+@media (max-width: 767px) {
+    #aerror{ 
+        margin-left: 20%;margin-right: 20%;
+    }
+
+    #imgerror{
+        width: 80%;
+        height: 80%;
+    }
+}
+
+#aerror:hover{
+    background: rgb(71, 95, 134);
+}
+
 #bottom{
     display: flexbox;
     align-content: flex-end;
 }
+
+
 
 /*mediaQuerys configuraciones*/
 

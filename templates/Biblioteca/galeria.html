@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
-    <title>{% block titulo %}Galeria{% endblock titulo %}</title>
+    <title>{% block titulo %}Libros{% endblock titulo %}</title>
      
 {% block dependencias_individuales %}     
 <link rel="stylesheet" href="{% static 'Css/PagPrincipal/scrollup.css' %}">
@@ -17,35 +17,49 @@
 
 <div id="margin_contenido">
     <div class="row">
-        {% for libro in libros %}
-        <div class="item  col-xs-3  col-sm-3 col-md-3 col-lg-3 ">
-            <div class="marco ">
-                <div class="imagen">
-                        <img src="{{libro.portada.url}}" alt="Portada de libro" 
-                            onclick="sendBook('{{libro.titulo}}')">                 
-                </div>
-                
-                <div class="datos">
-                    <div class="rankeo">
-                        <div class="stars-outer">
-                            <div class="stars-inner"></div>
-                        </div>
-                    </div>
-                        <div class="resumen">
-                            <p>{{libro.resumen|truncatechars:100}}</p>
-                        </div>                                                                               
-                </div>
-                
-            </div>                                    
+    {% if libros %}
+        {% for t in libros %}
+        <div class="item  galeria_min col-xs-6  col-sm-4 col-md-3 col-lg-3 ">        
+                    <div class="card">
+                            <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
+                            <img src="{{t.portada.url}}" alt="Portada de libro" 
+                            onclick="sendBook('{{t.id}}')">
+                            <div class="rankeo {{t.id}}">
+                                <div class="stars-outer">
+                                    <div class="stars-inner"></div>
+                                </div>
+                            </div>
+                            <h4>{{t.titulo|truncatechars:20}}</h4>
+                            <p>{{t.resumen|truncatechars:100}}</p>
+                            
+                            <script type="text/javascript">                                                                    
+                                puntuacion="{{t.estrellas}}";
+                                value=parseFloat(puntuacion);
+                                key="{{t.id}}";
+                                puntuaciones.set(key,value);                                    
+                            </script>
+                   </div>                                  
         </div>
-        {% endfor %}                                                       
+        {% endfor %}      
+    {% else %}
+    <div class="row justify-content-center">
+        <h1>NO SE ENCONTRO RESULTADOS</h1>
     </div>
+    {% endif %}                                                 
+    </div>
+    <br>
+    <br>
     
     <!--Parallax-->
     <script src="{% static 'Js/Parallax.js' %}"></script>
 
     <script src="{% static 'Js/booksSlides.js' %}"></script>
-    
+    <script> 
+        function sendBook(id){
+            let identificador="img"+id;
+            document.getElementById(identificador).click();
+        }
+    </script>
     <div id="bajo_navegador" class="row separador">
         <div class="col-xs-4 col-xs-offset-4">
             <div id="Separador">                      

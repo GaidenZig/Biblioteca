@@ -7,12 +7,12 @@ from .models import MyUser
 # Register your models here.
 class UserAdmmin(BaseUserAdmin):
     add_form = UserCreationForm
-    list_display = ('username', 'email', 'is_superuser','activo')
+    list_display = ('username', 'email', 'is_superuser','is_active')
     list_filter=('is_superuser',)
 
     fieldsets=(
-        (None, {'fields':('username','email', 'password','activo','descripcion','img_perfil')}),
-        ('Permissions', {'fields':('is_superuser','is_staff')})
+        (None, {'fields':('username','email', 'password','descripcion','img_perfil')}),
+        ('Permissions', {'fields':('is_active','is_superuser','is_staff')})
     )
     search_fields = ('username', 'email')
     ordering = ('username', 'email' )

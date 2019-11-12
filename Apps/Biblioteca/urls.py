@@ -4,6 +4,7 @@ from .views import crearAutor, editarAutor, eliminarAutor, listarAutor
 from .views import crearGenero, editarGenero, eliminarGenero, listarGenero
 from .views import crearLibro, editarLibro, eliminarLibro, listarLibro, cargarLibro
 from .views import crearEditorial,editarEditorial,eliminarEditorial,listarEditorial
+from .views import crearSlider, editarSlider, listarSlider
 from .views import puntuacion, puntuar, reservar
 
 app_name='Biblio'
@@ -32,4 +33,8 @@ urlpatterns=[
     path('eliminar_editorial/<int:id>/', eliminarEditorial,name='eliminar_editorial'),
     path('crear_editorial/', crearEditorial,name='crear_editorial'),
     path('listar_editorial/', listarEditorial,name='listar_editorial'),
+
+    path('crear_slider/', crearSlider,name='crear_slider'),
+    path('listar_slider/', listarSlider,name='listar_slider'),
+    path('editar_slider/<int:id>/', editarSlider,name='editar_slider'),
 ]

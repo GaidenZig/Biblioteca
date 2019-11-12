@@ -6,12 +6,11 @@
 {% load crispy_forms_tags %}
 {% block principal %} 
     <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xs-12 col-ms-11 col-lg-11">
-                <form method="POST" >
-                
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-ms-11 col-lg-11">
+            <form method="POST" enctype='multipart/form-data'>
                     {% csrf_token %}
-                    {{ autor_form|crispy }}
+                    {{ autor_form.as_p }}
                     <button type="submit" class="btn btn-primary">Crear</button>
                 </form>
             </div>

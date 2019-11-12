@@ -1,14 +1,15 @@
 Footer{
-    width: 100%;    
+    width: 100%;
+    overflow: hidden;    
 }   
 footer div div a{
     display: block;
-    padding: 15px 15px;
+    padding: 13px 13px;
     color: aliceblue;
     text-decoration: none;
     border-bottom: 1px solid #ffffff;
     margin-bottom: 20px;
-    width: 170px;
+    width: 180px;
     height: 20px;
 }
 

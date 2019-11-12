@@ -33,12 +33,21 @@
     background-color: rgb(99, 99, 99);
     border: .3px solid #ffffff;
     border-top-left-radius: 20%; border-top-right-radius: 20%;   
-    padding-top: 5%; padding-bottom: 5%; 
+    padding-top: 3%; padding-bottom: 3%; 
+    overflow: hidden;
 }
 .tabs > .pestania:hover,
 .tabs > .pestania:focus {
-    padding-top: 10%;
+    padding-top: 5%;
     background-color: rgb(155, 25, 25);
+}
+.solicitar{
+    padding-top: 5%; padding-bottom: 5%; 
+   height: 100%;
+    width: 100%;
+    background: #ffffff00;
+    color: #ffffff;
+    border: none;
 }
 
 /*extra*/

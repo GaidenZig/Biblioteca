@@ -22,7 +22,7 @@ class userForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields=['id','username','password1', 'email','is_superuser','is_staff','img_perfil','activo','descripcion']
+        fields=['username','password1','email','is_superuser','is_staff','img_perfil','is_active','descripcion']
 
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
