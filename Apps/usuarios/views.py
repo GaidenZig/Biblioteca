@@ -81,6 +81,3 @@ def eliminarUsuario(request,id):
     user=MyUser.objects.get(id=id)
     user.delete()
     return redirect('Mantenedores:listar_usuarios')
-
-
-
