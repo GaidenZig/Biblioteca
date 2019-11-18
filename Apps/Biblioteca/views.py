@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.template import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
@@ -24,8 +24,7 @@ from Apps.usuarios.models import MyUser
 def Home(request):   
     current_user=request.user   
     slider=Slider.objects.all()
-    top_libros=Libro.objects.filter(Q(estrellas__gt=4) & Q(activo__exact=True))
-    print(top_libros)
+    top_libros=Libro.objects.filter(Q(estrellas__gt=4) & Q(activo__exact=True))        
     return render(request,'index.html',{'user':current_user,'top':top_libros,'slider':slider})
 
 
@@ -47,8 +46,16 @@ def galeria(request):
     return render(request,'Biblioteca/galeria.html',{'libros':libros})
 
 def perfil(request):    
-    current_user=request.user 
-    return render(request,'Accounts/perfil.html',{'user':current_user})
+    current_user=request.user
+    user=MyUser.objects.get(id__exact=current_user.id)
+    dots=InstanciaLibro.objects.filter(usuario__id=user.id)
+    result=dots.values('libro')
+    lista=[]
+    for obj in result:
+        book=Libro.objects.get(id=obj['libro'])
+        lista.append(book)        
+
+    return render(request,'Accounts/perfil.html',{'user':current_user, 'reservas':lista})
 
 def puntuacion(request):
     id=request.GET.get('id')
@@ -56,12 +63,12 @@ def puntuacion(request):
     return JsonResponse({'puntuacion':libro.estrellas})
 
 def puntuar(request): 
-    puntos=request.GET.get('puntos')
+    puntos=float(request.GET.get('puntos'))
     book=Libro.objects.get(id__exact=request.GET.get('idLibro'))
     user=MyUser.objects.get(id__exact=request.GET.get('idUsuario'))
     query=Puntuacion(valor=puntos, usuario=user, libro=book)
     if verificarVotacion(user,book)==False:
-        valorEstrellas(book,puntos) 
+        valorEstrellas(book.id,puntos) 
 
     response = None
     if request.user.is_active and verificarVotacion(user,book)==False:
@@ -73,15 +80,23 @@ def puntuar(request):
 
     return response
 
-def valorEstrellas(libro,nuevoPuntaje):
-    objetos=Puntuacion.objects.filter(id__exact=libro.id)
-    for objeto in objetos:
-        suma += objeto.valor
+def valorEstrellas(libro,nuevoPuntaje):         
+    promedio=0
+    librito=Libro.objects.get(id=libro)
+    objetos=Puntuacion.objects.filter(libro__id=libro)
+    if not objetos:
+        promedio=nuevoPuntaje
+    else:
+        suma=0 
+        for objeto in objetos:
+            suma += objeto.valor
 
-    suma += nuevoPuntaje
-    promedio=suma/objetos.len()
-    libro.estrellas=promedio
-    libro.save()
+        suma += nuevoPuntaje
+        promedio= suma/objetos.count()
+
+    print(promedio)
+    librito.estrellas=promedio
+    librito.save()
 
 def verificarVotacion(usuario,libro):
     #Peligro inminente de eficiencia en el programa...    

@@ -1,8 +1,9 @@
-  body{
-    font-family: 'Nunito', sans-serif;
-  }
-
-
+html{
+  width: 100%;
+}
+body{
+  font-family: 'Nunito', sans-serif;
+}
 
 label,h1,span{
   
@@ -21,10 +22,7 @@ h1{
 label{
   color:rgba(140, 127, 255, 0.87);
   font-size: 1.2rem;
-}
-  .espacio{
-    padding-bottom: 20px;
-  }
+}  
 
   .img_anterior{
     width: 100%;
@@ -40,7 +38,7 @@ label{
     box-shadow: 10px 10px 10px;
     z-index: 10;
   }
-  .image-section{
+  div.image-section{
     padding: 0px;
 
   }
@@ -52,10 +50,16 @@ label{
   .user-image{
     position: absolute;
     margin-top:-100px;
-    margin-left: 5px;
+    margin-left: 12px;
   }
-  .user-left-part{
-    margin: 0px;
+  .rounded-circle{
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgb(255, 255, 255);
+  }
+  .user-medium-part{
+    width: 100%;
   }
   .user-image img{
     width:167px;
@@ -74,12 +78,20 @@ label{
     margin:0px; 
   }
 
-  .profile-right-section{
-    padding: 20px 0px 10px 15px;
-   
+  .icono{
+    color: rgba(184, 120, 243, 0.945);
+  }
+
+  div.profile-right-section{    
+    max-width: 230px;    
   }
   .profile-right-section-row{
     margin: 0px;
+    background-color: rgba(0, 0, 0, 0.842);
+    border-radius: 3px;
+    border-style: solid;
+    border-color: rgba(77, 77, 77, 0.911);
+    border-width: 1px;    
   }
   .profile-header-section1 h1{
     font-size: 25px;
@@ -108,7 +120,60 @@ label{
     margin-top: 15px;
     margin-bottom: 15px;
     border-radius: 10px;    
-    background-color: rgba(36, 32, 32, 0.596);         
+    background-color: rgba(0, 0, 0, 0.712);         
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, .20);
     z-index: 10;
+}
+
+/*tabla*/
+#imgport{
+  height: 70px;
+  width: 40px;
+}
+table {
+  background-color: rgba(0, 0, 0, 0.842);
+  border-radius: 0.5em;
+  border-collapse: collapse;
+  margin-bottom: 5px;
+  width: 100%;
+}
+th {
+  border-bottom: 1px solid #364043;
+  color: #E2B842;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  text-align: left;
+}
+td {
+  color: #fff;
+  font-weight: 400;
+  padding: 0.65em 1em;
+}
+.disabled td {
+  color: #4F5F64;
+}
+tbody tr {
+  transition: background 0.25s ease;
+}
+tbody tr:hover {
+  background: #014055;
+}
+
+/*mediaQuerys configuraciones*/
+
+/*xs----Extra small*/
+@media screen and (min-width:320px){  
+}
+/*sm----small (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+}
+/*md----medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { 
+}
+/*lg----large devices (desktops, 992px and up)*/
+@media (min-width: 992px) { 
+}
+/*xl----Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) { 
 }

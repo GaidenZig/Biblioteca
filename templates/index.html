@@ -135,12 +135,14 @@
                 const stars=5; //total de estrellas en la puntuacion       
             </script>
 
-            <!--Separador 1-->
-            <br>
-            <div  id="margin_contenido_titulo">    
-                <div  id="di">
-                        <h2 id="h21">Top</h2>  
+            <!--Separador 1-->            
+            <div class="row separador">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <h2 id="h22">Top</h2>
                 </div>
+            </div>
+            <div  id="margin_contenido_titulos">    
+                <div  id="di"></div>
             </div>
             
             <!--Top libros-->
@@ -195,12 +197,11 @@
             <a name="favoritos"></a>
             <div class="row separador">
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <h2 id="h22">Más votados</h2>
+                    <h2 id="h21">Más votados</h2>
                 </div>
             </div>
-            <div   id="margin_contenido_titulo">    
-                <div id="di2">  
-                </div>
+            <div   id="margin_contenido_titulos">    
+                <div id="di2"></div>
             </div>
 
             <!--Más votados-->
@@ -251,40 +252,41 @@
     
 
 
-            
-            <div  id="margin_contenido_titulo">    
-                    <div  id="di">
-                            <h2 id="h21">Nuevos</h2>  
-                    </div>
+            <div class="row separador">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <h2 id="h22">Nuevos</h2>
+                </div>
+            </div>
+            <div  id="margin_contenido_titulos">    
+                <div  id="di"></div>
             </div>
             <!--Nuevos-->
             <div class="row" id="margin_contenido">
                     <div class="col-xs-12">
                         <div id="exampleSlider3">
                             <div class='MS-content'>
-                                {% for t in top %}
-                        
-                                    <div class="item">
-                                                                             
-                                                <div class="card">
-                                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
-                                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
-                                                        onclick="sendBook('{{t.id}}')">
-                                                        <div class="rankeo {{t.id}}">
-                                                            <div class="stars-outer">
-                                                                <div class="stars-inner"></div>
-                                                            </div>
-                                                        </div>
-                                                        <h4>{{t.titulo|truncatechars:20}}</h4>
-                                                        <p>{{t.resumen|truncatechars:100}}</p>
-                                                        
-                                                        <script type="text/javascript">                                                                    
-                                                            puntuacion="{{t.estrellas}}";
-                                                            value=parseFloat(puntuacion);
-                                                            key="{{t.id}}";
-                                                            puntuaciones.set(key,value);                                    
-                                                        </script>
-                                               </div></div> 
+                                {% for t in top %}                        
+                                <div class="item">                                                                             
+                                    <div class="card">
+                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
+                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
+                                        onclick="sendBook('{{t.id}}')">
+                                        <div class="rankeo {{t.id}}">
+                                            <div class="stars-outer">
+                                                <div class="stars-inner"></div>
+                                            </div>
+                                        </div>
+                                        <h4>{{t.titulo|truncatechars:20}}</h4>
+                                        <p>{{t.resumen|truncatechars:100}}</p>
+                                        
+                                        <script type="text/javascript">                                                                    
+                                            puntuacion="{{t.estrellas}}";
+                                            value=parseFloat(puntuacion);
+                                            key="{{t.id}}";
+                                            puntuaciones.set(key,value);                                    
+                                        </script>
+                                    </div>
+                                </div> 
                                 {% endfor %}                                                       
                             </div>
                                 <script>                                
@@ -305,14 +307,13 @@
     
 
             <div class="row separador">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <h2 id="h22">Terror</h2>
-                    </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <h2 id="h21">Terror</h2>
                 </div>
-                <div   id="margin_contenido_titulo">    
-                    <div id="di2">  
-                    </div>
-                </div>
+            </div>
+            <div   id="margin_contenido_titulos">    
+                <div id="di2"></div>
+            </div>
             <!--Terror-->
             <div class="row" id="margin_contenido">
                     <div class="col-xs-12">

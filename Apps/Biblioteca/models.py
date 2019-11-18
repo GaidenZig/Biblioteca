@@ -29,7 +29,7 @@ class Editorial(models.Model):
 class Slider(models.Model):
     slider1=models.ImageField(upload_to='images/',default='images/no-book-image.jpg')
     slider2=models.ImageField(upload_to='images/',default='images/no-book-image.jpg')
-    slider3=models.ImageField(upload_to='images/',default='images/no-book-image.jpg')
+    slider3=models.ImageField(upload_to='images/',default='images/no-book-image.jpg')    
 
 
 class Libro(models.Model):

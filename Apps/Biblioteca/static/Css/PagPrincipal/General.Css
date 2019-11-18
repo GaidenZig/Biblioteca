@@ -1,10 +1,16 @@
-
-body{
-    background: url('/static/Img/regal.png');
+html{
+    background: url('/static/Img/Background.jpg') no-repeat center center fixed;
 	background-size:cover; /* Encajamos la imagen al 100% del ancho */
-    background-attachment: fixed; /* Establecemos una posicion fija para la imagen */
+    /* background-attachment: fixed; Establecemos una posicion fija para la imagen */
     margin:0;
     font-family: 'Nunito', sans-serif;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+body{
+    margin: 0;
 }
 #Contenedor{          
     width: 100%;
@@ -80,8 +86,8 @@ font-family: 'Anton', sans-serif;*/
 #h21{
     color:#ffffff;
     font-size: 2.2rem;
-    padding-top: 90px;
-    padding-left: 4rem;
+    padding-top: 80px;
+    padding-left: 70%;
     position: relative;
     z-index: 100;
     font-family: 'Anton', sans-serif;
@@ -90,7 +96,7 @@ font-family: 'Anton', sans-serif;*/
     color:#ffffff;
     font-size: 2.2rem;
     padding-top: 80px;
-    padding-left: 70%;
+    padding-right: 70%;
     position: relative;
     z-index: 9;
     font-family: 'Anton', sans-serif;
@@ -110,13 +116,13 @@ font-family: 'Anton', sans-serif;*/
 }
 
 
-#margin_contenido{
-    margin-left: 10%;
-    margin-right: 10%;
+#margin_contenido{   
     overflow: hidden;
+    
 }
 
 #margin_contenido_titulos{
+    width: 100%;
     margin-left: 0%;
     margin-right: 0%;
     overflow: hidden;
@@ -130,10 +136,10 @@ font-family: 'Anton', sans-serif;*/
 }
 @media (max-width: 800px) {
     #h22{
-        padding-left: 60%;
+        padding-right: 65%;
     }
     #h21{
-        padding-left: 3rem;
+        padding-left: 65%;
     }
 }
 .marco{
@@ -155,17 +161,15 @@ font-family: 'Anton', sans-serif;*/
 }
 
 #di {
-    width: 0;
     height: 0;
-    border-bottom: 215px solid #465d6e;
-    border-right:98vw  solid transparent;
+    border-top: 216px solid #465d6e;
+    border-left: 100vw solid #4584b9;
 }
 
-#di2 {
-    width: 0;
+#di2 {    
     height: 0;
-    border-bottom: 215px solid #465d6e;
-    border-left: 98.7vw  solid transparent;
+    border-bottom: 216px solid #465d6e;
+    border-left: 100vw solid #4584b9;
     z-index: 0;
 }
 
