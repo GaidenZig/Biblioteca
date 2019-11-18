@@ -24,8 +24,9 @@ from Apps.usuarios.models import MyUser
 def Home(request):   
     current_user=request.user   
     slider=Slider.objects.all()
-    top_libros=Libro.objects.filter(Q(estrellas__gt=4) & Q(activo__exact=True))        
-    return render(request,'index.html',{'user':current_user,'top':top_libros,'slider':slider})
+    top_libros=Libro.objects.filter(Q(estrellas__gt=4) & Q(activo__exact=True))
+    generos=Genero.objects.filter(activo=True)   
+    return render(request,'index.html',{'user':current_user,'top':top_libros,'slider':slider,'generos':generos})
 
 
 def cargarLibro(request,pk):    

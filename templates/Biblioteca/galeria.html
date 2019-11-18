@@ -18,29 +18,43 @@
 <div id="margin_contenido">
     <div class="row">
     {% if libros %}
+        <script>
+            let rate; 
+            let valor;
+            let p;           
+        </script>
         {% for t in libros %}
         <div class="item  galeria_min col-xs-6  col-sm-4 col-md-3 col-lg-3 ">        
-                    <div class="card">
-                            <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
-                            <img src="{{t.portada.url}}" alt="Portada de libro" 
-                            onclick="sendBook('{{t.id}}')">
-                            <div class="rankeo {{t.id}}">
-                                <div class="stars-outer">
-                                    <div class="stars-inner"></div>
-                                </div>
-                            </div>
-                            <h4>{{t.titulo|truncatechars:20}}</h4>
-                            <p>{{t.resumen|truncatechars:100}}</p>
-                            
-                            <script type="text/javascript">                                                                    
-                                puntuacion="{{t.estrellas}}";
-                                value=parseFloat(puntuacion);
-                                key="{{t.id}}";
-                                puntuaciones.set(key,value);                                    
-                            </script>
-                   </div>                                  
+            <div class="card">
+                <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
+                <img src="{{t.portada.url}}" alt="Portada de libro" 
+                onclick="sendBook('{{t.id}}')">
+                <div>
+                    <div id="rateYo{{t.id}}" class="valor"></div>
+                </div>
+                <h4>{{t.titulo|truncatechars:20}}</h4>
+                <p>{{t.resumen|truncatechars:100}}</p>
+                
+                <script>                                    
+                    $(function (){
+                        p="{{t.estrellas}}";                        
+                        valor=parseFloat(p.replace(",", '.'));
+                        rate=$('#rateYo{{t.id}}').rateYo({
+                            rating: valor,
+                            readOnly: true,
+                            starWidth:"20px"
+                        });
+                    });                                                            
+                </script> 
+            </div>                                  
         </div>
-        {% endfor %}      
+        {% endfor %}
+        <script>
+            function sendBook(id){
+                let identificador="img"+id;
+                document.getElementById(identificador).click();
+            }            
+        </script>     
     {% else %}
     <div class="row justify-content-center">
         <h1>NO SE ENCONTRO RESULTADOS</h1>
@@ -54,12 +68,7 @@
     <script src="{% static 'Js/Parallax.js' %}"></script>
 
     <script src="{% static 'Js/booksSlides.js' %}"></script>
-    <script> 
-        function sendBook(id){
-            let identificador="img"+id;
-            document.getElementById(identificador).click();
-        }
-    </script>
+      
     <div id="bajo_navegador" class="row separador">
         <div class="col-xs-4 col-xs-offset-4">
             <div id="Separador">                      

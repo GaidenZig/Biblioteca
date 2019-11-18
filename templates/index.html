@@ -21,6 +21,13 @@
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet"/>
     <script src="https://kit.fontawesome.com/3f1a99f494.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Anton|Bowlby+One+SC|Jomolhari|Staatliches&display=swap" rel="stylesheet">
+
+    <!--Include jQuery ratings-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    
     <title>{% block titulo %}Home{% endblock titulo %}</title>
 
     <!--En este bloque irían todas las dependecias específicas de cada pagina que herede de index-->
@@ -128,11 +135,9 @@
         <div id="margin_contenido">
             <!--Esta variables es para el uso de todos los slides-->
             <script>                
-                let puntuaciones=new Map();
-                let puntuacion="";
-                let value=0;
-                let key="";
-                const stars=5; //total de estrellas en la puntuacion       
+                let rate; 
+                let valor;
+                let p;
             </script>
 
             <!--Separador 1-->            
@@ -145,45 +150,38 @@
                 <div  id="di"></div>
             </div>
             
-            <!--Top libros-->
-            <div >
+            <!--Top libros-->            
             <div class="row" id="margin_contenido">
                 <div class="col-xs-12">
                     <div id="exampleSlider">
                         <div class='MS-content'>
-                            {% for t in top %}
-                    
+                            {% for t in top %}                    
                                 <div class="item">                                                                         
                                     <div class="card">
                                         <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
                                         <img src="{{t.portada.url}}" alt="Portada de libro" 
                                         onclick="sendBook('{{t.id}}')">
-                                        <div class="rankeo {{t.id}}">
-                                            <div class="stars-outer">
-                                                <div class="stars-inner"></div>
-                                            </div>
+                                        <div>
+                                            <div id="rateYo{{t.id}}" class="valor"></div>
                                         </div>
                                         <h4>{{t.titulo|truncatechars:20}}</h4>
                                         <p>{{t.resumen|truncatechars:100}}</p>
                                         
-                                        <script type="text/javascript">                                                                    
-                                            puntuacion="{{t.estrellas}}";
-                                            value=parseFloat(puntuacion);
-                                            key="{{t.id}}";
-                                            puntuaciones.set(key,value);                                    
-                                        </script>
+                                        <script>                                    
+                                            $(function (){
+                                                p="{{t.estrellas}}";                        
+                                                valor=parseFloat(p.replace(",", '.'));
+                                                rate=$('#rateYo{{t.id}}').rateYo({
+                                                    rating: valor,
+                                                    readOnly: true,
+                                                    starWidth:"20px"
+                                                });
+                                            });                                                            
+                                        </script> 
                                     </div>
                                 </div> 
                             {% endfor %}                                                       
-                        </div>
-                            <script>                                
-                                for (const [key, value] of puntuaciones.entries()) {
-                                let starPercentage = (value / stars) * 100;                                  
-                                let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
-                                document.querySelector(`.${CSS.escape(key)} .stars-inner`).style.width = starPercentageRounded; 
-                                console.log(key,document.querySelector(`.${CSS.escape(key)}.stars-inner`)); 
-                                }
-                            </script>
+                        </div>                        
                         <div class='MS-controls'>
                             <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
                             <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
@@ -191,199 +189,80 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-            <!--Separador 2-->
-            <a name="favoritos"></a>
-            <div class="row separador">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <h2 id="h21">Más votados</h2>
-                </div>
-            </div>
-            <div   id="margin_contenido_titulos">    
-                <div id="di2"></div>
-            </div>
-
-            <!--Más votados-->
-            <div class="row" id="margin_contenido">
-                    <div class="col-xs-12">
-                        <div id="exampleSlider2">
-                            <div class='MS-content'>
-                                {% for t in top %}
-                        
-                                    <div class="item">
-                                                                             
-                                                <div class="card">
-                                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
-                                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
-                                                        onclick="sendBook('{{t.id}}')">
-                                                        <div class="rankeo {{t.id}}">
-                                                            <div class="stars-outer">
-                                                                <div class="stars-inner"></div>
-                                                            </div>
-                                                        </div>
-                                                        <h4>{{t.titulo|truncatechars:20}}</h4>
-                                                        <p>{{t.resumen|truncatechars:100}}</p>
-                                                        
-                                                        <script type="text/javascript">                                                                    
-                                                            puntuacion="{{t.estrellas}}";
-                                                            value=parseFloat(puntuacion);
-                                                            key="{{t.id}}";
-                                                            puntuaciones.set(key,value);                                    
-                                                        </script>
-                                               </div></div> 
-                                {% endfor %}                                                       
-                            </div>
-                                <script>                                
-                                    for (const [key, value] of puntuaciones.entries()) {
-                                    let starPercentage = (value / stars) * 100;                                  
-                                    let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
-                                    document.querySelector(`.${CSS.escape(key)} .stars-inner`).style.width = starPercentageRounded; 
-                                    console.log(key,document.querySelector(`.${CSS.escape(key)}.stars-inner`)); 
-                                    }
-                                </script>
-                            <div class='MS-controls'>
-                                <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
-                                <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-
-
-            <div class="row separador">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <h2 id="h22">Nuevos</h2>
-                </div>
-            </div>
-            <div  id="margin_contenido_titulos">    
-                <div  id="di"></div>
-            </div>
-            <!--Nuevos-->
-            <div class="row" id="margin_contenido">
-                    <div class="col-xs-12">
-                        <div id="exampleSlider3">
-                            <div class='MS-content'>
-                                {% for t in top %}                        
-                                <div class="item">                                                                             
-                                    <div class="card">
-                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
-                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
-                                        onclick="sendBook('{{t.id}}')">
-                                        <div class="rankeo {{t.id}}">
-                                            <div class="stars-outer">
-                                                <div class="stars-inner"></div>
-                                            </div>
-                                        </div>
-                                        <h4>{{t.titulo|truncatechars:20}}</h4>
-                                        <p>{{t.resumen|truncatechars:100}}</p>
-                                        
-                                        <script type="text/javascript">                                                                    
-                                            puntuacion="{{t.estrellas}}";
-                                            value=parseFloat(puntuacion);
-                                            key="{{t.id}}";
-                                            puntuaciones.set(key,value);                                    
-                                        </script>
-                                    </div>
-                                </div> 
-                                {% endfor %}                                                       
-                            </div>
-                                <script>                                
-                                    for (const [key, value] of puntuaciones.entries()) {
-                                    let starPercentage = (value / stars) * 100;                                  
-                                    let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
-                                    document.querySelector(`.${CSS.escape(key)} .stars-inner`).style.width = starPercentageRounded; 
-                                    console.log(key,document.querySelector(`.${CSS.escape(key)}.stars-inner`)); 
-                                    }
-                                </script>
-                            <div class='MS-controls'>
-                                <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
-                                <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-
-            <div class="row separador">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <h2 id="h21">Terror</h2>
-                </div>
-            </div>
-            <div   id="margin_contenido_titulos">    
-                <div id="di2"></div>
-            </div>
-            <!--Terror-->
-            <div class="row" id="margin_contenido">
-                    <div class="col-xs-12">
-                        <div id="exampleSlider4">
-                            <div class='MS-content'>
-                                {% for t in top %}
-                        
-                                    <div class="item">
-                                                                             
-                                                <div class="card">
-                                                        <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
-                                                        <img src="{{t.portada.url}}" alt="Portada de libro" 
-                                                        onclick="sendBook('{{t.id}}')">
-                                                        <div class="rankeo {{t.id}}">
-                                                            <div class="stars-outer">
-                                                                <div class="stars-inner"></div>
-                                                            </div>
-                                                        </div>
-                                                        <h4>{{t.titulo|truncatechars:20}}</h4>
-                                                        <p>{{t.resumen|truncatechars:100}}</p>
-                                                        
-                                                        <script type="text/javascript">                                                                    
-                                                            puntuacion="{{t.estrellas}}";
-                                                            value=parseFloat(puntuacion);
-                                                            key="{{t.id}}";
-                                                            puntuaciones.set(key,value);                                    
-                                                        </script>
-                                               </div></div> 
-                                {% endfor %}                                                       
-                            </div>
-                                <script>                                
-                                    for (const [key, value] of puntuaciones.entries()) {
-                                    let starPercentage = (value / stars) * 100;                                  
-                                    let starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;                                                           
-                                    document.querySelector(`.${CSS.escape(key)} .stars-inner`).style.width = starPercentageRounded; 
-                                    console.log(key,document.querySelector(`.${CSS.escape(key)}.stars-inner`)); 
-                                    }
-                                </script>
-                            <div class='MS-controls'>
-                                <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
-                                <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-
-            <!-- Initialize elements with Multislider -->
             <script>
                 $('#exampleSlider').multislider({
                     interval: 3100,
                     slideAll: false,
                     duration: 500
                 });
-                $('#exampleSlider2').multislider({
-                    interval: 3200,
-                    slideAll: false,
-                    duration: 500,
-                });
-                $('#exampleSlider3').multislider({
-                    interval: 3300,
-                    slideAll: false,
-                    duration: 500,
-                });
-                $('#exampleSlider4').multislider({
-                    interval: 3400,
-                    slideAll: false,
-                    duration: 500,
-                });
+            </script>            
+
+            {% for g in generos%}
+            <!--Separador-->            
+            <div class="row separador">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    {% if forloop.counter|divisibleby:"2" %}
+                    <h2 id="h21">{{g.nombre}}</h2>
+                    {% else %}
+                    <h2 id="h22">{{g.nombre}}</h2>
+                    {% endif %}                   
+                </div>
+            </div>
+            <div id="margin_contenido_titulos"> 
+                {% if forloop.counter|divisibleby:"2" %}
+                <div id="di"></div>
+                {% else %}
+                <div id="di2"></div>
+                {% endif %} 
+                
+            </div>
+
+            <div class="row" id="margin_contenido">
+                <div class="col-xs-12">                    
+                    <div id='exampleSlider{{forloop.counter|add:"1"}}'>
+                        <div class='MS-content'>
+                            {% for t in g.libro_set.all %}                    
+                            <div class="item">                                                                            
+                                <div class="card">
+                                    <a id="img{{t.id}}" class="Htitulo" href="{% url 'Biblio:libro' pk=t.id%}"></a>                                                                                
+                                    <img src="{{t.portada.url}}" alt="Portada de libro" 
+                                    onclick="sendBook('{{t.id}}')">
+                                    <div>
+                                        <div id="rateYo{{g.id}}{{forloop.counter}}" class="valor"></div>
+                                    </div>
+                                    <h4>{{t.titulo|truncatechars:20}}</h4>
+                                    <p>{{t.resumen|truncatechars:100}}</p>
+                                    
+                                    <script>                                    
+                                        $(function (){
+                                            p="{{t.estrellas}}";                        
+                                            valor=parseFloat(p.replace(",", '.'));
+                                            rate=$('#rateYo{{g.id}}{{forloop.counter}}').rateYo({
+                                                rating: valor,
+                                                readOnly: true,
+                                                starWidth:"20px"
+                                            });
+                                        });                                                            
+                                    </script> 
+                                </div>
+                            </div> 
+                            {% endfor %}                                                       
+                        </div>                        
+                        <div class='MS-controls'>
+                            <button class='MS-left'><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
+                            <button class='MS-right'><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $('#exampleSlider{{forloop.counter|add:"1"}}').multislider({
+                        interval: 3100,
+                        slideAll: false,
+                        duration: 500
+                    });
             </script>
+            {% endfor %}                                
 
             <!--Parallax-->
             <script src="{% static 'Js/Parallax.js' %}"></script>

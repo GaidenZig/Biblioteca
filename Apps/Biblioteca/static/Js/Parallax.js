@@ -1,18 +1,16 @@
 $(document).ready(function(){
-    var ancho = $(window).width();
- 
-    // Si trabajamos con una imagen desactivamos el background-size:cover;
+    var ancho = $(window).width();    
     if (ancho <= 1350){
-        $('body').css({
+        $('html').css({
             'background-size': 'initial'
         });
     }
 
 	$(window).scroll(function(){
 		var barra = $(window).scrollTop();
-		var posicion = barra * 0.10;
+		var posicion = barra * 0.15;
 
-		$('body').css({
+		$('html').css({
 			'background-position': '0 -' + posicion + 'px'
 		});
 	});
