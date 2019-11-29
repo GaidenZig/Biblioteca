@@ -6,6 +6,7 @@ from .views import crearLibro, editarLibro, eliminarLibro, listarLibro, cargarLi
 from .views import crearEditorial,editarEditorial,eliminarEditorial,listarEditorial
 
 app_name='Biblio'
+
 urlpatterns=[
     path('libro/<pk>',cargarLibro,name='libro'),
 
