@@ -32,6 +32,7 @@ urlpatterns = [
     path('galeria/',galeria, name='galeria'),
     path('perfil/',perfil, name='perfil'),
     path('account/',include('django.contrib.auth.urls')),
+    path('', include(('Apps.urls'))),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

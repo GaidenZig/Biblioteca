@@ -8,6 +8,7 @@ from .views import crearSlider, editarSlider, listarSlider
 from .views import puntuacion, puntuar, reservar
 
 app_name='Biblio'
+
 urlpatterns=[
     path('libro/<pk>',cargarLibro,name='libro'),
     path('recargar_puntuacion/',puntuacion,name='puntos'),
