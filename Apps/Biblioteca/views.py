@@ -94,8 +94,12 @@ def valorEstrellas(libro,nuevoPuntaje):
 
         suma += nuevoPuntaje
         promedio= suma/objetos.count()
+    
+    if promedio >5:
+        promedio=5
+    else:
+        promedio=promedio
 
-    print(promedio)
     librito.estrellas=promedio
     librito.save()
 
@@ -110,7 +114,7 @@ def verificarVotacion(usuario,libro):
     return voto
 
 def reservar(request):
-    libro=Libro.objects.get(id__exact=request.POST.get('idLibro'))
+    libro=Libro.objects.get(id__exact=request.POST.get('idLibro'))    
     usuario=MyUser.objects.get(id__exact=request.POST.get('idUsuario'))    
     fecha_inicio= request.POST.get('fechIni')
     fecha_vencimiento= request.POST.get('fechVenci')
@@ -118,8 +122,11 @@ def reservar(request):
 
     response=None
     if request.user.is_active:
-        reserva.save()               
-        response=JsonResponse({})
+        reserva.save()
+        libro.copias=libro.copias-1
+        libro.save()
+        cop=libro.copias
+        response=JsonResponse({"copias":cop})
     else:
         response=JsonResponse({"error":"usuario no autorizado para votar"})
         response.status_code=403
