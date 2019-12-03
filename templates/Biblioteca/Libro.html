@@ -320,8 +320,9 @@
                 data: {'idUsuario':idUser,'idLibro':idBook,'fechIni':fechaInicio,'fechVenci':fechaDevolucion, csrfmiddlewaretoken:"{{ csrf_token}}"},
                 url:pet,
                 type: met,
-                success:function(data){
-                    alert("hecho!");
+                success:function(data){ 
+                    alert("hecho!");                   
+                    $('#disponibilidad').html(data.copias);
                 },
             })
         }
