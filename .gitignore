@@ -1,0 +1,9 @@
+.vscode
+
+Bibliotecario/__pycache__
+Apps/__pycache__
+Apps/usuarios/__pycache__
+Apps/usuarios/migrations/__pycache__
+Apps/Biblioteca/__pycache__
+Apps/Biblioteca/migrations/__pycache__
+
